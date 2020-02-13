@@ -10,8 +10,16 @@ fn format_helper(golden: &str) {
     let file = Parser::new(golden).parse_file("".to_string());
     let mut fmt = Formatter::new(golden.len());
     fmt.format_file(&file, true);
-    let (ouput, _) = fmt.output();
-    assert_eq!(golden, ouput);
+    let (output, _) = fmt.output();
+    assert_eq!(golden, output);
+}
+
+fn format_modified(input: &str, expected: &str) {
+    let file = Parser::new(input).parse_file("".to_string());
+    let mut fmt = Formatter::new(input.len());
+    fmt.format_file(&file, true);
+    let (output, _) = fmt.output();
+    assert_eq!(expected, output);
 }
 
 #[test]
@@ -269,11 +277,16 @@ highestAverage = (n, columns=["_value"], by, tables=<-) =>
 }
 
 #[test]
-fn comment1() {
-    format_helper(
-    r#"// comment one
-1 + 1
-// comment two
-2 + 2"#
-    )
+fn comments() {
+    format_helper( "// attach to id\nid" );
+    format_helper( "// attach to int\n1" );
+    format_helper( "// attach to float\n1.1" );
+    format_helper( "// attach to string\n\"hello\"" );
+    format_helper( "// attach to regex\n/hello/" );
+    format_helper( "// attach to time\n2020-02-28T00:00:00Z" );
+    format_helper( "// attach to duration\n2m" );
+    format_modified(
+        "// attach to open paren\n( 1 + 1 )",
+        "// attach to open paren\n1 + 1"
+    );
 }

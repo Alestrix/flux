@@ -20,6 +20,7 @@ pub struct Scanner {
     checkpoint_last_newline: *const CChar,
     token: TOK,
     positions: HashMap<Position, u32>,
+    pub comments: Option<Box<Token>>,
 }
 
 #[derive(Debug, PartialEq, Clone, Hash, Serialize, Deserialize)]
@@ -44,7 +45,7 @@ pub struct Token {
     pub end_offset: u32,
     pub start_pos: Position,
     pub end_pos: Position,
-    pub comment: Option<Box<Token>>,
+    pub comments: Option<Box<Token>>,
 }
 
 impl Scanner {
@@ -66,49 +67,49 @@ impl Scanner {
             checkpoint_line: 1,
             checkpoint_last_newline: ptr as *const CChar,
             positions: HashMap::new(),
+            comments: None,
         }
     }
 
     fn reverse(&self, mut head: Option<Box<Token>>) -> Option<Box<Token>> {
         let mut reversed = None;
         while let Some(mut boxed_head) = head {
-            let next = (*boxed_head).comment.take();
-            (*boxed_head).comment = reversed.take();
+            let next = (*boxed_head).comments.take();
+            (*boxed_head).comments = reversed.take();
             reversed = Some(boxed_head);
             head = next;
         }
         reversed
     }
 
-    fn scan_with_ignore(&mut self, mode: i32) -> Token {
-        let mut comment = None;
+    fn scan_with_comments(&mut self, mode: i32) -> Token {
         let mut token;
         loop {
             token = self._scan(mode);
-            if token.tok == TOK_COMMENT {
-                token.comment = comment.take();
-                comment = Some(Box::new(token));
-            } else {
-                token.comment = self.reverse(comment);
+            if token.tok != TOK_COMMENT {
                 break;
             }
+            token.comments = self.comments.take();
+            self.comments = Some(Box::new(token));
         }
+        let comments = self.comments.take();
+        token.comments = self.reverse(comments);
         token
     }
 
     // scan produces the next token from the input.
     pub fn scan(&mut self) -> Token {
-        self.scan_with_ignore(0)
+        self.scan_with_comments(0)
     }
 
     // scan_with_regex produces the next token from the input accounting for regex.
     pub fn scan_with_regex(&mut self) -> Token {
-        self.scan_with_ignore(1)
+        self.scan_with_comments(1)
     }
 
     // scan_string_expr produces the next token from the input in a string expression.
     pub fn scan_string_expr(&mut self) -> Token {
-        self.scan_with_ignore(2)
+        self.scan_with_comments(2)
     }
 
     // unread will reset the Scanner to go back to the Scanner's location
@@ -141,7 +142,7 @@ impl Scanner {
                 line: self.cur_line,
                 column,
             },
-            comment: None,
+            comments: None,
         }
     }
 
@@ -207,7 +208,7 @@ impl Scanner {
                             line: token_start_line,
                             column: token_start_col + size as u32,
                         },
-                        comment: None,
+                        comments: None,
                     }
                 }
                 // This should be impossible as we would have produced an EOF token
@@ -238,7 +239,7 @@ impl Scanner {
                     line: token_end_line,
                     column: token_end_col,
                 },
-                comment: None,
+                comments: None,
             }
         };
 

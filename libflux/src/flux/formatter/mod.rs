@@ -53,6 +53,13 @@ impl Formatter {
         self.indentation = i;
     }
 
+    fn format_comments( &mut self, mut comment: &Option<Box<scanner::Comment>> ) {
+        while let Some(boxed) = comment {
+            self.write_string( (*boxed).lit.as_str() );
+            comment = &(*boxed).next;
+        }
+    }
+
     fn write_comment(&mut self, comment: &str) {
         self.write_string("// ");
         self.write_string(comment);
@@ -229,10 +236,12 @@ impl Formatter {
     }
 
     fn format_paren_expression(&mut self, n: &ast::ParenExpr) {
+        self.format_comments(&n.base.comments);
         self.format_node(&Node::from_expr(&n.expression))
     }
 
     fn format_string_expression(&mut self, n: &ast::StringExpr) {
+        self.format_comments(&n.base.comments);
         self.write_rune('"');
         for p in &n.parts {
             self.format_string_expression_part(p)
@@ -453,6 +462,7 @@ impl Formatter {
     }
 
     fn format_identifier(&mut self, n: &ast::Identifier) {
+        self.format_comments(&n.base.comments);
         self.write_string(&n.name);
     }
 
@@ -537,6 +547,7 @@ impl Formatter {
     }
 
     fn format_string_literal(&mut self, n: &ast::StringLit) {
+        self.format_comments(&n.base.comments);
         if let Some(src) = &n.base.location.source {
             if !src.is_empty() {
                 // Preserve the exact literal if we have it
@@ -601,10 +612,12 @@ impl Formatter {
         } else {
             f = v.to_rfc3339_opts(SecondsFormat::Secs, true)
         }
+        self.format_comments(&n.base.comments);
         self.write_string(&f);
     }
 
     fn format_duration_literal(&mut self, n: &ast::DurationLit) {
+        self.format_comments(&n.base.comments);
         for d in &n.values {
             self.write_string(&format!("{}", d.magnitude));
             self.write_string(&d.unit)
@@ -612,6 +625,7 @@ impl Formatter {
     }
 
     fn format_float_literal(&mut self, n: &ast::FloatLit) {
+        self.format_comments(&n.base.comments);
         let mut s = format!("{}", n.value);
         if !s.contains('.') {
             s.push_str(".0");
@@ -619,20 +633,13 @@ impl Formatter {
         self.write_string(&s)
     }
 
-    fn format_comments( &mut self, mut comment: &Option<Box<scanner::Comment>> )
-    {
-        while let Some(boxed) = comment {
-            self.write_string( (*boxed).lit.as_str() );
-            comment = &(*boxed).next;
-        }
-    }
-
     fn format_integer_literal(&mut self, n: &ast::IntegerLit) {
-        self.format_comments( &n.base.comments );
+        self.format_comments(&n.base.comments);
         self.write_string(&format!("{}", n.value));
     }
 
     fn format_unsigned_integer_literal(&mut self, n: &ast::UintLit) {
+        self.format_comments(&n.base.comments);
         self.write_string(&format!("{0:10}", n.value))
     }
 
@@ -641,6 +648,7 @@ impl Formatter {
     }
 
     fn format_regexp_literal(&mut self, n: &ast::RegexpLit) {
+        self.format_comments(&n.base.comments);
         self.write_rune('/');
         self.write_string(&n.value.replace("/", "\\/"));
         self.write_rune('/')
