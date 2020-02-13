@@ -184,36 +184,36 @@ impl Expression {
             Expression::Paren(wrapped) => &wrapped.base,
         }
     }
-    
+
     // ADT: There must be a less verbose way to stash the comments in the base.
     // The above base function returns an immutable reference so we can't use
     // it. Should we refactor it?
     pub fn stash_comments(&mut self, comments: Option<Box<scanner::Comment>>) {
         match self {
-            Expression::Identifier(wrapped) => { wrapped.base.comments = comments; },
-            Expression::Array(wrapped) => { wrapped.base.comments = comments; },
-            Expression::Function(wrapped) => { wrapped.base.comments = comments; },
-            Expression::Logical(wrapped) => { wrapped.base.comments = comments; },
-            Expression::Object(wrapped) => { wrapped.base.comments = comments; },
-            Expression::Member(wrapped) => { wrapped.base.comments = comments; },
-            Expression::Index(wrapped) => { wrapped.base.comments = comments; },
-            Expression::Binary(wrapped) => { wrapped.base.comments = comments; },
-            Expression::Unary(wrapped) => { wrapped.base.comments = comments; },
-            Expression::PipeExpr(wrapped) => { wrapped.base.comments = comments; },
-            Expression::Call(wrapped) => { wrapped.base.comments = comments; },
-            Expression::Conditional(wrapped) => { wrapped.base.comments = comments; },
-            Expression::Integer(wrapped) => { wrapped.base.comments = comments; },
-            Expression::Float(wrapped) => { wrapped.base.comments = comments; },
-            Expression::StringLit(wrapped) => { wrapped.base.comments = comments; },
-            Expression::Duration(wrapped) => { wrapped.base.comments = comments; },
-            Expression::Uint(wrapped) => { wrapped.base.comments = comments; },
-            Expression::Boolean(wrapped) => { wrapped.base.comments = comments; },
-            Expression::DateTime(wrapped) => { wrapped.base.comments = comments; },
-            Expression::Regexp(wrapped) => { wrapped.base.comments = comments; },
-            Expression::PipeLit(wrapped) => { wrapped.base.comments = comments; },
-            Expression::Bad(wrapped) => { wrapped.base.comments = comments; },
-            Expression::StringExpr(wrapped) => { wrapped.base.comments = comments; },
-            Expression::Paren(wrapped) => { wrapped.base.comments = comments; },
+            Expression::Identifier(wrapped) => wrapped.base.comments = comments,
+            Expression::Array(wrapped) => wrapped.base.comments = comments,
+            Expression::Function(wrapped) => wrapped.base.comments = comments,
+            Expression::Logical(wrapped) => wrapped.base.comments = comments,
+            Expression::Object(wrapped) => wrapped.base.comments = comments,
+            Expression::Member(wrapped) => wrapped.base.comments = comments,
+            Expression::Index(wrapped) => wrapped.base.comments = comments,
+            Expression::Binary(wrapped) => wrapped.base.comments = comments,
+            Expression::Unary(wrapped) => wrapped.base.comments = comments,
+            Expression::PipeExpr(wrapped) => wrapped.base.comments = comments,
+            Expression::Call(wrapped) => wrapped.base.comments = comments,
+            Expression::Conditional(wrapped) => wrapped.base.comments = comments,
+            Expression::Integer(wrapped) => wrapped.base.comments = comments,
+            Expression::Float(wrapped) => wrapped.base.comments = comments,
+            Expression::StringLit(wrapped) => wrapped.base.comments = comments,
+            Expression::Duration(wrapped) => wrapped.base.comments = comments,
+            Expression::Uint(wrapped) => wrapped.base.comments = comments,
+            Expression::Boolean(wrapped) => wrapped.base.comments = comments,
+            Expression::DateTime(wrapped) => wrapped.base.comments = comments,
+            Expression::Regexp(wrapped) => wrapped.base.comments = comments,
+            Expression::PipeLit(wrapped) => wrapped.base.comments = comments,
+            Expression::Bad(wrapped) => wrapped.base.comments = comments,
+            Expression::StringExpr(wrapped) => wrapped.base.comments = comments,
+            Expression::Paren(wrapped) => wrapped.base.comments = comments,
         };
     }
 }

@@ -57,7 +57,7 @@ fn test_check_collect_existing_error() {
                 source: Some(String::from("a = 1\nb=2\nc=a+b")),
             },
             errors: vec![String::from("error 1")],
-            .. BaseNode::default()
+            ..BaseNode::default()
         },
         name: String::from("test_check_collect_existing_error"),
         metadata: String::new(),
@@ -71,7 +71,7 @@ fn test_check_collect_existing_error() {
                     end: Position { line: 1, column: 6 },
                     source: Some(String::from("a = 1")),
                 },
-                .. BaseNode::default()
+                ..BaseNode::default()
             },
             id: Identifier {
                 base: BaseNode {
@@ -81,7 +81,7 @@ fn test_check_collect_existing_error() {
                         end: Position { line: 1, column: 2 },
                         source: Some(String::from("a")),
                     },
-                    .. BaseNode::default()
+                    ..BaseNode::default()
                 },
                 name: String::from("a"),
             },
@@ -94,7 +94,7 @@ fn test_check_collect_existing_error() {
                         source: Some(String::from("1")),
                     },
                     errors: vec![String::from("error 2"), String::from("error 3")],
-                    .. BaseNode::default()
+                    ..BaseNode::default()
                 },
                 value: 1,
             }),

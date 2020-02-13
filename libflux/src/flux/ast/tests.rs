@@ -1375,7 +1375,7 @@ fn test_object_expression_with_source_locations_and_errors() {
                 },
                 source: Some("{a: \"hello\"}".to_string()),
             },
-            .. BaseNode::default()
+            ..BaseNode::default()
         },
         with: None,
         properties: vec![Property {
@@ -1390,7 +1390,7 @@ fn test_object_expression_with_source_locations_and_errors() {
                     source: Some("a: \"hello\"".to_string()),
                 },
                 errors: vec!["an error".to_string()],
-                .. BaseNode::default()
+                ..BaseNode::default()
             },
             key: PropertyKey::Identifier(Identifier {
                 base: BaseNode {
@@ -1400,7 +1400,7 @@ fn test_object_expression_with_source_locations_and_errors() {
                         end: Position { line: 1, column: 3 },
                         source: Some("a".to_string()),
                     },
-                    .. BaseNode::default()
+                    ..BaseNode::default()
                 },
                 name: "a".to_string(),
             }),
@@ -1416,7 +1416,7 @@ fn test_object_expression_with_source_locations_and_errors() {
                         source: Some("\"hello\"".to_string()),
                     },
                     errors: vec!["an error".to_string(), "another error".to_string()],
-                    .. BaseNode::default()
+                    ..BaseNode::default()
                 },
                 value: "hello".to_string(),
             })),

@@ -2,8 +2,8 @@
 use crate::ast::{self, walk::Node};
 use crate::Error;
 
-use chrono::SecondsFormat;
 use crate::scanner;
+use chrono::SecondsFormat;
 
 pub struct Formatter {
     builder: String,
@@ -53,9 +53,9 @@ impl Formatter {
         self.indentation = i;
     }
 
-    fn format_comments( &mut self, mut comment: &Option<Box<scanner::Comment>> ) {
+    fn format_comments(&mut self, mut comment: &Option<Box<scanner::Comment>>) {
         while let Some(boxed) = comment {
-            self.write_string( (*boxed).lit.as_str() );
+            self.write_string((*boxed).lit.as_str());
             comment = &(*boxed).next;
         }
     }

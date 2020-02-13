@@ -278,15 +278,15 @@ highestAverage = (n, columns=["_value"], by, tables=<-) =>
 
 #[test]
 fn comments() {
-    format_helper( "// attach to id\nid" );
-    format_helper( "// attach to int\n1" );
-    format_helper( "// attach to float\n1.1" );
-    format_helper( "// attach to string\n\"hello\"" );
-    format_helper( "// attach to regex\n/hello/" );
-    format_helper( "// attach to time\n2020-02-28T00:00:00Z" );
-    format_helper( "// attach to duration\n2m" );
+    format_helper("// attach to id\nid");
+    format_helper("// attach to int\n1");
+    format_helper("// attach to float\n1.1");
+    format_helper("// attach to string\n\"hello\"");
+    format_helper("// attach to regex\n/hello/");
+    format_helper("// attach to time\n2020-02-28T00:00:00Z");
+    format_helper("// attach to duration\n2m");
     format_modified(
         "// attach to open paren\n( 1 + 1 )",
-        "// attach to open paren\n1 + 1"
+        "// attach to open paren\n1 + 1",
     );
 }

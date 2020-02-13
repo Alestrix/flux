@@ -151,8 +151,8 @@ impl Parser {
 
     // peek_with_regex is the same as peek, except that the scan step will allow scanning regexp tokens.
     fn peek_with_regex(&mut self) -> Token {
-        if let Some(token)  = &mut self.t {
-            if let Token { tok: TOK_DIV, .. } = token  {
+        if let Some(token) = &mut self.t {
+            if let Token { tok: TOK_DIV, .. } = token {
                 self.s.comments = token.comments.take();
                 self.t = None;
                 self.s.unread();
@@ -278,25 +278,30 @@ impl Parser {
     fn base_node(&mut self, location: SourceLocation) -> BaseNode {
         let errors = self.errs.clone();
         self.errs = vec![];
-        BaseNode { location, errors, .. BaseNode::default() }
+        BaseNode {
+            location,
+            errors,
+            ..BaseNode::default()
+        }
     }
 
-    fn comments_from_tokens( &mut self, tok: &Option<Box<scanner::Token>> ) -> Option<Box<scanner::Comment>>
-    {
+    fn comments_from_tokens(
+        &mut self,
+        tok: &Option<Box<scanner::Token>>,
+    ) -> Option<Box<scanner::Comment>> {
         if let Some(boxed) = tok {
-            Some(Box::new( Comment{
+            Some(Box::new(Comment {
                 lit: (*boxed).lit.clone(),
-                next: self.comments_from_tokens( &(*boxed).comments ),
+                next: self.comments_from_tokens(&(*boxed).comments),
             }))
-        }
-        else {
+        } else {
             None
         }
     }
 
     fn base_node_from_token(&mut self, tok: &Token) -> BaseNode {
         let mut base = self.base_node_from_tokens(tok, tok);
-        base.comments = self.comments_from_tokens( &tok.comments );
+        base.comments = self.comments_from_tokens(&tok.comments);
         base
     }
 
@@ -361,7 +366,7 @@ impl Parser {
         File {
             base: BaseNode {
                 location: self.source_location(&ast::Position::from(&t.start_pos), &end),
-                .. BaseNode::default()
+                ..BaseNode::default()
             },
             name: self.fname.clone(),
             metadata: String::from(Self::METADATA),
@@ -1037,7 +1042,7 @@ impl Parser {
                         &ast::Position::from(&t.start_pos),
                         &ast::Position::from(&t.end_pos),
                     ),
-                    .. BaseNode::default()
+                    ..BaseNode::default()
                 },
                 text: format!(
                     "invalid token for primary expression: {}",
@@ -1201,7 +1206,7 @@ impl Parser {
     }
     fn parse_paren_expression(&mut self) -> Expression {
         let lparen = self.open(TOK_LPAREN, TOK_RPAREN);
-        let comments = self.comments_from_tokens( &lparen.comments );
+        let comments = self.comments_from_tokens(&lparen.comments);
         let mut expr = self.parse_paren_body_expression(lparen);
         expr.stash_comments(comments);
         expr
@@ -1229,7 +1234,7 @@ impl Parser {
                                     &ast::Position::from(&t.start_pos),
                                     &ast::Position::from(&t.end_pos),
                                 ),
-                                .. BaseNode::default()
+                                ..BaseNode::default()
                             },
                             text: t.lit,
                             expression: None,
