@@ -267,3 +267,13 @@ highestAverage = (n, columns=["_value"], by, tables=<-) =>
 		))"#,
     )
 }
+
+#[test]
+fn comment1() {
+    format_helper(
+    r#"// comment one
+1 + 1
+// comment two
+2 + 2"#
+    )
+}

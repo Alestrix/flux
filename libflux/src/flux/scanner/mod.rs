@@ -22,7 +22,7 @@ pub struct Scanner {
     positions: HashMap<Position, u32>,
 }
 
-#[derive(Debug, PartialEq, Clone, Hash)]
+#[derive(Debug, PartialEq, Clone, Hash, Serialize, Deserialize)]
 pub struct Position {
     pub line: u32,
     pub column: u32,
@@ -30,7 +30,13 @@ pub struct Position {
 
 impl std::cmp::Eq for Position {}
 
-#[derive(Debug, PartialEq, Clone)]
+#[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
+pub struct Comment {
+    pub lit: String,
+    pub next: Option<Box<Comment>>,
+}
+
+#[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
 pub struct Token {
     pub tok: TOK,
     pub lit: String,

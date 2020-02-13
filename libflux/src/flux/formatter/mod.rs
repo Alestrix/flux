@@ -3,6 +3,7 @@ use crate::ast::{self, walk::Node};
 use crate::Error;
 
 use chrono::SecondsFormat;
+use crate::scanner;
 
 pub struct Formatter {
     builder: String,
@@ -618,7 +619,16 @@ impl Formatter {
         self.write_string(&s)
     }
 
+    fn format_comments( &mut self, mut comment: &Option<Box<scanner::Comment>> )
+    {
+        while let Some(boxed) = comment {
+            self.write_string( (*boxed).lit.as_str() );
+            comment = &(*boxed).next;
+        }
+    }
+
     fn format_integer_literal(&mut self, n: &ast::IntegerLit) {
+        self.format_comments( &n.base.comments );
         self.write_string(&format!("{}", n.value));
     }
 

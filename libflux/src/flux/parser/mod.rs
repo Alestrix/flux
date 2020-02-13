@@ -275,11 +275,26 @@ impl Parser {
     fn base_node(&mut self, location: SourceLocation) -> BaseNode {
         let errors = self.errs.clone();
         self.errs = vec![];
-        BaseNode { location, errors }
+        BaseNode { location, errors, .. BaseNode::default() }
+    }
+
+    fn comments_from_token( &mut self, tok: &Option<Box<scanner::Token>> ) -> Option<Box<scanner::Comment>>
+    {
+        if let Some(boxed) = tok {
+            Some(Box::new( Comment{
+                lit: (*boxed).lit.clone(),
+                next: self.comments_from_token( &(*boxed).comment ),
+            }))
+        }
+        else {
+            None
+        }
     }
 
     fn base_node_from_token(&mut self, tok: &Token) -> BaseNode {
-        self.base_node_from_tokens(tok, tok)
+        let mut base = self.base_node_from_tokens(tok, tok);
+        base.comments = self.comments_from_token( &tok.comment );
+        base
     }
 
     fn base_node_from_tokens(&mut self, start: &Token, end: &Token) -> BaseNode {
@@ -343,7 +358,7 @@ impl Parser {
         File {
             base: BaseNode {
                 location: self.source_location(&ast::Position::from(&t.start_pos), &end),
-                errors: vec![],
+                .. BaseNode::default()
             },
             name: self.fname.clone(),
             metadata: String::from(Self::METADATA),
@@ -1019,7 +1034,7 @@ impl Parser {
                         &ast::Position::from(&t.start_pos),
                         &ast::Position::from(&t.end_pos),
                     ),
-                    errors: vec![],
+                    .. BaseNode::default()
                 },
                 text: format!(
                     "invalid token for primary expression: {}",
@@ -1208,7 +1223,7 @@ impl Parser {
                                     &ast::Position::from(&t.start_pos),
                                     &ast::Position::from(&t.end_pos),
                                 ),
-                                errors: vec![],
+                                .. BaseNode::default()
                             },
                             text: t.lit,
                             expression: None,
