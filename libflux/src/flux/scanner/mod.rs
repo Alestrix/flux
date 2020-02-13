@@ -32,12 +32,6 @@ pub struct Position {
 impl std::cmp::Eq for Position {}
 
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
-pub struct Comment {
-    pub lit: String,
-    pub next: Option<Box<Comment>>,
-}
-
-#[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
 pub struct Token {
     pub tok: TOK,
     pub lit: String,

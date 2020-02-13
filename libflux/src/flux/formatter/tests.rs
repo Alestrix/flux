@@ -289,4 +289,14 @@ fn comments() {
         "// attach to open paren\n( 1 + 1 )",
         "// attach to open paren\n1 + 1",
     );
+
+    format_helper("from//comment\n(bucket: bucket)");
+    format_helper("from(//comment\nbucket: bucket)");
+    //format_helper( "from(bucket//comment\n: bucket)");
+    format_helper("from(bucket: //comment\nbucket)");
+    //format_helper( "from(bucket: bucket//comment\n)");
+    format_helper("from(//comment\nbucket)");
+    //format_helper("from(bucket//comment\n,_option)");
+    format_helper("from(bucket, //comment\n_option)");
+    //format_helper("from(bucket, _option//comment\n)");
 }

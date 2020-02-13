@@ -2,7 +2,6 @@
 use crate::ast::{self, walk::Node};
 use crate::Error;
 
-use crate::scanner;
 use chrono::SecondsFormat;
 
 pub struct Formatter {
@@ -53,7 +52,7 @@ impl Formatter {
         self.indentation = i;
     }
 
-    fn format_comments(&mut self, mut comment: &Option<Box<scanner::Comment>>) {
+    fn format_comments(&mut self, mut comment: &Option<Box<ast::Comment>>) {
         while let Some(boxed) = comment {
             self.write_string((*boxed).lit.as_str());
             comment = &(*boxed).next;
@@ -400,6 +399,7 @@ impl Formatter {
 
     fn format_call_expression(&mut self, n: &ast::CallExpr) {
         self.format_child_with_parens(Node::CallExpr(n), Node::from_expr(&n.callee));
+        self.format_comments(&n.base.comments);
         self.write_rune('(');
         let sep = ", ";
         for i in 0..n.arguments.len() {

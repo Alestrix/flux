@@ -188,7 +188,7 @@ impl Expression {
     // ADT: There must be a less verbose way to stash the comments in the base.
     // The above base function returns an immutable reference so we can't use
     // it. Should we refactor it?
-    pub fn stash_comments(&mut self, comments: Option<Box<scanner::Comment>>) {
+    pub fn stash_comments(&mut self, comments: Option<Box<Comment>>) {
         match self {
             Expression::Identifier(wrapped) => wrapped.base.comments = comments,
             Expression::Array(wrapped) => wrapped.base.comments = comments,
@@ -336,6 +336,12 @@ where
     seq.end()
 }
 
+#[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
+pub struct Comment {
+    pub lit: String,
+    pub next: Option<Box<Comment>>,
+}
+
 // BaseNode holds the attributes every expression or statement must have
 #[derive(Debug, Default, PartialEq, Clone, Serialize, Deserialize)]
 pub struct BaseNode {
@@ -347,7 +353,7 @@ pub struct BaseNode {
     pub errors: Vec<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    pub comments: Option<Box<scanner::Comment>>,
+    pub comments: Option<Box<Comment>>,
 }
 
 impl BaseNode {

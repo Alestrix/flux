@@ -288,7 +288,7 @@ impl Parser {
     fn comments_from_tokens(
         &mut self,
         tok: &Option<Box<scanner::Token>>,
-    ) -> Option<Box<scanner::Comment>> {
+    ) -> Option<Box<ast::Comment>> {
         if let Some(boxed) = tok {
             Some(Box::new(Comment {
                 lit: (*boxed).lit.clone(),
@@ -967,7 +967,7 @@ impl Parser {
         }))
     }
     fn parse_call_expression(&mut self, expr: Expression) -> Expression {
-        self.open(TOK_LPAREN, TOK_RPAREN);
+        let lparen = self.open(TOK_LPAREN, TOK_RPAREN);
         let params = self.parse_property_list();
         let end = self.close(TOK_RPAREN);
         let mut call = CallExpr {
@@ -975,6 +975,7 @@ impl Parser {
             callee: expr,
             arguments: vec![],
         };
+        call.base.comments = self.comments_from_tokens(&lparen.comments);
         if !params.is_empty() {
             call.arguments.push(Expression::Object(Box::new(ObjectExpr {
                 base: self.base_node_from_others(
