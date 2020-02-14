@@ -836,6 +836,8 @@ mod tests {
                                 base: b.clone(),
                                 name: "a".to_string(),
                             }),
+                            sep_comments: None,
+                            comma_comments: None,
                             value: Some(ast::Expression::Integer(ast::IntegerLit {
                                 base: b.clone(),
                                 value: 10,
@@ -902,6 +904,8 @@ mod tests {
                                 base: b.clone(),
                                 value: "a".to_string(),
                             }),
+                            sep_comments: None,
+                            comma_comments: None,
                             value: Some(ast::Expression::Integer(ast::IntegerLit {
                                 base: b.clone(),
                                 value: 10,
@@ -969,6 +973,8 @@ mod tests {
                                     base: b.clone(),
                                     value: "a".to_string(),
                                 }),
+                                sep_comments: None,
+                                comma_comments: None,
                                 value: Some(ast::Expression::Integer(ast::IntegerLit {
                                     base: b.clone(),
                                     value: 10,
@@ -980,6 +986,8 @@ mod tests {
                                     base: b.clone(),
                                     name: "b".to_string(),
                                 }),
+                                sep_comments: None,
+                                comma_comments: None,
                                 value: Some(ast::Expression::Integer(ast::IntegerLit {
                                     base: b.clone(),
                                     value: 11,
@@ -1062,6 +1070,8 @@ mod tests {
                                     base: b.clone(),
                                     name: "a".to_string(),
                                 }),
+                                sep_comments: None,
+                                comma_comments: None,
                                 value: None,
                             },
                             ast::Property {
@@ -1070,6 +1080,8 @@ mod tests {
                                     base: b.clone(),
                                     name: "b".to_string(),
                                 }),
+                                sep_comments: None,
+                                comma_comments: None,
                                 value: None,
                             },
                         ],
@@ -1155,6 +1167,8 @@ mod tests {
                                         base: b.clone(),
                                         name: "name".to_string(),
                                     }),
+                                    sep_comments: None,
+                                    comma_comments: None,
                                     value: Some(ast::Expression::StringLit(ast::StringLit {
                                         base: b.clone(),
                                         value: "foo".to_string(),
@@ -1166,6 +1180,8 @@ mod tests {
                                         base: b.clone(),
                                         name: "every".to_string(),
                                     }),
+                                    sep_comments: None,
+                                    comma_comments: None,
                                     value: Some(ast::Expression::Duration(ast::DurationLit {
                                         base: b.clone(),
                                         values: vec![ast::Duration {
@@ -1180,6 +1196,8 @@ mod tests {
                                         base: b.clone(),
                                         name: "delay".to_string(),
                                     }),
+                                    sep_comments: None,
+                                    comma_comments: None,
                                     value: Some(ast::Expression::Duration(ast::DurationLit {
                                         base: b.clone(),
                                         values: vec![ast::Duration {
@@ -1194,6 +1212,8 @@ mod tests {
                                         base: b.clone(),
                                         name: "cron".to_string(),
                                     }),
+                                    sep_comments: None,
+                                    comma_comments: None,
                                     value: Some(ast::Expression::StringLit(ast::StringLit {
                                         base: b.clone(),
                                         value: "0 2 * * *".to_string(),
@@ -1205,6 +1225,8 @@ mod tests {
                                         base: b.clone(),
                                         name: "retry".to_string(),
                                     }),
+                                    sep_comments: None,
+                                    comma_comments: None,
                                     value: Some(ast::Expression::Integer(ast::IntegerLit {
                                         base: b.clone(),
                                         value: 5,
@@ -1413,6 +1435,8 @@ mod tests {
                                         base: b.clone(),
                                         name: "a".to_string(),
                                     }),
+                                    sep_comments: None,
+                                    comma_comments: None,
                                     value: None,
                                 },
                                 ast::Property {
@@ -1421,6 +1445,8 @@ mod tests {
                                         base: b.clone(),
                                         name: "b".to_string(),
                                     }),
+                                    sep_comments: None,
+                                    comma_comments: None,
                                     value: None,
                                 },
                             ],
@@ -1444,6 +1470,8 @@ mod tests {
                         base: b.clone(),
                         expression: ast::Expression::Call(Box::new(ast::CallExpr {
                             base: b.clone(),
+                            lcomments: None,
+                            rcomments: None,
                             callee: ast::Expression::Identifier(ast::Identifier {
                                 base: b.clone(),
                                 name: "f".to_string(),
@@ -1458,6 +1486,8 @@ mod tests {
                                             base: b.clone(),
                                             name: "a".to_string(),
                                         }),
+                                        sep_comments: None,
+                                        comma_comments: None,
                                         value: Some(ast::Expression::Integer(ast::IntegerLit {
                                             base: b.clone(),
                                             value: 2,
@@ -1469,6 +1499,8 @@ mod tests {
                                             base: b.clone(),
                                             name: "b".to_string(),
                                         }),
+                                        sep_comments: None,
+                                        comma_comments: None,
                                         value: Some(ast::Expression::Integer(ast::IntegerLit {
                                             base: b.clone(),
                                             value: 3,
@@ -1613,6 +1645,8 @@ mod tests {
                                         base: b.clone(),
                                         name: "a".to_string(),
                                     }),
+                                    sep_comments: None,
+                                    comma_comments: None,
                                     value: Some(ast::Expression::Integer(ast::IntegerLit {
                                         base: b.clone(),
                                         value: 0,
@@ -1624,6 +1658,8 @@ mod tests {
                                         base: b.clone(),
                                         name: "b".to_string(),
                                     }),
+                                    sep_comments: None,
+                                    comma_comments: None,
                                     value: Some(ast::Expression::Integer(ast::IntegerLit {
                                         base: b.clone(),
                                         value: 0,
@@ -1635,6 +1671,8 @@ mod tests {
                                         base: b.clone(),
                                         name: "c".to_string(),
                                     }),
+                                    sep_comments: None,
+                                    comma_comments: None,
                                     value: None,
                                 },
                             ],
@@ -1666,6 +1704,8 @@ mod tests {
                         base: b.clone(),
                         expression: ast::Expression::Call(Box::new(ast::CallExpr {
                             base: b.clone(),
+                            lcomments: None,
+                            rcomments: None,
                             callee: ast::Expression::Identifier(ast::Identifier {
                                 base: b.clone(),
                                 name: "f".to_string(),
@@ -1679,6 +1719,8 @@ mod tests {
                                         base: b.clone(),
                                         name: "c".to_string(),
                                     }),
+                                    sep_comments: None,
+                                    comma_comments: None,
                                     value: Some(ast::Expression::Integer(ast::IntegerLit {
                                         base: b.clone(),
                                         value: 42,
@@ -1834,6 +1876,8 @@ mod tests {
                                     base: b.clone(),
                                     name: "a".to_string(),
                                 }),
+                                sep_comments: None,
+                                comma_comments: None,
                                 value: None,
                             },
                             ast::Property {
@@ -1842,6 +1886,8 @@ mod tests {
                                     base: b.clone(),
                                     name: "piped1".to_string(),
                                 }),
+                                sep_comments: None,
+                                comma_comments: None,
                                 value: Some(ast::Expression::PipeLit(ast::PipeLit {
                                     base: b.clone(),
                                 })),
@@ -1852,6 +1898,8 @@ mod tests {
                                     base: b.clone(),
                                     name: "piped2".to_string(),
                                 }),
+                                sep_comments: None,
+                                comma_comments: None,
                                 value: Some(ast::Expression::PipeLit(ast::PipeLit {
                                     base: b.clone(),
                                 })),
@@ -1888,6 +1936,8 @@ mod tests {
                     base: b.clone(),
                     expression: ast::Expression::Call(Box::new(ast::CallExpr {
                         base: b.clone(),
+                        lcomments: None,
+                        rcomments: None,
                         callee: ast::Expression::Identifier(ast::Identifier {
                             base: b.clone(),
                             name: "f".to_string(),
@@ -1902,6 +1952,8 @@ mod tests {
                                         base: b.clone(),
                                         name: "a".to_string(),
                                     }),
+                                    sep_comments: None,
+                                    comma_comments: None,
                                     value: Some(ast::Expression::Integer(ast::IntegerLit {
                                         base: b.clone(),
                                         value: 0,
@@ -1917,6 +1969,8 @@ mod tests {
                                         base: b.clone(),
                                         name: "b".to_string(),
                                     }),
+                                    sep_comments: None,
+                                    comma_comments: None,
                                     value: Some(ast::Expression::Integer(ast::IntegerLit {
                                         base: b.clone(),
                                         value: 1,
@@ -1964,6 +2018,8 @@ mod tests {
                                         base: b.clone(),
                                         name: "piped".to_string(),
                                     }),
+                                    sep_comments: None,
+                                    comma_comments: None,
                                     value: Some(ast::Expression::PipeLit(ast::PipeLit {
                                         base: b.clone(),
                                     })),
@@ -1974,6 +2030,8 @@ mod tests {
                                         base: b.clone(),
                                         name: "a".to_string(),
                                     }),
+                                    sep_comments: None,
+                                    comma_comments: None,
                                     value: None,
                                 },
                             ],
@@ -2003,6 +2061,8 @@ mod tests {
                             }),
                             call: ast::CallExpr {
                                 base: b.clone(),
+                                lcomments: None,
+                                rcomments: None,
                                 callee: ast::Expression::Identifier(ast::Identifier {
                                     base: b.clone(),
                                     name: "f".to_string(),
@@ -2017,6 +2077,8 @@ mod tests {
                                                 base: b.clone(),
                                                 name: "a".to_string(),
                                             }),
+                                            sep_comments: None,
+                                            comma_comments: None,
                                             value: Some(ast::Expression::Integer(
                                                 ast::IntegerLit {
                                                     base: b.clone(),
@@ -2411,6 +2473,8 @@ mod tests {
                         base: b.clone(),
                         array: ast::Expression::Call(Box::new(ast::CallExpr {
                             base: b.clone(),
+                            lcomments: None,
+                            rcomments: None,
                             callee: ast::Expression::Identifier(ast::Identifier {
                                 base: b.clone(),
                                 name: "f".to_string(),
@@ -2547,6 +2611,8 @@ mod tests {
                         base: b.clone(),
                         object: ast::Expression::Call(Box::new(ast::CallExpr {
                             base: b.clone(),
+                            lcomments: None,
+                            rcomments: None,
                             callee: ast::Expression::Member(Box::new(ast::MemberExpr {
                                 base: b.clone(),
                                 object: ast::Expression::Identifier(ast::Identifier {

@@ -888,6 +888,8 @@ impl Parser {
                         base: self.base_node(rhs.base().location.clone()),
                         callee: rhs,
                         arguments: vec![],
+                        lcomments: None,
+                        rcomments: None,
                     };
                     res = Expression::PipeExpr(Box::new(PipeExpr {
                         base: self.base_node_from_others(res.base(), &call.base),
@@ -971,6 +973,8 @@ impl Parser {
             base: self.base_node_from_other_start(expr.base(), &end),
             callee: expr,
             arguments: vec![],
+            lcomments: None,
+            rcomments: None,
         };
         call.base
             .add_child_comments(self.make_coments(&lparen.comments));
@@ -1247,6 +1251,8 @@ impl Parser {
                 Expression::Paren(Box::new(ParenExpr {
                     base,
                     expression: expr.expect("must be Some at this point"),
+                    lcomments: None,
+                    rcomments: None,
                 }))
             }
         }
@@ -1264,6 +1270,8 @@ impl Parser {
                             base: self.base_node(key.base.location.clone()),
                             key: PropertyKey::Identifier(key),
                             value: None,
+                            comma_comments: None,
+                            sep_comments: None,
                         });
                         self.parse_function_expression(lparen, params)
                     }
@@ -1278,6 +1286,8 @@ impl Parser {
                     base: self.base_node_from_others(&key.base, value.base()),
                     key: PropertyKey::Identifier(key),
                     value: Some(value),
+                    comma_comments: None,
+                    sep_comments: None,
                 });
                 if self.peek().tok == TOK_COMMA {
                     self.consume();
@@ -1294,6 +1304,8 @@ impl Parser {
                     base: self.base_node(key.base.location.clone()),
                     key: PropertyKey::Identifier(key),
                     value: None,
+                    comma_comments: None,
+                    sep_comments: None,
                 });
                 let others = &mut self.parse_parameter_list();
                 params.append(others);
@@ -1328,6 +1340,8 @@ impl Parser {
                 Expression::Paren(Box::new(ParenExpr {
                     base,
                     expression: expr,
+                    lcomments: None,
+                    rcomments: None,
                 }))
             }
         }
@@ -1406,14 +1420,16 @@ impl Parser {
     fn parse_property_list(&mut self) -> Vec<Property> {
         let mut params = Vec::new();
         let mut errs = Vec::new();
+        let mut last_comma_comments = None;
         while self.more() {
-            let p: Property;
+            let mut p: Property;
             let t = self.peek();
             match t.tok {
                 TOK_IDENT => p = self.parse_ident_property(),
                 TOK_STRING => p = self.parse_string_property(),
                 _ => p = self.parse_invalid_property(),
             }
+            p.comma_comments = last_comma_comments.take();
             params.push(p);
 
             if self.more() {
@@ -1424,6 +1440,7 @@ impl Parser {
                         format_token(t.tok)
                     ))
                 } else {
+                    last_comma_comments = self.make_coments(&t.comments);
                     self.consume();
                 }
             }
@@ -1441,10 +1458,12 @@ impl Parser {
     }
     fn parse_property_suffix(&mut self, key: PropertyKey) -> Property {
         let mut value = None;
+        let mut sep_comments = None;
         let t = self.peek();
         if t.tok == TOK_COLON {
             self.consume();
             value = self.parse_property_value();
+            sep_comments = self.make_coments(&t.comments);
         };
         let value_base = match &value {
             Some(v) => v.base(),
@@ -1454,6 +1473,8 @@ impl Parser {
             base: self.base_node_from_others(key.base(), value_base),
             key,
             value,
+            comma_comments: None,
+            sep_comments,
         }
     }
     fn parse_invalid_property(&mut self) -> Property {
@@ -1500,6 +1521,8 @@ impl Parser {
                 value: "<invalid>".to_string(),
             }),
             value,
+            comma_comments: None,
+            sep_comments: None,
         }
     }
     fn parse_property_value(&mut self) -> Option<Expression> {
@@ -1537,6 +1560,8 @@ impl Parser {
             base,
             key: PropertyKey::Identifier(key),
             value,
+            comma_comments: None,
+            sep_comments: None,
         }
     }
     fn parse_function_expression(&mut self, lparen: Token, params: Vec<Property>) -> Expression {

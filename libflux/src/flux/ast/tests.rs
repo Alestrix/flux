@@ -87,6 +87,8 @@ fn test_paren_expression() {
                 }),
             ],
         })),
+        lcomments: None,
+        rcomments: None,
     }));
     let serialized = serde_json::to_string(&n).unwrap();
     assert_eq!(
@@ -383,6 +385,8 @@ fn test_json_option_statement() {
                             base: Default::default(),
                             value: "foo".to_string(),
                         })),
+                        comma_comments: None,
+                        sep_comments: None,
                     },
                     Property {
                         base: BaseNode::default(),
@@ -397,6 +401,8 @@ fn test_json_option_statement() {
                                 unit: "h".to_string(),
                             }],
                         })),
+                        comma_comments: None,
+                        sep_comments: None,
                     },
                 ],
             })),
@@ -491,6 +497,8 @@ fn test_json_test_statement() {
                             base: Default::default(),
                             value: 0,
                         })),
+                        sep_comments: None,
+                        comma_comments: None,
                     },
                     Property {
                         base: BaseNode::default(),
@@ -502,6 +510,8 @@ fn test_json_test_statement() {
                             base: Default::default(),
                             value: 0,
                         })),
+                        sep_comments: None,
+                        comma_comments: None,
                     },
                 ],
             })),
@@ -620,6 +630,8 @@ fn test_json_call_expression() {
             base: BaseNode::default(),
             value: "hello".to_string(),
         })],
+        lcomments: None,
+        rcomments: None,
     }));
     let serialized = serde_json::to_string(&n).unwrap();
     assert_eq!(
@@ -648,6 +660,8 @@ fn test_json_call_expression_empty_arguments() {
             name: "a".to_string(),
         }),
         arguments: vec![],
+        lcomments: None,
+        rcomments: None,
     }));
     let serialized = serde_json::to_string(&n).unwrap();
     assert_eq!(
@@ -688,6 +702,8 @@ fn test_json_pipe_expression() {
                 base: BaseNode::default(),
                 value: "hello".to_string(),
             })],
+            lcomments: None,
+            rcomments: None,
         },
     }));
     let serialized = serde_json::to_string(&n).unwrap();
@@ -812,6 +828,8 @@ fn test_json_arrow_function_expression() {
                 name: "a".to_string(),
             }),
             value: None,
+            sep_comments: None,
+            comma_comments: None,
         }],
         body: FunctionBody::Expr(Expression::StringLit(StringLit {
             base: BaseNode::default(),
@@ -973,6 +991,8 @@ fn test_json_object_expression() {
                 base: BaseNode::default(),
                 value: "hello".to_string(),
             })),
+            sep_comments: None,
+            comma_comments: None,
         }],
     }));
     let serialized = serde_json::to_string(&n).unwrap();
@@ -1010,6 +1030,8 @@ fn test_json_object_expression_with_string_literal_key() {
                 base: BaseNode::default(),
                 value: "hello".to_string(),
             })),
+            sep_comments: None,
+            comma_comments: None,
         }],
     }));
     let serialized = serde_json::to_string(&n).unwrap();
@@ -1043,6 +1065,8 @@ fn test_json_object_expression_implicit_keys() {
                 name: "a".to_string(),
             }),
             value: None,
+            sep_comments: None,
+            comma_comments: None,
         }],
     }));
     let serialized = serde_json::to_string(&n).unwrap();
@@ -1069,6 +1093,8 @@ fn test_json_object_expression_implicit_keys_and_with() {
                 name: "a".to_string(),
             }),
             value: None,
+            sep_comments: None,
+            comma_comments: None,
         }],
     }));
     let serialized = serde_json::to_string(&n).unwrap();
@@ -1137,6 +1163,8 @@ fn test_json_property() {
             base: BaseNode::default(),
             value: "hello".to_string(),
         })),
+        sep_comments: None,
+        comma_comments: None,
     };
     let serialized = serde_json::to_string(&n).unwrap();
     assert_eq!(
@@ -1420,6 +1448,8 @@ fn test_object_expression_with_source_locations_and_errors() {
                 },
                 value: "hello".to_string(),
             })),
+            sep_comments: None,
+            comma_comments: None,
         }],
     }));
     let serialized = serde_json::to_string(&n).unwrap();

@@ -624,6 +624,10 @@ pub struct ParenExpr {
     #[serde(flatten)]
     pub base: BaseNode,
     pub expression: Expression,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub lcomments: Option<Box<Comment>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rcomments: Option<Box<Comment>>,
 }
 
 // CallExpr represents a function call
@@ -637,6 +641,10 @@ pub struct CallExpr {
     #[serde(skip_serializing_if = "Vec::is_empty")]
     #[serde(default)]
     pub arguments: Vec<Expression>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub lcomments: Option<Box<Comment>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rcomments: Option<Box<Comment>>,
 }
 
 // PipeExpr represents a call expression using the pipe forward syntax.
@@ -980,6 +988,10 @@ pub struct Property {
     pub key: PropertyKey,
     // `value` is optional, because of the shortcut: {a} <--> {a: a}
     pub value: Option<Expression>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub comma_comments: Option<Box<Comment>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sep_comments: Option<Box<Comment>>,
 }
 
 // Identifier represents a name that identifies a unique Node

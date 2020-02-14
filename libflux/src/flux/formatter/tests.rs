@@ -302,11 +302,11 @@ fn comments() {
     format_helper("1 * (1 + 1// attach to close paren\n)");
     format_helper("from//comment\n(bucket: bucket)");
     format_helper("from(//comment\nbucket: bucket)");
-    //format_helper( "from(bucket//comment\n: bucket)");
+    format_helper("from(bucket//comment\n: bucket)");
     format_helper("from(bucket: //comment\nbucket)");
     format_helper("from(bucket: bucket//comment\n)");
     format_helper("from(//comment\nbucket)");
-    //format_helper("from(bucket//comment\n,_option)");
+    format_helper("from(bucket//comment\n, _option)");
     format_helper("from(bucket, //comment\n_option)");
     format_helper("from(bucket, _option//comment\n)");
 }

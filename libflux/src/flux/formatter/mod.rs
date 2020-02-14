@@ -185,6 +185,7 @@ impl Formatter {
     fn format_property(&mut self, n: &ast::Property) {
         self.format_property_key(&n.key);
         if let Some(v) = &n.value {
+            self.format_comments(&n.sep_comments);
             self.write_string(": ");
             self.format_node(&Node::from_expr(&v));
         }
@@ -194,6 +195,7 @@ impl Formatter {
         self.write_rune('(');
         let sep = ", ";
         for i in 0..n.params.len() {
+            self.format_comments(&n.params.get(i).unwrap().comma_comments);
             if i != 0 {
                 self.write_string(sep)
             }
@@ -413,6 +415,7 @@ impl Formatter {
         self.write_rune('(');
         let sep = ", ";
         for i in 0..n.arguments.len() {
+            self.format_comments(&n.arguments.get(i).unwrap().base().comments);
             if i != 0 {
                 self.write_string(sep);
             }
@@ -454,6 +457,7 @@ impl Formatter {
             sep = ", "
         }
         for i in 0..n.properties.len() {
+            self.format_comments(&n.properties.get(i).unwrap().comma_comments);
             if i != 0 {
                 self.write_string(sep);
                 if multiline {
