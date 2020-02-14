@@ -1007,6 +1007,7 @@ fn optional_query_metadata_preceding_query_text() {
                         argument: Expression::Call(Box::new(CallExpr {
                             base: BaseNode {
                                 location: loc.get(7, 5, 7, 11),
+                                child_comments: vec![None, None],
                                 ..BaseNode::default()
                             },
                             callee: Expression::Identifier(Identifier {
@@ -1026,6 +1027,7 @@ fn optional_query_metadata_preceding_query_text() {
                         call: CallExpr {
                             base: BaseNode {
                                 location: loc.get(7, 15, 7, 22),
+                                child_comments: vec![None, None],
                                 ..BaseNode::default()
                             },
                             callee: Expression::Identifier(Identifier {
@@ -1248,6 +1250,7 @@ fn from() {
                 expression: Expression::Call(Box::new(CallExpr {
                     base: BaseNode {
                         location: loc.get(1, 1, 1, 7),
+                        child_comments: vec![None, None],
                         ..BaseNode::default()
                     },
                     arguments: vec![],
@@ -1291,6 +1294,7 @@ fn comment() {
                 expression: Expression::Call(Box::new(CallExpr {
                     base: BaseNode {
                         location: loc.get(2, 4, 2, 10),
+                        child_comments: vec![None, None],
                         ..BaseNode::default()
                     },
                     arguments: vec![],
@@ -1335,6 +1339,7 @@ fn identifier_with_number() {
                 expression: Expression::Call(Box::new(CallExpr {
                     base: BaseNode {
                         location: loc.get(1, 1, 1, 7),
+                        child_comments: vec![None, None],
                         ..BaseNode::default()
                     },
                     arguments: vec![],
@@ -1766,6 +1771,7 @@ fn use_variable_to_declare_something() {
                     expression: Expression::Call(Box::new(CallExpr {
                         base: BaseNode {
                             location: loc.get(2, 4, 2, 10),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         arguments: vec![],
@@ -1818,6 +1824,7 @@ fn variable_is_from_statement() {
                     init: Expression::Call(Box::new(CallExpr {
                         base: BaseNode {
                             location: loc.get(1, 9, 1, 15),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         arguments: vec![],
@@ -1838,6 +1845,7 @@ fn variable_is_from_statement() {
                     expression: Expression::Call(Box::new(CallExpr {
                         base: BaseNode {
                             location: loc.get(2, 4, 2, 17),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         arguments: vec![],
@@ -1897,6 +1905,7 @@ fn pipe_expression() {
                     argument: Expression::Call(Box::new(CallExpr {
                         base: BaseNode {
                             location: loc.get(1, 1, 1, 7),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         callee: Expression::Identifier(Identifier {
@@ -1911,6 +1920,7 @@ fn pipe_expression() {
                     call: CallExpr {
                         base: BaseNode {
                             location: loc.get(1, 11, 1, 18),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         callee: Expression::Identifier(Identifier {
@@ -1964,6 +1974,7 @@ fn pipe_expression_to_member_expression_function() {
                     call: CallExpr {
                         base: BaseNode {
                             location: loc.get(1, 6, 1, 14),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         callee: Expression::Member(Box::new(MemberExpr {
@@ -2056,6 +2067,7 @@ fn literal_pipe_expression() {
                     call: CallExpr {
                         base: BaseNode {
                             location: loc.get(1, 6, 1, 12),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         arguments: vec![],
@@ -2122,6 +2134,7 @@ fn member_expression_pipe_expression() {
                     call: CallExpr {
                         base: BaseNode {
                             location: loc.get(1, 12, 1, 17),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         callee: Expression::Identifier(Identifier {
@@ -2178,6 +2191,7 @@ fn multiple_pipe_expressions() {
                             argument: Expression::Call(Box::new(CallExpr {
                                 base: BaseNode {
                                     location: loc.get(1, 1, 1, 7),
+                                    child_comments: vec![None, None],
                                     ..BaseNode::default()
                                 },
                                 callee: Expression::Identifier(Identifier {
@@ -2192,6 +2206,7 @@ fn multiple_pipe_expressions() {
                             call: CallExpr {
                                 base: BaseNode {
                                     location: loc.get(1, 11, 1, 18),
+                                    child_comments: vec![None, None],
                                     ..BaseNode::default()
                                 },
                                 callee: Expression::Identifier(Identifier {
@@ -2207,6 +2222,7 @@ fn multiple_pipe_expressions() {
                         call: CallExpr {
                             base: BaseNode {
                                 location: loc.get(1, 22, 1, 30),
+                                child_comments: vec![None, None],
                                 ..BaseNode::default()
                             },
                             callee: Expression::Identifier(Identifier {
@@ -2222,6 +2238,7 @@ fn multiple_pipe_expressions() {
                     call: CallExpr {
                         base: BaseNode {
                             location: loc.get(1, 34, 1, 41),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         callee: Expression::Identifier(Identifier {
@@ -2268,6 +2285,7 @@ fn pipe_expression_into_non_call_expression() {
                     argument: Expression::Call(Box::new(CallExpr {
                         base: BaseNode {
                             location: loc.get(1, 1, 1, 6),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         callee: Expression::Identifier(Identifier {
@@ -2337,6 +2355,7 @@ fn two_variables_for_two_froms() {
                     init: Expression::Call(Box::new(CallExpr {
                         base: BaseNode {
                             location: loc.get(1, 9, 1, 15),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         arguments: vec![],
@@ -2364,6 +2383,7 @@ fn two_variables_for_two_froms() {
                     init: Expression::Call(Box::new(CallExpr {
                         base: BaseNode {
                             location: loc.get(2, 12, 2, 18),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         arguments: vec![],
@@ -2396,6 +2416,7 @@ fn two_variables_for_two_froms() {
                         call: CallExpr {
                             base: BaseNode {
                                 location: loc.get(3, 11, 3, 18),
+                                child_comments: vec![None, None],
                                 ..BaseNode::default()
                             },
                             callee: Expression::Identifier(Identifier {
@@ -2429,6 +2450,7 @@ fn two_variables_for_two_froms() {
                         call: CallExpr {
                             base: BaseNode {
                                 location: loc.get(4, 11, 4, 16),
+                                child_comments: vec![None, None],
                                 ..BaseNode::default()
                             },
                             callee: Expression::Identifier(Identifier {
@@ -2471,6 +2493,7 @@ fn from_with_database() {
                 expression: Expression::Call(Box::new(CallExpr {
                     base: BaseNode {
                         location: loc.get(1, 1, 1, 32),
+                        child_comments: vec![None, None],
                         ..BaseNode::default()
                     },
                     callee: Expression::Identifier(Identifier {
@@ -3300,6 +3323,7 @@ fn access_indexed_object_returned_from_function_call() {
                     array: Expression::Call(Box::new(CallExpr {
                         base: BaseNode {
                             location: loc.get(1, 1, 1, 4),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         arguments: vec![],
@@ -3412,6 +3436,7 @@ fn index_with_member_with_call_expression() {
                     object: Expression::Call(Box::new(CallExpr {
                         base: BaseNode {
                             location: loc.get(1, 1, 1, 6),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         arguments: vec![],
@@ -3486,6 +3511,7 @@ fn index_with_unclosed_bracket() {
                     index: Expression::Call(Box::new(CallExpr {
                         base: BaseNode {
                             location: loc.get(1, 3, 1, 6),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         arguments: vec![],
@@ -3540,6 +3566,7 @@ fn index_with_unbalanced_parenthesis() {
                         base: BaseNode {
                             location: loc.get(1, 3, 1, 6),
                             errors: vec!["expected RPAREN, got RBRACK".to_string()],
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         arguments: vec![],
@@ -4348,6 +4375,7 @@ fn expressions_with_function_calls() {
                     left: Expression::Call(Box::new(CallExpr {
                         base: BaseNode {
                             location: loc.get(1, 5, 1, 10),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         arguments: vec![],
@@ -4411,6 +4439,7 @@ fn mix_unary_logical_and_binary_expressions() {
                         argument: Expression::Paren(Box::new(ParenExpr {
                             base: BaseNode {
                                 location: loc.get(2, 17, 2, 33),
+                                child_comments: vec![None, None],
                                 ..BaseNode::default()
                             },
                             expression: Expression::Binary(Box::new(BinaryExpr {
@@ -4422,6 +4451,7 @@ fn mix_unary_logical_and_binary_expressions() {
                                 left: Expression::Call(Box::new(CallExpr {
                                     base: BaseNode {
                                         location: loc.get(2, 18, 2, 21),
+                                        child_comments: vec![None, None],
                                         ..BaseNode::default()
                                     },
                                     arguments: vec![],
@@ -4460,6 +4490,7 @@ fn mix_unary_logical_and_binary_expressions() {
                     right: Expression::Call(Box::new(CallExpr {
                         base: BaseNode {
                             location: loc.get(2, 37, 2, 43),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         arguments: vec![],
@@ -4504,6 +4535,7 @@ fn mix_unary_logical_and_binary_expressions_with_extra_parens() {
                 expression: Expression::Paren(Box::new(ParenExpr {
                     base: BaseNode {
                         location: loc.get(2, 13, 2, 45),
+                        child_comments: vec![None, None],
                         ..BaseNode::default()
                     },
                     expression: Expression::Logical(Box::new(LogicalExpr {
@@ -4521,6 +4553,7 @@ fn mix_unary_logical_and_binary_expressions_with_extra_parens() {
                             argument: Expression::Paren(Box::new(ParenExpr {
                                 base: BaseNode {
                                     location: loc.get(2, 18, 2, 34),
+                                    child_comments: vec![None, None],
                                     ..BaseNode::default()
                                 },
                                 expression: Expression::Binary(Box::new(BinaryExpr {
@@ -4532,6 +4565,7 @@ fn mix_unary_logical_and_binary_expressions_with_extra_parens() {
                                     left: Expression::Call(Box::new(CallExpr {
                                         base: BaseNode {
                                             location: loc.get(2, 19, 2, 22),
+                                            child_comments: vec![None, None],
                                             ..BaseNode::default()
                                         },
                                         arguments: vec![],
@@ -4570,6 +4604,7 @@ fn mix_unary_logical_and_binary_expressions_with_extra_parens() {
                         right: Expression::Call(Box::new(CallExpr {
                             base: BaseNode {
                                 location: loc.get(2, 38, 2, 44),
+                                child_comments: vec![None, None],
                                 ..BaseNode::default()
                             },
                             arguments: vec![],
@@ -4949,6 +4984,7 @@ fn binary_operator_precedence_double_subtraction_with_parens() {
                     right: Expression::Paren(Box::new(ParenExpr {
                         base: BaseNode {
                             location: loc.get(1, 5, 1, 12),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         expression: Expression::Binary(Box::new(BinaryExpr {
@@ -5077,6 +5113,7 @@ fn binary_operator_precedence_double_sum_with_parens() {
                     right: Expression::Paren(Box::new(ParenExpr {
                         base: BaseNode {
                             location: loc.get(1, 5, 1, 12),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         expression: Expression::Binary(Box::new(BinaryExpr {
@@ -5237,6 +5274,7 @@ k / l < m + n - o or p() <= q() or r >= s and not t =~ /a/ and u !~ /a/"#,
                                             left: Expression::Call(Box::new(CallExpr {
                                                 base: BaseNode {
                                                     location: loc.get(1, 1, 1, 4),
+                                                    child_comments: vec![None, None],
                                                     ..BaseNode::default()
                                                 },
                                                 arguments: vec![],
@@ -5470,6 +5508,7 @@ k / l < m + n - o or p() <= q() or r >= s and not t =~ /a/ and u !~ /a/"#,
                             left: Expression::Call(Box::new(CallExpr {
                                 base: BaseNode {
                                     location: loc.get(2, 22, 2, 25),
+                                    child_comments: vec![None, None],
                                     ..BaseNode::default()
                                 },
                                 arguments: vec![],
@@ -5484,6 +5523,7 @@ k / l < m + n - o or p() <= q() or r >= s and not t =~ /a/ and u !~ /a/"#,
                             right: Expression::Call(Box::new(CallExpr {
                                 base: BaseNode {
                                     location: loc.get(2, 29, 2, 32),
+                                    child_comments: vec![None, None],
                                     ..BaseNode::default()
                                 },
                                 arguments: vec![],
@@ -5955,6 +5995,7 @@ fn logical_operators_precedence_7() {
                     argument: Expression::Paren(Box::new(ParenExpr {
                         base: BaseNode {
                             location: loc.get(1, 5, 1, 13),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         expression: Expression::Logical(Box::new(LogicalExpr {
@@ -6015,6 +6056,7 @@ fn logical_operators_precedence_8() {
                     argument: Expression::Paren(Box::new(ParenExpr {
                         base: BaseNode {
                             location: loc.get(1, 5, 1, 14),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         expression: Expression::Logical(Box::new(LogicalExpr {
@@ -6075,6 +6117,7 @@ fn logical_operators_precedence_9() {
                     left: Expression::Paren(Box::new(ParenExpr {
                         base: BaseNode {
                             location: loc.get(1, 1, 1, 9),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         expression: Expression::Logical(Box::new(LogicalExpr {
@@ -6149,6 +6192,7 @@ fn logical_operators_precedence_10() {
                     right: Expression::Paren(Box::new(ParenExpr {
                         base: BaseNode {
                             location: loc.get(1, 7, 1, 15),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         expression: Expression::Logical(Box::new(LogicalExpr {
@@ -6222,11 +6266,13 @@ fn two_logical_operations_with_parens() {
                             base: BaseNode {
                                 location: loc.get(1, 5, 2, 9),
                                 errors: vec!["expected comma in property list, got OR".to_string()],
+                                child_comments: vec![None, None],
                                 ..BaseNode::default()
                             },
                             callee: Expression::Paren(Box::new(ParenExpr {
                                 base: BaseNode {
                                     location: loc.get(1, 5, 1, 14),
+                                    child_comments: vec![None, None],
                                     ..BaseNode::default()
                                 },
                                 expression: Expression::Logical(Box::new(LogicalExpr {
@@ -6389,6 +6435,7 @@ fn arrow_function_called() {
                     expression: Expression::Call(Box::new(CallExpr {
                         base: BaseNode {
                             location: loc.get(2, 4, 2, 16),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         callee: Expression::Identifier(Identifier {
@@ -6482,6 +6529,7 @@ fn arrow_function_return_map() {
                     body: FunctionBody::Expr(Expression::Paren(Box::new(ParenExpr {
                         base: BaseNode {
                             location: loc.get(1, 15, 1, 22),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         expression: Expression::Object(Box::new(ObjectExpr {
@@ -6709,6 +6757,7 @@ fn arrow_function_called_in_binary_expression() {
                             left: Expression::Call(Box::new(CallExpr {
                                 base: BaseNode {
                                     location: loc.get(3, 13, 3, 25),
+                                    child_comments: vec![None, None],
                                     ..BaseNode::default()
                                 },
                                 callee: Expression::Identifier(Identifier {
@@ -6757,6 +6806,7 @@ fn arrow_function_called_in_binary_expression() {
                         right: Expression::Call(Box::new(CallExpr {
                             base: BaseNode {
                                 location: loc.get(3, 34, 3, 39),
+                                child_comments: vec![None, None],
                                 ..BaseNode::default()
                             },
                             arguments: vec![],
@@ -7175,6 +7225,7 @@ fn conditional_with_unary_logical_operators() {
                             argument: Expression::Paren(Box::new(ParenExpr {
                                 base: BaseNode {
                                     location: loc.get(1, 57, 1, 64),
+                                    child_comments: vec![None, None],
                                     ..BaseNode::default()
                                 },
                                 expression: Expression::Binary(Box::new(BinaryExpr {
@@ -7413,6 +7464,7 @@ fn from_with_filter_with_no_parens() {
                 expression: Expression::Call(Box::new(CallExpr {
                     base: BaseNode {
                         location: loc.get(1, 1, 1, 114),
+                        child_comments: vec![None, None],
                         ..BaseNode::default()
                     },
                     callee: Expression::Member(Box::new(MemberExpr {
@@ -7430,6 +7482,7 @@ fn from_with_filter_with_no_parens() {
                         object: Expression::Call(Box::new(CallExpr {
                             base: BaseNode {
                                 location: loc.get(1, 1, 1, 32),
+                                child_comments: vec![None, None],
                                 ..BaseNode::default()
                             },
                             callee: Expression::Identifier(Identifier {
@@ -7661,6 +7714,7 @@ fn from_with_range() {
                     argument: Expression::Call(Box::new(CallExpr {
                         base: BaseNode {
                             location: loc.get(1, 1, 1, 32),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         callee: Expression::Identifier(Identifier {
@@ -7701,6 +7755,7 @@ fn from_with_range() {
                     call: CallExpr {
                         base: BaseNode {
                             location: loc.get(1, 34, 1, 59),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         callee: Expression::Identifier(Identifier {
@@ -7808,6 +7863,7 @@ fn from_with_limit() {
                     argument: Expression::Call(Box::new(CallExpr {
                         base: BaseNode {
                             location: loc.get(1, 1, 1, 32),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         callee: Expression::Identifier(Identifier {
@@ -7848,6 +7904,7 @@ fn from_with_limit() {
                     call: CallExpr {
                         base: BaseNode {
                             location: loc.get(1, 34, 1, 61),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         callee: Expression::Identifier(Identifier {
@@ -7951,6 +8008,7 @@ fn from_with_range_and_count() {
                         argument: Expression::Call(Box::new(CallExpr {
                             base: BaseNode {
                                 location: loc.get(1, 1, 1, 28),
+                                child_comments: vec![None, None],
                                 ..BaseNode::default()
                             },
                             callee: Expression::Identifier(Identifier {
@@ -7991,6 +8049,7 @@ fn from_with_range_and_count() {
                         call: CallExpr {
                             base: BaseNode {
                                 location: loc.get(2, 10, 2, 36),
+                                child_comments: vec![None, None],
                                 ..BaseNode::default()
                             },
                             callee: Expression::Identifier(Identifier {
@@ -8074,6 +8133,7 @@ fn from_with_range_and_count() {
                     call: CallExpr {
                         base: BaseNode {
                             location: loc.get(3, 10, 3, 17),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         callee: Expression::Identifier(Identifier {
@@ -8135,6 +8195,7 @@ fn from_with_range_limit_and_count() {
                             argument: Expression::Call(Box::new(CallExpr {
                                 base: BaseNode {
                                     location: loc.get(1, 1, 1, 28),
+                                    child_comments: vec![None, None],
                                     ..BaseNode::default()
                                 },
                                 callee: Expression::Identifier(Identifier {
@@ -8175,6 +8236,7 @@ fn from_with_range_limit_and_count() {
                             call: CallExpr {
                                 base: BaseNode {
                                     location: loc.get(2, 10, 2, 36),
+                                    child_comments: vec![None, None],
                                     ..BaseNode::default()
                                 },
                                 callee: Expression::Identifier(Identifier {
@@ -8258,6 +8320,7 @@ fn from_with_range_limit_and_count() {
                         call: CallExpr {
                             base: BaseNode {
                                 location: loc.get(3, 10, 3, 21),
+                                child_comments: vec![None, None],
                                 ..BaseNode::default()
                             },
                             callee: Expression::Identifier(Identifier {
@@ -8299,6 +8362,7 @@ fn from_with_range_limit_and_count() {
                     call: CallExpr {
                         base: BaseNode {
                             location: loc.get(4, 10, 4, 17),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         callee: Expression::Identifier(Identifier {
@@ -8358,6 +8422,7 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                         argument: Expression::Call(Box::new(CallExpr {
                             base: BaseNode {
                                 location: loc.get(2, 5, 2, 31),
+                                child_comments: vec![None, None],
                                 ..BaseNode::default()
                             },
                             callee: Expression::Identifier(Identifier {
@@ -8398,6 +8463,7 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                         call: CallExpr {
                             base: BaseNode {
                                 location: loc.get(2, 35, 2, 51),
+                                child_comments: vec![None, None],
                                 ..BaseNode::default()
                             },
                             callee: Expression::Identifier(Identifier {
@@ -8467,6 +8533,7 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                         argument: Expression::Call(Box::new(CallExpr {
                             base: BaseNode {
                                 location: loc.get(3, 5, 3, 31),
+                                child_comments: vec![None, None],
                                 ..BaseNode::default()
                             },
                             callee: Expression::Identifier(Identifier {
@@ -8507,6 +8574,7 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                         call: CallExpr {
                             base: BaseNode {
                                 location: loc.get(3, 35, 3, 51),
+                                child_comments: vec![None, None],
                                 ..BaseNode::default()
                             },
                             callee: Expression::Identifier(Identifier {
@@ -8564,6 +8632,7 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                     expression: Expression::Call(Box::new(CallExpr {
                         base: BaseNode {
                             location: loc.get(4, 1, 4, 72),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         callee: Expression::Identifier(Identifier {
@@ -8801,6 +8870,7 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                             argument: Expression::Call(Box::new(CallExpr {
                                 base: BaseNode {
                                     location: loc.get(2, 5, 2, 32),
+                                    child_comments: vec![None, None],
                                     .. BaseNode::default()
                                 },
                                 callee: Expression::Identifier(Identifier {
@@ -8841,6 +8911,7 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                             call: CallExpr {
                                 base: BaseNode {
                                     location: loc.get(3, 5, 3, 48),
+                                    child_comments: vec![None, None],
                                     .. BaseNode::default()
                                 },
                                 callee: Expression::Identifier(Identifier {
@@ -8940,6 +9011,7 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                         call: CallExpr {
                             base: BaseNode {
                                 location: loc.get(4, 5, 4, 21),
+                                child_comments: vec![None, None],
                                 .. BaseNode::default()
                             },
                             callee: Expression::Identifier(Identifier {
@@ -9014,6 +9086,7 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                             argument: Expression::Call(Box::new(CallExpr {
                                 base: BaseNode {
                                     location: loc.get(6, 5, 6, 32),
+                                    child_comments: vec![None, None],
                                     .. BaseNode::default()
                                 },
                                 callee: Expression::Identifier(Identifier {
@@ -9054,6 +9127,7 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                             call: CallExpr {
                                 base: BaseNode {
                                     location: loc.get(7, 5, 7, 48),
+                                    child_comments: vec![None, None],
                                     .. BaseNode::default()
                                 },
                                 callee: Expression::Identifier(Identifier {
@@ -9153,6 +9227,7 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                         call: CallExpr {
                             base: BaseNode {
                                 location: loc.get(8, 5, 8, 21),
+                                child_comments: vec![None, None],
                                 .. BaseNode::default()
                             },
                             callee: Expression::Identifier(Identifier {
@@ -9210,6 +9285,7 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                     expression: Expression::Call(Box::new(CallExpr {
                         base: BaseNode {
                             location: loc.get(10, 1, 10, 86),
+                            child_comments: vec![None, None],
                             .. BaseNode::default()
                         },
                         callee: Expression::Identifier(Identifier {
@@ -9344,6 +9420,7 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                                 left: Expression::Paren(Box::new(ParenExpr {
                                                     base: BaseNode {
                                                         location: loc.get(10, 44, 10, 71),
+                                child_comments: vec![None, None],
                                                         .. BaseNode::default()
                                                     },
                                                     expression: Expression::Binary(Box::new(
@@ -9834,6 +9911,7 @@ fn function_call_with_unbalanced_braces() {
                         argument: Expression::Call(Box::new(CallExpr {
                             base: BaseNode {
                                 location: loc.get(1, 1, 1, 7),
+                                child_comments: vec![None, None],
                                 ..BaseNode::default()
                             },
                             callee: Expression::Identifier(Identifier {
@@ -9848,6 +9926,7 @@ fn function_call_with_unbalanced_braces() {
                         call: CallExpr {
                             base: BaseNode {
                                 location: loc.get(1, 11, 1, 18),
+                                child_comments: vec![None, None],
                                 ..BaseNode::default()
                             },
                             callee: Expression::Identifier(Identifier {
@@ -9863,6 +9942,7 @@ fn function_call_with_unbalanced_braces() {
                     call: CallExpr {
                         base: BaseNode {
                             location: loc.get(1, 22, 1, 56),
+                            child_comments: vec![None, None],
                             ..BaseNode::default()
                         },
                         callee: Expression::Identifier(Identifier {
@@ -10190,6 +10270,7 @@ fn multiple_idents_in_parens() {
                 expression: Expression::Paren(Box::new(ParenExpr {
                     base: BaseNode {
                         location: loc.get(1, 1, 1, 6),
+                        child_comments: vec![None, None],
                         ..BaseNode::default()
                     },
                     expression: Expression::Binary(Box::new(BinaryExpr {
@@ -10246,6 +10327,7 @@ fn missing_left_hand_side() {
                 expression: Expression::Paren(Box::new(ParenExpr {
                     base: BaseNode {
                         location: loc.get(1, 1, 1, 5),
+                        child_comments: vec![None, None],
                         ..BaseNode::default()
                     },
                     expression: Expression::Binary(Box::new(BinaryExpr {
@@ -10304,6 +10386,7 @@ fn missing_right_hand_side() {
                 expression: Expression::Paren(Box::new(ParenExpr {
                     base: BaseNode {
                         location: loc.get(1, 1, 1, 5),
+                        child_comments: vec![None, None],
                         ..BaseNode::default()
                     },
                     expression: Expression::Binary(Box::new(BinaryExpr {
@@ -10361,6 +10444,7 @@ fn illegal_expression() {
                     base: BaseNode {
                         location: loc.get(1, 1, 1, 4),
                         errors: vec!["invalid expression @1:2-1:3: @".to_string()],
+                        child_comments: vec![None, None],
                         ..BaseNode::default()
                     },
                     expression: Expression::Bad(Box::new(BadExpr {

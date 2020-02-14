@@ -285,14 +285,11 @@ impl Parser {
         }
     }
 
-    fn comments_from_tokens(
-        &mut self,
-        tok: &Option<Box<scanner::Token>>,
-    ) -> Option<Box<ast::Comment>> {
+    fn make_coments(&mut self, tok: &Option<Box<scanner::Token>>) -> Option<Box<ast::Comment>> {
         if let Some(boxed) = tok {
             Some(Box::new(Comment {
                 lit: (*boxed).lit.clone(),
-                next: self.comments_from_tokens(&(*boxed).comments),
+                next: self.make_coments(&(*boxed).comments),
             }))
         } else {
             None
@@ -301,7 +298,7 @@ impl Parser {
 
     fn base_node_from_token(&mut self, tok: &Token) -> BaseNode {
         let mut base = self.base_node_from_tokens(tok, tok);
-        base.comments = self.comments_from_tokens(&tok.comments);
+        base.add_comments(self.make_coments(&tok.comments));
         base
     }
 
@@ -975,7 +972,10 @@ impl Parser {
             callee: expr,
             arguments: vec![],
         };
-        call.base.comments = self.comments_from_tokens(&lparen.comments);
+        call.base
+            .add_child_comments(self.make_coments(&lparen.comments));
+        call.base
+            .add_child_comments(self.make_coments(&end.comments));
         if !params.is_empty() {
             call.arguments.push(Expression::Object(Box::new(ObjectExpr {
                 base: self.base_node_from_others(
@@ -1207,10 +1207,7 @@ impl Parser {
     }
     fn parse_paren_expression(&mut self) -> Expression {
         let lparen = self.open(TOK_LPAREN, TOK_RPAREN);
-        let comments = self.comments_from_tokens(&lparen.comments);
-        let mut expr = self.parse_paren_body_expression(lparen);
-        expr.stash_comments(comments);
-        expr
+        self.parse_paren_body_expression(lparen)
     }
     fn parse_paren_body_expression(&mut self, lparen: Token) -> Expression {
         let t = self.peek();
@@ -1244,8 +1241,11 @@ impl Parser {
                     Some(_) => (),
                 };
                 let rparen = self.close(TOK_RPAREN);
+                let mut base = self.base_node_from_tokens(&lparen, &rparen);
+                base.add_child_comments(self.make_coments(&lparen.comments));
+                base.add_child_comments(self.make_coments(&rparen.comments));
                 Expression::Paren(Box::new(ParenExpr {
-                    base: self.base_node_from_tokens(&lparen, &rparen),
+                    base,
                     expression: expr.expect("must be Some at this point"),
                 }))
             }
@@ -1322,8 +1322,11 @@ impl Parser {
                     }));
                 }
                 let rparen = self.close(TOK_RPAREN);
+                let mut base = self.base_node_from_tokens(&lparen, &rparen);
+                base.add_child_comments(self.make_coments(&lparen.comments));
+                base.add_child_comments(self.make_coments(&rparen.comments));
                 Expression::Paren(Box::new(ParenExpr {
-                    base: self.base_node_from_tokens(&lparen, &rparen),
+                    base,
                     expression: expr,
                 }))
             }
