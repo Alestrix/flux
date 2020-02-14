@@ -195,12 +195,12 @@ impl Formatter {
         self.write_rune('(');
         let sep = ", ";
         for i in 0..n.params.len() {
-            self.format_comments(&n.params.get(i).unwrap().comma_comments);
             if i != 0 {
                 self.write_string(sep)
             }
             // treat properties differently than in general case
-            self.format_function_argument(n.params.get(i).unwrap())
+            self.format_function_argument(n.params.get(i).unwrap());
+            self.format_comments(&n.params.get(i).unwrap().comma_comments);
         }
         self.write_string(") =>");
         // must wrap body with parenthesis in order to discriminate between:
@@ -457,7 +457,6 @@ impl Formatter {
             sep = ", "
         }
         for i in 0..n.properties.len() {
-            self.format_comments(&n.properties.get(i).unwrap().comma_comments);
             if i != 0 {
                 self.write_string(sep);
                 if multiline {
@@ -465,6 +464,7 @@ impl Formatter {
                 }
             }
             self.format_node(&Node::Property(n.properties.get(i).unwrap()));
+            self.format_comments(&n.properties.get(i).unwrap().comma_comments);
         }
         if multiline {
             self.write_string(sep);

@@ -309,4 +309,8 @@ fn comments() {
     format_helper("from(bucket//comment\n, _option)");
     format_helper("from(bucket, //comment\n_option)");
     format_helper("from(bucket, _option//comment\n)");
+    format_modified(
+        "from(bucket, _option//comment1\n,//comment2\n)",
+        "from(bucket, _option//comment1\n//comment2\n)",
+    );
 }

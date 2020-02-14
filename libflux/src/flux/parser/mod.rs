@@ -1430,7 +1430,6 @@ impl Parser {
                 _ => p = self.parse_invalid_property(),
             }
             p.comma_comments = last_comma_comments.take();
-            params.push(p);
 
             if self.more() {
                 let t = self.peek();
@@ -1440,10 +1439,12 @@ impl Parser {
                         format_token(t.tok)
                     ))
                 } else {
-                    last_comma_comments = self.make_coments(&t.comments);
+                    p.comma_comments = self.make_coments(&t.comments);
                     self.consume();
                 }
             }
+
+            params.push(p);
         }
         self.errs.append(&mut errs);
         params
