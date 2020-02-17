@@ -216,34 +216,6 @@ impl Expression {
             Expression::Paren(wrapped) => wrapped.base.comments = comments,
         };
     }
-    pub fn add_child_comments(&mut self, comments: Option<Box<Comment>>) {
-        match self {
-            Expression::Identifier(wrapped) => wrapped.base.add_child_comments(comments),
-            Expression::Array(wrapped) => wrapped.base.add_child_comments(comments),
-            Expression::Function(wrapped) => wrapped.base.add_child_comments(comments),
-            Expression::Logical(wrapped) => wrapped.base.add_child_comments(comments),
-            Expression::Object(wrapped) => wrapped.base.add_child_comments(comments),
-            Expression::Member(wrapped) => wrapped.base.add_child_comments(comments),
-            Expression::Index(wrapped) => wrapped.base.add_child_comments(comments),
-            Expression::Binary(wrapped) => wrapped.base.add_child_comments(comments),
-            Expression::Unary(wrapped) => wrapped.base.add_child_comments(comments),
-            Expression::PipeExpr(wrapped) => wrapped.base.add_child_comments(comments),
-            Expression::Call(wrapped) => wrapped.base.add_child_comments(comments),
-            Expression::Conditional(wrapped) => wrapped.base.add_child_comments(comments),
-            Expression::Integer(wrapped) => wrapped.base.add_child_comments(comments),
-            Expression::Float(wrapped) => wrapped.base.add_child_comments(comments),
-            Expression::StringLit(wrapped) => wrapped.base.add_child_comments(comments),
-            Expression::Duration(wrapped) => wrapped.base.add_child_comments(comments),
-            Expression::Uint(wrapped) => wrapped.base.add_child_comments(comments),
-            Expression::Boolean(wrapped) => wrapped.base.add_child_comments(comments),
-            Expression::DateTime(wrapped) => wrapped.base.add_child_comments(comments),
-            Expression::Regexp(wrapped) => wrapped.base.add_child_comments(comments),
-            Expression::PipeLit(wrapped) => wrapped.base.add_child_comments(comments),
-            Expression::Bad(wrapped) => wrapped.base.add_child_comments(comments),
-            Expression::StringExpr(wrapped) => wrapped.base.add_child_comments(comments),
-            Expression::Paren(wrapped) => wrapped.base.add_child_comments(comments),
-        };
-    }
 }
 
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
@@ -382,9 +354,6 @@ pub struct BaseNode {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
     pub comments: Option<Box<Comment>>,
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    #[serde(default)]
-    pub child_comments: Vec<Option<Box<Comment>>>,
 }
 
 impl BaseNode {
@@ -394,9 +363,6 @@ impl BaseNode {
 
     pub fn add_comments(&mut self, comments: Option<Box<Comment>>) {
         self.comments = comments;
-    }
-    pub fn add_child_comments(&mut self, comments: Option<Box<Comment>>) {
-        self.child_comments.push(comments);
     }
 }
 

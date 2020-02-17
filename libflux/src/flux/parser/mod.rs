@@ -988,13 +988,9 @@ impl Parser {
             base: self.base_node_from_other_start(expr.base(), &end),
             callee: expr,
             arguments: vec![],
-            lcomments: None,
-            rcomments: None,
+            lcomments: self.make_coments(&lparen.comments),
+            rcomments: self.make_coments(&end.comments),
         };
-        call.base
-            .add_child_comments(self.make_coments(&lparen.comments));
-        call.base
-            .add_child_comments(self.make_coments(&end.comments));
         if !params.is_empty() {
             call.arguments.push(Expression::Object(Box::new(ObjectExpr {
                 base: self.base_node_from_others(
@@ -1260,14 +1256,11 @@ impl Parser {
                     Some(_) => (),
                 };
                 let rparen = self.close(TOK_RPAREN);
-                let mut base = self.base_node_from_tokens(&lparen, &rparen);
-                base.add_child_comments(self.make_coments(&lparen.comments));
-                base.add_child_comments(self.make_coments(&rparen.comments));
                 Expression::Paren(Box::new(ParenExpr {
-                    base,
+                    base: self.base_node_from_tokens(&lparen, &rparen),
                     expression: expr.expect("must be Some at this point"),
-                    lcomments: None,
-                    rcomments: None,
+                    lcomments: self.make_coments(&lparen.comments),
+                    rcomments: self.make_coments(&rparen.comments),
                 }))
             }
         }
@@ -1349,14 +1342,11 @@ impl Parser {
                     }));
                 }
                 let rparen = self.close(TOK_RPAREN);
-                let mut base = self.base_node_from_tokens(&lparen, &rparen);
-                base.add_child_comments(self.make_coments(&lparen.comments));
-                base.add_child_comments(self.make_coments(&rparen.comments));
                 Expression::Paren(Box::new(ParenExpr {
-                    base,
+                    base: self.base_node_from_tokens(&lparen, &rparen),
                     expression: expr,
-                    lcomments: None,
-                    rcomments: None,
+                    lcomments: self.make_coments(&lparen.comments),
+                    rcomments: self.make_coments(&rparen.comments),
                 }))
             }
         }

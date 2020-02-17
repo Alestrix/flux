@@ -59,12 +59,6 @@ impl Formatter {
         }
     }
 
-    fn format_child_comments(&mut self, cvec: &[Option<Box<ast::Comment>>], pos: usize) {
-        if pos < cvec.len() {
-            self.format_comments(&cvec[pos])
-        }
-    }
-
     fn write_comment(&mut self, comment: &str) {
         self.write_string("// ");
         self.write_string(comment);
@@ -246,9 +240,9 @@ impl Formatter {
         // This could mix up ordering, but since the parens are programatically
         // added back, we would need to pass any closing comments down,
         // seriously complicating the function interface. For now, permit reordering.
-        self.format_child_comments(&n.base.child_comments, 0);
+        self.format_comments(&n.lcomments);
         self.format_node(&Node::from_expr(&n.expression));
-        self.format_child_comments(&n.base.child_comments, 1);
+        self.format_comments(&n.rcomments);
     }
 
     fn format_string_expression(&mut self, n: &ast::StringExpr) {
@@ -412,7 +406,7 @@ impl Formatter {
 
     fn format_call_expression(&mut self, n: &ast::CallExpr) {
         self.format_child_with_parens(Node::CallExpr(n), Node::from_expr(&n.callee));
-        self.format_child_comments(&n.base.child_comments, 0);
+        self.format_comments(&n.lcomments);
         self.write_rune('(');
         let sep = ", ";
         for i in 0..n.arguments.len() {
@@ -426,7 +420,7 @@ impl Formatter {
                 _ => self.format_node(&Node::from_expr(c)),
             }
         }
-        self.format_child_comments(&n.base.child_comments, 1);
+        self.format_comments(&n.rcomments);
         self.write_rune(')');
     }
 
