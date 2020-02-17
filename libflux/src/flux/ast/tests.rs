@@ -170,13 +170,13 @@ fn test_json_simple_file() {
         imports: Vec::new(),
         name: String::new(),
         metadata: String::new(),
-        body: vec![Statement::Expr(ExprStmt {
+        body: vec![Statement::Expr(Box::new(ExprStmt {
             base: BaseNode::default(),
             expression: Expression::StringLit(StringLit {
                 base: Default::default(),
                 value: "hello".to_string(),
             }),
-        })],
+        }))],
     };
     let serialized = serde_json::to_string(&n).unwrap();
     assert_eq!(
@@ -230,13 +230,13 @@ fn test_json_file() {
         }],
         name: String::new(),
         metadata: String::from("parser-type=none"),
-        body: vec![Statement::Expr(ExprStmt {
+        body: vec![Statement::Expr(Box::new(ExprStmt {
             base: BaseNode::default(),
             expression: Expression::StringLit(StringLit {
                 base: Default::default(),
                 value: "hello".to_string(),
             }),
-        })],
+        }))],
     };
     let serialized = serde_json::to_string(&n).unwrap();
     assert_eq!(
@@ -263,13 +263,13 @@ fn test_json_file() {
 fn test_json_block() {
     let n = Block {
         base: BaseNode::default(),
-        body: vec![Statement::Expr(ExprStmt {
+        body: vec![Statement::Expr(Box::new(ExprStmt {
             base: BaseNode::default(),
             expression: Expression::StringLit(StringLit {
                 base: Default::default(),
                 value: "hello".to_string(),
             }),
-        })],
+        }))],
     };
     let serialized = serde_json::to_string(&n).unwrap();
     assert_eq!(
@@ -290,13 +290,13 @@ fn test_json_block() {
 */
 #[test]
 fn test_json_expression_statement() {
-    let n = Statement::Expr(ExprStmt {
+    let n = Statement::Expr(Box::new(ExprStmt {
         base: BaseNode::default(),
         expression: Expression::StringLit(StringLit {
             base: BaseNode::default(),
             value: "hello".to_string(),
         }),
-    });
+    }));
     let serialized = serde_json::to_string(&n).unwrap();
     assert_eq!(
         serialized,
@@ -316,13 +316,13 @@ fn test_json_expression_statement() {
 */
 #[test]
 fn test_json_return_statement() {
-    let n = Statement::Return(ReturnStmt {
+    let n = Statement::Return(Box::new(ReturnStmt {
         base: BaseNode::default(),
         argument: Expression::StringLit(StringLit {
             base: BaseNode::default(),
             value: "hello".to_string(),
         }),
-    });
+    }));
     let serialized = serde_json::to_string(&n).unwrap();
     assert_eq!(
         serialized,
@@ -427,13 +427,13 @@ fn test_json_option_statement() {
 */
 #[test]
 fn test_json_builtin_statement() {
-    let n = Statement::Builtin(BuiltinStmt {
+    let n = Statement::Builtin(Box::new(BuiltinStmt {
         base: BaseNode::default(),
         id: Identifier {
             base: BaseNode::default(),
             name: "task".to_string(),
         },
-    });
+    }));
     let serialized = serde_json::to_string(&n).unwrap();
     assert_eq!(
         serialized,

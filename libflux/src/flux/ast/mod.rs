@@ -222,19 +222,19 @@ impl Expression {
 #[serde(tag = "type")]
 pub enum Statement {
     #[serde(rename = "ExpressionStatement")]
-    Expr(ExprStmt),
+    Expr(Box<ExprStmt>),
     #[serde(rename = "VariableAssignment")]
     Variable(Box<VariableAssgn>),
     #[serde(rename = "OptionStatement")]
     Option(Box<OptionStmt>),
     #[serde(rename = "ReturnStatement")]
-    Return(ReturnStmt),
+    Return(Box<ReturnStmt>),
     #[serde(rename = "BadStatement")]
-    Bad(BadStmt),
+    Bad(Box<BadStmt>),
     #[serde(rename = "TestStatement")]
     Test(Box<TestStmt>),
     #[serde(rename = "BuiltinStatement")]
-    Builtin(BuiltinStmt),
+    Builtin(Box<BuiltinStmt>),
 }
 
 impl Statement {

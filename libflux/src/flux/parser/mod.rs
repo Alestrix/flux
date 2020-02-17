@@ -435,10 +435,10 @@ impl Parser {
             TOK_RETURN => self.parse_return_statement(),
             _ => {
                 self.consume();
-                Statement::Bad(BadStmt {
+                Statement::Bad(Box::new(BadStmt {
                     base: self.base_node_from_token(&t),
                     text: t.lit,
-                })
+                }))
             }
         }
     }
@@ -482,10 +482,10 @@ impl Parser {
     fn parse_builtin_statement(&mut self) -> Statement {
         let t = self.expect(TOK_BUILTIN);
         let id = self.parse_identifier();
-        Statement::Builtin(BuiltinStmt {
+        Statement::Builtin(Box::new(BuiltinStmt {
             base: self.base_node_from_other_end(&t, &id.base),
             id,
-        })
+        }))
     }
     fn parse_test_statement(&mut self) -> Statement {
         let t = self.expect(TOK_TEST);
@@ -514,10 +514,10 @@ impl Parser {
             }
             _ => {
                 let expr = self.parse_expression_suffix(Expression::Identifier(id));
-                Statement::Expr(ExprStmt {
+                Statement::Expr(Box::new(ExprStmt {
                     base: self.base_node(expr.base().location.clone()),
                     expression: expr,
-                })
+                }))
             }
         }
     }
@@ -528,10 +528,10 @@ impl Parser {
     fn parse_return_statement(&mut self) -> Statement {
         let t = self.expect(TOK_RETURN);
         let expr = self.parse_expression();
-        Statement::Return(ReturnStmt {
+        Statement::Return(Box::new(ReturnStmt {
             base: self.base_node_from_other_end(&t, expr.base()),
             argument: expr,
-        })
+        }))
     }
     fn parse_expression_statement(&mut self) -> Statement {
         let expr = self.parse_expression();
@@ -539,7 +539,7 @@ impl Parser {
             base: self.base_node(expr.base().location.clone()),
             expression: expr,
         };
-        Statement::Expr(stmt)
+        Statement::Expr(Box::new(stmt))
     }
     fn parse_block(&mut self) -> Block {
         let start = self.open(TOK_LBRACE, TOK_RBRACE);

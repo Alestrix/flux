@@ -61,7 +61,7 @@ fn string_interpolation_simple() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 19),
                     ..BaseNode::default()
@@ -108,7 +108,7 @@ fn string_interpolation_simple() {
                         }),
                     ],
                 })),
-            }),],
+            })),],
         },
     )
 }
@@ -129,7 +129,7 @@ fn string_interpolation_multiple() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 24),
                     ..BaseNode::default()
@@ -182,7 +182,7 @@ fn string_interpolation_multiple() {
                         }),
                     ],
                 })),
-            }),],
+            })),],
         },
     )
 }
@@ -203,7 +203,7 @@ fn string_interpolation_nested() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 44),
                     ..BaseNode::default()
@@ -278,7 +278,7 @@ fn string_interpolation_nested() {
                         }),
                     ],
                 })),
-            }),],
+            })),],
         },
     )
 }
@@ -299,7 +299,7 @@ fn string_interp_with_escapes() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 45),
                     ..BaseNode::default()
@@ -339,7 +339,7 @@ fn string_interp_with_escapes() {
                         }),
                     ],
                 })),
-            }),],
+            })),],
         },
     )
 }
@@ -703,7 +703,7 @@ import "path/bar"
                     }
                 }
             ],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(7, 1, 7, 6),
                     ..BaseNode::default()
@@ -729,7 +729,7 @@ import "path/bar"
                         value: 1
                     })
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -1010,7 +1010,7 @@ fn optional_query_metadata_preceding_query_text() {
                         }))
                     }))
                 })),
-                Statement::Expr(ExprStmt {
+                Statement::Expr(Box::new(ExprStmt {
                     base: BaseNode {
                         location: loc.get(7, 5, 7, 22),
                         ..BaseNode::default()
@@ -1058,7 +1058,7 @@ fn optional_query_metadata_preceding_query_text() {
                             arguments: vec![],
                         }
                     })),
-                })
+                }))
             ]
         },
     )
@@ -1139,7 +1139,7 @@ fn builtin() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Builtin(BuiltinStmt {
+            body: vec![Statement::Builtin(Box::new(BuiltinStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 13),
                     ..BaseNode::default()
@@ -1151,7 +1151,7 @@ fn builtin() {
                     },
                     name: "from".to_string()
                 }
-            })]
+            }))]
         },
     )
 }
@@ -1264,7 +1264,7 @@ fn from() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 7),
                     ..BaseNode::default()
@@ -1285,7 +1285,7 @@ fn from() {
                         name: "from".to_string()
                     }),
                 })),
-            })]
+            }))]
         },
     )
 }
@@ -1309,7 +1309,7 @@ fn comment() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(2, 4, 2, 10),
                     ..BaseNode::default()
@@ -1334,7 +1334,7 @@ fn comment() {
                         name: "from".to_string()
                     }),
                 })),
-            })]
+            }))]
         },
     )
 }
@@ -1355,7 +1355,7 @@ fn identifier_with_number() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 7),
                     ..BaseNode::default()
@@ -1376,7 +1376,7 @@ fn identifier_with_number() {
                         name: "tan2".to_string()
                     }),
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -1397,7 +1397,7 @@ fn regex_literal() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 5),
                     ..BaseNode::default()
@@ -1409,7 +1409,7 @@ fn regex_literal() {
                     },
                     value: ".*".to_string()
                 })
-            })]
+            }))]
         },
     )
 }
@@ -1430,7 +1430,7 @@ fn regex_literal_with_escape_sequence() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 12),
                     ..BaseNode::default()
@@ -1442,7 +1442,7 @@ fn regex_literal_with_escape_sequence() {
                     },
                     value: "a/b\\\\c\\d".to_string()
                 })
-            })]
+            }))]
         },
     )
 }
@@ -1463,7 +1463,7 @@ fn bad_regex_literal() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 4),
                     ..BaseNode::default()
@@ -1479,7 +1479,7 @@ fn bad_regex_literal() {
                     },
                     value: "".to_string()
                 })
-            })]
+            }))]
         },
     )
 }
@@ -1500,7 +1500,7 @@ fn regex_match_operators() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 28),
                     ..BaseNode::default()
@@ -1554,7 +1554,7 @@ fn regex_match_operators() {
                         })
                     }))
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -1788,7 +1788,7 @@ fn use_variable_to_declare_something() {
                         value: 1
                     })
                 })),
-                Statement::Expr(ExprStmt {
+                Statement::Expr(Box::new(ExprStmt {
                     base: BaseNode {
                         location: loc.get(2, 4, 2, 10),
                         ..BaseNode::default()
@@ -1809,7 +1809,7 @@ fn use_variable_to_declare_something() {
                             name: "from".to_string()
                         }),
                     })),
-                })
+                }))
             ]
         },
     )
@@ -1864,7 +1864,7 @@ fn variable_is_from_statement() {
                         }),
                     })),
                 })),
-                Statement::Expr(ExprStmt {
+                Statement::Expr(Box::new(ExprStmt {
                     base: BaseNode {
                         location: loc.get(2, 4, 2, 17),
                         ..BaseNode::default()
@@ -1898,7 +1898,7 @@ fn variable_is_from_statement() {
                         lcomments: None,
                         rcomments: None,
                     }))
-                })
+                }))
             ]
         },
     )
@@ -1920,7 +1920,7 @@ fn pipe_expression() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 18),
                     ..BaseNode::default()
@@ -1963,7 +1963,7 @@ fn pipe_expression() {
                         arguments: vec![],
                     }
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -1984,7 +1984,7 @@ fn pipe_expression_to_member_expression_function() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 14),
                     ..BaseNode::default()
@@ -2059,7 +2059,7 @@ fn pipe_expression_to_member_expression_function() {
                         rcomments: None,
                     }
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -2080,7 +2080,7 @@ fn literal_pipe_expression() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 12),
                     ..BaseNode::default()
@@ -2114,7 +2114,7 @@ fn literal_pipe_expression() {
                         rcomments: None,
                     }
                 })),
-            })]
+            }))]
         },
     )
 }
@@ -2135,7 +2135,7 @@ fn member_expression_pipe_expression() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 17),
                     ..BaseNode::default()
@@ -2182,7 +2182,7 @@ fn member_expression_pipe_expression() {
                         rcomments: None,
                     }
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -2203,7 +2203,7 @@ fn multiple_pipe_expressions() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 41),
                     ..BaseNode::default()
@@ -2290,7 +2290,7 @@ fn multiple_pipe_expressions() {
                         rcomments: None,
                     }
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -2311,7 +2311,7 @@ fn pipe_expression_into_non_call_expression() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 13),
                     ..BaseNode::default()
@@ -2355,7 +2355,7 @@ fn pipe_expression_into_non_call_expression() {
                         rcomments: None,
                     }
                 })),
-            })]
+            }))]
         },
     )
 }
@@ -2440,7 +2440,7 @@ fn two_variables_for_two_froms() {
                         rcomments: None,
                     })),
                 })),
-                Statement::Expr(ExprStmt {
+                Statement::Expr(Box::new(ExprStmt {
                     base: BaseNode {
                         location: loc.get(3, 4, 3, 18),
                         ..BaseNode::default()
@@ -2474,8 +2474,8 @@ fn two_variables_for_two_froms() {
                             rcomments: None,
                         }
                     }))
-                }),
-                Statement::Expr(ExprStmt {
+                })),
+                Statement::Expr(Box::new(ExprStmt {
                     base: BaseNode {
                         location: loc.get(4, 4, 4, 16),
                         ..BaseNode::default()
@@ -2509,7 +2509,7 @@ fn two_variables_for_two_froms() {
                             rcomments: None,
                         }
                     }))
-                })
+                }))
             ]
         },
     )
@@ -2531,7 +2531,7 @@ fn from_with_database() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 32),
                     ..BaseNode::default()
@@ -2580,7 +2580,7 @@ fn from_with_database() {
                     lcomments: None,
                     rcomments: None,
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -2673,7 +2673,7 @@ fn map_member_expressions() {
                         ]
                     }))
                 })),
-                Statement::Expr(ExprStmt {
+                Statement::Expr(Box::new(ExprStmt {
                     base: BaseNode {
                         location: loc.get(2, 4, 2, 10),
                         ..BaseNode::default()
@@ -2698,8 +2698,8 @@ fn map_member_expressions() {
                             name: "key1".to_string()
                         })
                     }))
-                }),
-                Statement::Expr(ExprStmt {
+                })),
+                Statement::Expr(Box::new(ExprStmt {
                     base: BaseNode {
                         location: loc.get(3, 4, 3, 13),
                         ..BaseNode::default()
@@ -2724,7 +2724,7 @@ fn map_member_expressions() {
                             value: "key2".to_string()
                         })
                     }))
-                })
+                }))
             ]
         },
     )
@@ -3126,7 +3126,7 @@ fn object_with() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 18),
                     ..BaseNode::default()
@@ -3190,7 +3190,7 @@ fn object_with() {
                         }
                     ]
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -3211,7 +3211,7 @@ fn object_with_implicit_keys() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 14),
                     ..BaseNode::default()
@@ -3263,7 +3263,7 @@ fn object_with_implicit_keys() {
                         }
                     ]
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -3284,7 +3284,7 @@ fn index_expression() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 5),
                     ..BaseNode::default()
@@ -3309,7 +3309,7 @@ fn index_expression() {
                         value: 3
                     })
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -3330,7 +3330,7 @@ fn nested_index_expression() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 8),
                     ..BaseNode::default()
@@ -3368,7 +3368,7 @@ fn nested_index_expression() {
                         value: 5
                     })
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -3389,7 +3389,7 @@ fn access_indexed_object_returned_from_function_call() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 7),
                     ..BaseNode::default()
@@ -3423,7 +3423,7 @@ fn access_indexed_object_returned_from_function_call() {
                         value: 3
                     })
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -3444,7 +3444,7 @@ fn index_with_member_expressions() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 9),
                     ..BaseNode::default()
@@ -3482,7 +3482,7 @@ fn index_with_member_expressions() {
                         value: "c".to_string()
                     })
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -3503,7 +3503,7 @@ fn index_with_member_with_call_expression() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 11),
                     ..BaseNode::default()
@@ -3550,7 +3550,7 @@ fn index_with_member_with_call_expression() {
                         value: "c".to_string()
                     })
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -3571,7 +3571,7 @@ fn index_with_unclosed_bracket() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 6),
                     ..BaseNode::default()
@@ -3606,7 +3606,7 @@ fn index_with_unclosed_bracket() {
                         rcomments: None,
                     })),
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -3627,7 +3627,7 @@ fn index_with_unbalanced_parenthesis() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 6),
                     ..BaseNode::default()
@@ -3662,7 +3662,7 @@ fn index_with_unbalanced_parenthesis() {
                         rcomments: None,
                     })),
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -3683,7 +3683,7 @@ fn index_with_unexpected_rparen() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 6),
                     ..BaseNode::default()
@@ -3709,7 +3709,7 @@ fn index_with_unexpected_rparen() {
                         name: "b".to_string()
                     })
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -3730,7 +3730,7 @@ fn binary_expression() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 14),
                     ..BaseNode::default()
@@ -3756,7 +3756,7 @@ fn binary_expression() {
                         value: 10.0
                     })
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -3777,7 +3777,7 @@ fn member_expression_binary_expression() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 16),
                     ..BaseNode::default()
@@ -3816,7 +3816,7 @@ fn member_expression_binary_expression() {
                         value: 10.0
                     })
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -4140,7 +4140,7 @@ fn unary_expressions_within_logical_expression() {
                         value: 5.0
                     })
                 })),
-                Statement::Expr(ExprStmt {
+                Statement::Expr(Box::new(ExprStmt {
                     base: BaseNode {
                         location: loc.get(2, 13, 2, 42),
                         ..BaseNode::default()
@@ -4222,7 +4222,7 @@ fn unary_expressions_within_logical_expression() {
                             })
                         }))
                     }))
-                })
+                }))
             ]
         },
     )
@@ -4244,7 +4244,7 @@ fn unary_expression_with_member_expression() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 8),
                     ..BaseNode::default()
@@ -4276,7 +4276,7 @@ fn unary_expression_with_member_expression() {
                         })
                     }))
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -4329,7 +4329,7 @@ a = 5.0
                         value: 5.0
                     })
                 })),
-                Statement::Expr(ExprStmt {
+                Statement::Expr(Box::new(ExprStmt {
                     base: BaseNode {
                         location: loc.get(4, 1, 6, 13),
                         ..BaseNode::default()
@@ -4419,7 +4419,7 @@ a = 5.0
                             })
                         }))
                     }))
-                })
+                }))
             ]
         },
     )
@@ -4507,7 +4507,7 @@ fn mix_unary_logical_and_binary_expressions() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(2, 13, 2, 43),
                     ..BaseNode::default()
@@ -4594,7 +4594,7 @@ fn mix_unary_logical_and_binary_expressions() {
                         rcomments: None,
                     })),
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -4618,7 +4618,7 @@ fn mix_unary_logical_and_binary_expressions_with_extra_parens() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(2, 13, 2, 45),
                     ..BaseNode::default()
@@ -4713,7 +4713,7 @@ fn mix_unary_logical_and_binary_expressions_with_extra_parens() {
                         })),
                     }))
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -4734,7 +4734,7 @@ fn modulo_op_ints() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 6),
                     ..BaseNode::default()
@@ -4760,7 +4760,7 @@ fn modulo_op_ints() {
                         value: 8
                     })
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -4781,7 +4781,7 @@ fn modulo_op_floats() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 10),
                     ..BaseNode::default()
@@ -4807,7 +4807,7 @@ fn modulo_op_floats() {
                         value: 3.1
                     })
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -4828,7 +4828,7 @@ fn power_op() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 6),
                     ..BaseNode::default()
@@ -4854,7 +4854,7 @@ fn power_op() {
                         value: 4
                     })
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -4875,7 +4875,7 @@ fn binary_operator_precedence() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 12),
                     ..BaseNode::default()
@@ -4915,7 +4915,7 @@ fn binary_operator_precedence() {
                         value: 1.0
                     })
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -4936,7 +4936,7 @@ fn binary_operator_precedence_literals_only() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 14),
                     ..BaseNode::default()
@@ -4976,7 +4976,7 @@ fn binary_operator_precedence_literals_only() {
                         value: 1.0
                     })
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -4997,7 +4997,7 @@ fn binary_operator_precedence_double_subtraction() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 10),
                     ..BaseNode::default()
@@ -5037,7 +5037,7 @@ fn binary_operator_precedence_double_subtraction() {
                         value: 3
                     })
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -5058,7 +5058,7 @@ fn binary_operator_precedence_double_subtraction_with_parens() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 12),
                     ..BaseNode::default()
@@ -5106,7 +5106,7 @@ fn binary_operator_precedence_double_subtraction_with_parens() {
                         }))
                     }))
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -5127,7 +5127,7 @@ fn binary_operator_precedence_double_sum() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 10),
                     ..BaseNode::default()
@@ -5167,7 +5167,7 @@ fn binary_operator_precedence_double_sum() {
                         value: 3
                     })
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -5188,7 +5188,7 @@ fn binary_operator_precedence_double_sum_with_parens() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 12),
                     ..BaseNode::default()
@@ -5236,7 +5236,7 @@ fn binary_operator_precedence_double_sum_with_parens() {
                         }))
                     }))
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -5257,7 +5257,7 @@ fn logical_unary_operator_precedence() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 12),
                     ..BaseNode::default()
@@ -5297,7 +5297,7 @@ fn logical_unary_operator_precedence() {
                         })
                     }))
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -5321,7 +5321,7 @@ k / l < m + n - o or p() <= q() or r >= s and not t =~ /a/ and u !~ /a/"#,
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 2, 72),
                     ..BaseNode::default()
@@ -5722,7 +5722,7 @@ k / l < m + n - o or p() <= q() or r >= s and not t =~ /a/ and u !~ /a/"#,
                         }))
                     }))
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -5743,7 +5743,7 @@ fn logical_operators_precedence_1() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 11),
                     ..BaseNode::default()
@@ -5776,7 +5776,7 @@ fn logical_operators_precedence_1() {
                         name: "b".to_string()
                     })
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -5797,7 +5797,7 @@ fn logical_operators_precedence_2() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 11),
                     ..BaseNode::default()
@@ -5830,7 +5830,7 @@ fn logical_operators_precedence_2() {
                         })
                     }))
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -5851,7 +5851,7 @@ fn logical_operators_precedence_3() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 12),
                     ..BaseNode::default()
@@ -5884,7 +5884,7 @@ fn logical_operators_precedence_3() {
                         name: "b".to_string()
                     })
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -5905,7 +5905,7 @@ fn logical_operators_precedence_4() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 12),
                     ..BaseNode::default()
@@ -5938,7 +5938,7 @@ fn logical_operators_precedence_4() {
                         })
                     }))
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -5959,7 +5959,7 @@ fn logical_operators_precedence_5() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 13),
                     ..BaseNode::default()
@@ -5999,7 +5999,7 @@ fn logical_operators_precedence_5() {
                         name: "c".to_string()
                     })
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -6020,7 +6020,7 @@ fn logical_operators_precedence_6() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 13),
                     ..BaseNode::default()
@@ -6060,7 +6060,7 @@ fn logical_operators_precedence_6() {
                         })
                     }))
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -6081,7 +6081,7 @@ fn logical_operators_precedence_7() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 13),
                     ..BaseNode::default()
@@ -6122,7 +6122,7 @@ fn logical_operators_precedence_7() {
                         }))
                     }))
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -6143,7 +6143,7 @@ fn logical_operators_precedence_8() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 14),
                     ..BaseNode::default()
@@ -6184,7 +6184,7 @@ fn logical_operators_precedence_8() {
                         }))
                     }))
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -6205,7 +6205,7 @@ fn logical_operators_precedence_9() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 15),
                     ..BaseNode::default()
@@ -6253,7 +6253,7 @@ fn logical_operators_precedence_9() {
                         name: "c".to_string()
                     })
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -6274,7 +6274,7 @@ fn logical_operators_precedence_10() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 15),
                     ..BaseNode::default()
@@ -6322,7 +6322,7 @@ fn logical_operators_precedence_10() {
                         }))
                     }))
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -6349,7 +6349,7 @@ fn two_logical_operations_with_parens() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 2, 15),
                     ..BaseNode::default()
@@ -6458,7 +6458,7 @@ fn two_logical_operations_with_parens() {
                         name: "c".to_string()
                     })
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -6539,7 +6539,7 @@ fn arrow_function_called() {
                         })))
                     }))
                 })),
-                Statement::Expr(ExprStmt {
+                Statement::Expr(Box::new(ExprStmt {
                     base: BaseNode {
                         location: loc.get(2, 4, 2, 16),
                         ..BaseNode::default()
@@ -6588,7 +6588,7 @@ fn arrow_function_called() {
                         lcomments: None,
                         rcomments: None,
                     }))
-                })
+                }))
             ]
         },
     )
@@ -6863,7 +6863,7 @@ fn arrow_function_called_in_binary_expression() {
                         })))
                     }))
                 })),
-                Statement::Expr(ExprStmt {
+                Statement::Expr(Box::new(ExprStmt {
                     base: BaseNode {
                         location: loc.get(3, 13, 3, 39),
                         ..BaseNode::default()
@@ -6949,7 +6949,7 @@ fn arrow_function_called_in_binary_expression() {
                             rcomments: None,
                         }))
                     }))
-                })
+                }))
             ]
         },
     )
@@ -7137,7 +7137,7 @@ fn arrow_function_as_block() {
                                     })
                                 }))
                             })),
-                            Statement::Return(ReturnStmt {
+                            Statement::Return(Box::new(ReturnStmt {
                                 base: BaseNode {
                                     location: loc.get(3, 17, 3, 34),
                                     ..BaseNode::default()
@@ -7163,7 +7163,7 @@ fn arrow_function_as_block() {
                                         value: "cpu".to_string()
                                     })
                                 }))
-                            })
+                            }))
                         ]
                     })
                 }))
@@ -7434,7 +7434,7 @@ fn nested_conditionals() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 3, 50),
                     ..BaseNode::default()
@@ -7568,7 +7568,7 @@ fn nested_conditionals() {
                         })
                     }))
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -7591,7 +7591,7 @@ fn from_with_filter_with_no_parens() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 114),
                     ..BaseNode::default()
@@ -7823,7 +7823,7 @@ fn from_with_filter_with_no_parens() {
                     lcomments: None,
                     rcomments: None,
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -7844,7 +7844,7 @@ fn from_with_range() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 59),
                     ..BaseNode::default()
@@ -7980,7 +7980,7 @@ fn from_with_range() {
                         }))]
                     }
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -8001,7 +8001,7 @@ fn from_with_limit() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 61),
                     ..BaseNode::default()
@@ -8124,7 +8124,7 @@ fn from_with_limit() {
                         }))]
                     }
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -8149,7 +8149,7 @@ fn from_with_range_and_count() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 3, 17),
                     ..BaseNode::default()
@@ -8314,7 +8314,7 @@ fn from_with_range_and_count() {
                         arguments: vec![]
                     }
                 }))
-            })]
+            }))]
         }
     )
 }
@@ -8340,7 +8340,7 @@ fn from_with_range_limit_and_count() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 4, 17),
                     ..BaseNode::default()
@@ -8555,7 +8555,7 @@ fn from_with_range_limit_and_count() {
                         arguments: vec![]
                     }
                 }))
-            })]
+            }))]
         }
     )
 }
@@ -8816,7 +8816,7 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                         }
                     }))
                 })),
-                Statement::Expr(ExprStmt {
+                Statement::Expr(Box::new(ExprStmt {
                     base: BaseNode {
                         location: loc.get(4, 1, 4, 72),
                         ..BaseNode::default()
@@ -9014,7 +9014,7 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                             ]
                         }))]
                     }))
-                })
+                }))
             ]
         },
     )
@@ -9502,7 +9502,7 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                         }
                     }))
                 })),
-                Statement::Expr(ExprStmt {
+                Statement::Expr(Box::new(ExprStmt {
                     base: BaseNode {
                         location: loc.get(10, 1, 10, 86),
                         .. BaseNode::default()
@@ -9767,7 +9767,7 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                             ]
                         }))]
                     }))
-                })
+                }))
             ]
         },
     )
@@ -10130,7 +10130,7 @@ fn function_call_with_unbalanced_braces() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 56),
                     ..BaseNode::default()
@@ -10239,7 +10239,7 @@ fn function_call_with_unbalanced_braces() {
                                             errors: vec!["expected RBRACE, got RPAREN".to_string()],
                                             ..BaseNode::default()
                                         },
-                                        body: vec![Statement::Return(ReturnStmt {
+                                        body: vec![Statement::Return(Box::new(ReturnStmt {
                                             base: BaseNode {
                                                 location: loc.get(1, 39, 1, 54),
                                                 ..BaseNode::default()
@@ -10264,14 +10264,14 @@ fn function_call_with_unbalanced_braces() {
                                                     name: "_value".to_string()
                                                 })
                                             }))
-                                        })]
+                                        }))]
                                     })
                                 })))
                             }]
                         }))]
                     }
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -10292,7 +10292,7 @@ fn string_with_utf_8() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 12),
                     ..BaseNode::default()
@@ -10304,7 +10304,7 @@ fn string_with_utf_8() {
                     },
                     value: "日本語".to_string()
                 })
-            })]
+            }))]
         },
     )
 }
@@ -10325,7 +10325,7 @@ fn string_with_byte_values() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 39),
                     ..BaseNode::default()
@@ -10337,7 +10337,7 @@ fn string_with_byte_values() {
                     },
                     value: "日本語".to_string()
                 })
-            })]
+            }))]
         },
     )
 }
@@ -10358,7 +10358,7 @@ fn string_with_mixed_values() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 63),
                     ..BaseNode::default()
@@ -10370,7 +10370,7 @@ fn string_with_mixed_values() {
                     },
                     value: "hello 日x本 日本語 µs".to_string()
                 })
-            })]
+            }))]
         },
     )
 }
@@ -10395,13 +10395,13 @@ backslash \\
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {location: loc.get(1, 1, 6, 2), .. BaseNode::default() },
                 expression: Expression::StringLit(StringLit {
                     base: BaseNode {location: loc.get(1, 1, 6, 2), .. BaseNode::default() },
                     value: "newline \n\ncarriage return \r\nhorizontal tab \t\ndouble quote \"\nbackslash \\\n".to_string()
                 })
-            })]
+            }))]
         },
     )
 }
@@ -10428,7 +10428,7 @@ string"
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 4, 8),
                     ..BaseNode::default()
@@ -10440,7 +10440,7 @@ string"
                     },
                     value: "\n this is a\nmultiline\nstring".to_string()
                 })
-            })]
+            }))]
         },
     )
 }
@@ -10463,15 +10463,15 @@ fn illegal_statement_token() {
             package: None,
             imports: vec![],
             body: vec![
-                Statement::Bad(BadStmt {
+                Statement::Bad(Box::new(BadStmt {
                     base: BaseNode {
                         location: loc.get(1, 1, 1, 2),
                         // errors: vec!["invalid statement @1:1-1:2: @".to_string()]
                         ..BaseNode::default()
                     },
                     text: "@".to_string()
-                }),
-                Statement::Expr(ExprStmt {
+                })),
+                Statement::Expr(Box::new(ExprStmt {
                     base: BaseNode {
                         location: loc.get(1, 3, 1, 8),
                         ..BaseNode::default()
@@ -10483,7 +10483,7 @@ fn illegal_statement_token() {
                         },
                         name: "ident".to_string()
                     })
-                })
+                }))
             ]
         },
     )
@@ -10506,7 +10506,7 @@ fn multiple_idents_in_parens() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 6),
                     ..BaseNode::default()
@@ -10541,7 +10541,7 @@ fn multiple_idents_in_parens() {
                         })
                     }))
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -10564,7 +10564,7 @@ fn missing_left_hand_side() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 5),
                     ..BaseNode::default()
@@ -10601,7 +10601,7 @@ fn missing_left_hand_side() {
                         })
                     }))
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -10624,7 +10624,7 @@ fn missing_right_hand_side() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 5),
                     ..BaseNode::default()
@@ -10661,7 +10661,7 @@ fn missing_right_hand_side() {
                         })),
                     }))
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -10682,7 +10682,7 @@ fn illegal_expression() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 4),
                     ..BaseNode::default()
@@ -10704,7 +10704,7 @@ fn illegal_expression() {
                         expression: None
                     }))
                 }))
-            }),]
+            }))]
         },
     )
 }
@@ -10726,7 +10726,7 @@ fn missing_arrow_in_function_expression() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 13),
                     ..BaseNode::default()
@@ -10785,7 +10785,7 @@ fn missing_arrow_in_function_expression() {
                         expression: None
                     })))
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -11304,7 +11304,7 @@ fn invalid_expression_in_array() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 6),
                     ..BaseNode::default()
@@ -11322,7 +11322,7 @@ fn invalid_expression_in_array() {
                         name: "a".to_string()
                     })]
                 }))
-            })]
+            }))]
         },
     )
 }
@@ -11343,7 +11343,7 @@ fn integer_literal_overflow() {
             metadata: "parser-type=rust".to_string(),
             package: None,
             imports: vec![],
-            body: vec![Statement::Expr(ExprStmt {
+            body: vec![Statement::Expr(Box::new(ExprStmt {
                 base: BaseNode {
                     location: loc.get(1, 1, 1, 31),
                     .. BaseNode::default() },
@@ -11355,7 +11355,7 @@ fn integer_literal_overflow() {
                     },
                     value: 0,
                 })
-            })]
+            }))]
         },
     )
 }

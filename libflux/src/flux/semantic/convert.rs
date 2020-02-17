@@ -93,13 +93,13 @@ fn convert_statement(stmt: ast::Statement, fresher: &mut Fresher) -> Result<Stat
             *s, fresher,
         )?))),
         ast::Statement::Builtin(s) => {
-            Ok(Statement::Builtin(convert_builtin_statement(s, fresher)?))
+            Ok(Statement::Builtin(convert_builtin_statement(*s, fresher)?))
         }
         ast::Statement::Test(s) => Ok(Statement::Test(Box::new(convert_test_statement(
             *s, fresher,
         )?))),
-        ast::Statement::Expr(s) => Ok(Statement::Expr(convert_expression_statement(s, fresher)?)),
-        ast::Statement::Return(s) => Ok(Statement::Return(convert_return_statement(s, fresher)?)),
+        ast::Statement::Expr(s) => Ok(Statement::Expr(convert_expression_statement(*s, fresher)?)),
+        ast::Statement::Return(s) => Ok(Statement::Return(convert_return_statement(*s, fresher)?)),
         // TODO(affo): we should fix this to include MemberAssignement.
         //  The error lies in AST: the Statement enum does not include that.
         //  This is not a problem when parsing, because we parse it only in the option assignment case,
@@ -291,7 +291,7 @@ fn convert_block(block: ast::Block, fresher: &mut Fresher) -> Result<Block> {
             Box::new(acc),
         )),
         ast::Statement::Expr(stmt) => Ok(Block::Expr(
-            convert_expression_statement(stmt, fresher)?,
+            convert_expression_statement(*stmt, fresher)?,
             Box::new(acc),
         )),
         _ => Err(format!("invalid statement in function block {:#?}", s)),
@@ -767,13 +767,13 @@ mod tests {
                             value: true,
                         }),
                     })),
-                    ast::Statement::Expr(ast::ExprStmt {
+                    ast::Statement::Expr(Box::new(ast::ExprStmt {
                         base: b.clone(),
                         expression: ast::Expression::Identifier(ast::Identifier {
                             base: b.clone(),
                             name: "a".to_string(),
                         }),
-                    }),
+                    })),
                 ],
             }],
         };
@@ -825,7 +825,7 @@ mod tests {
                 metadata: String::new(),
                 package: None,
                 imports: Vec::new(),
-                body: vec![ast::Statement::Expr(ast::ExprStmt {
+                body: vec![ast::Statement::Expr(Box::new(ast::ExprStmt {
                     base: b.clone(),
                     expression: ast::Expression::Object(Box::new(ast::ObjectExpr {
                         base: b.clone(),
@@ -844,7 +844,7 @@ mod tests {
                             })),
                         }],
                     })),
-                })],
+                }))],
             }],
         };
         let want = Package {
@@ -893,7 +893,7 @@ mod tests {
                 metadata: String::new(),
                 package: None,
                 imports: Vec::new(),
-                body: vec![ast::Statement::Expr(ast::ExprStmt {
+                body: vec![ast::Statement::Expr(Box::new(ast::ExprStmt {
                     base: b.clone(),
                     expression: ast::Expression::Object(Box::new(ast::ObjectExpr {
                         base: b.clone(),
@@ -912,7 +912,7 @@ mod tests {
                             })),
                         }],
                     })),
-                })],
+                }))],
             }],
         };
         let want = Package {
@@ -961,7 +961,7 @@ mod tests {
                 metadata: String::new(),
                 package: None,
                 imports: Vec::new(),
-                body: vec![ast::Statement::Expr(ast::ExprStmt {
+                body: vec![ast::Statement::Expr(Box::new(ast::ExprStmt {
                     base: b.clone(),
                     expression: ast::Expression::Object(Box::new(ast::ObjectExpr {
                         base: b.clone(),
@@ -995,7 +995,7 @@ mod tests {
                             },
                         ],
                     })),
-                })],
+                }))],
             }],
         };
         let want = Package {
@@ -1058,7 +1058,7 @@ mod tests {
                 metadata: String::new(),
                 package: None,
                 imports: Vec::new(),
-                body: vec![ast::Statement::Expr(ast::ExprStmt {
+                body: vec![ast::Statement::Expr(Box::new(ast::ExprStmt {
                     base: b.clone(),
                     expression: ast::Expression::Object(Box::new(ast::ObjectExpr {
                         base: b.clone(),
@@ -1086,7 +1086,7 @@ mod tests {
                             },
                         ],
                     })),
-                })],
+                }))],
             }],
         };
         let want = Package {
@@ -1466,7 +1466,7 @@ mod tests {
                             ))),
                         })),
                     })),
-                    ast::Statement::Expr(ast::ExprStmt {
+                    ast::Statement::Expr(Box::new(ast::ExprStmt {
                         base: b.clone(),
                         expression: ast::Expression::Call(Box::new(ast::CallExpr {
                             base: b.clone(),
@@ -1509,7 +1509,7 @@ mod tests {
                                 ],
                             }))],
                         })),
-                    }),
+                    })),
                 ],
             }],
         };
@@ -1700,7 +1700,7 @@ mod tests {
                             ))),
                         })),
                     })),
-                    ast::Statement::Expr(ast::ExprStmt {
+                    ast::Statement::Expr(Box::new(ast::ExprStmt {
                         base: b.clone(),
                         expression: ast::Expression::Call(Box::new(ast::CallExpr {
                             base: b.clone(),
@@ -1728,7 +1728,7 @@ mod tests {
                                 }],
                             }))],
                         })),
-                    }),
+                    })),
                 ],
             }],
         };
@@ -1932,7 +1932,7 @@ mod tests {
                 metadata: String::new(),
                 package: None,
                 imports: Vec::new(),
-                body: vec![ast::Statement::Expr(ast::ExprStmt {
+                body: vec![ast::Statement::Expr(Box::new(ast::ExprStmt {
                     base: b.clone(),
                     expression: ast::Expression::Call(Box::new(ast::CallExpr {
                         base: b.clone(),
@@ -1979,7 +1979,7 @@ mod tests {
                             })),
                         ],
                     })),
-                })],
+                }))],
             }],
         };
         let got = test_convert(pkg).err().unwrap().to_string();
@@ -2051,7 +2051,7 @@ mod tests {
                             ))),
                         })),
                     })),
-                    ast::Statement::Expr(ast::ExprStmt {
+                    ast::Statement::Expr(Box::new(ast::ExprStmt {
                         base: b.clone(),
                         expression: ast::Expression::PipeExpr(Box::new(ast::PipeExpr {
                             base: b.clone(),
@@ -2090,7 +2090,7 @@ mod tests {
                                 ))],
                             },
                         })),
-                    }),
+                    })),
                 ],
             }],
         };
@@ -2333,7 +2333,7 @@ mod tests {
                 metadata: String::new(),
                 package: None,
                 imports: Vec::new(),
-                body: vec![ast::Statement::Expr(ast::ExprStmt {
+                body: vec![ast::Statement::Expr(Box::new(ast::ExprStmt {
                     base: b.clone(),
                     expression: ast::Expression::Index(Box::new(ast::IndexExpr {
                         base: b.clone(),
@@ -2346,7 +2346,7 @@ mod tests {
                             value: 3,
                         }),
                     })),
-                })],
+                }))],
             }],
         };
         let want = Package {
@@ -2392,7 +2392,7 @@ mod tests {
                 metadata: String::new(),
                 package: None,
                 imports: Vec::new(),
-                body: vec![ast::Statement::Expr(ast::ExprStmt {
+                body: vec![ast::Statement::Expr(Box::new(ast::ExprStmt {
                     base: b.clone(),
                     expression: ast::Expression::Index(Box::new(ast::IndexExpr {
                         base: b.clone(),
@@ -2412,7 +2412,7 @@ mod tests {
                             value: 5,
                         }),
                     })),
-                })],
+                }))],
             }],
         };
         let want = Package {
@@ -2467,7 +2467,7 @@ mod tests {
                 metadata: String::new(),
                 package: None,
                 imports: Vec::new(),
-                body: vec![ast::Statement::Expr(ast::ExprStmt {
+                body: vec![ast::Statement::Expr(Box::new(ast::ExprStmt {
                     base: b.clone(),
                     expression: ast::Expression::Index(Box::new(ast::IndexExpr {
                         base: b.clone(),
@@ -2486,7 +2486,7 @@ mod tests {
                             value: 3,
                         }),
                     })),
-                })],
+                }))],
             }],
         };
         let want = Package {
@@ -2538,7 +2538,7 @@ mod tests {
                 metadata: String::new(),
                 package: None,
                 imports: Vec::new(),
-                body: vec![ast::Statement::Expr(ast::ExprStmt {
+                body: vec![ast::Statement::Expr(Box::new(ast::ExprStmt {
                     base: b.clone(),
                     expression: ast::Expression::Member(Box::new(ast::MemberExpr {
                         base: b.clone(),
@@ -2558,7 +2558,7 @@ mod tests {
                             name: "c".to_string(),
                         }),
                     })),
-                })],
+                }))],
             }],
         };
         let want = Package {
@@ -2605,7 +2605,7 @@ mod tests {
                 metadata: String::new(),
                 package: None,
                 imports: Vec::new(),
-                body: vec![ast::Statement::Expr(ast::ExprStmt {
+                body: vec![ast::Statement::Expr(Box::new(ast::ExprStmt {
                     base: b.clone(),
                     expression: ast::Expression::Member(Box::new(ast::MemberExpr {
                         base: b.clone(),
@@ -2631,7 +2631,7 @@ mod tests {
                             name: "c".to_string(),
                         }),
                     })),
-                })],
+                }))],
             }],
         };
         let want = Package {
