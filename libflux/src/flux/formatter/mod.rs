@@ -405,6 +405,7 @@ impl Formatter {
         self.write_rune('\n');
         self.indent();
         self.write_indent();
+        self.format_comments(&n.base.comments);
         self.write_string("|> ");
         self.format_node(&Node::CallExpr(&n.call));
     }
@@ -503,6 +504,7 @@ impl Formatter {
     }
 
     fn format_unary_expression(&mut self, n: &ast::UnaryExpr) {
+        self.format_comments(&n.base.comments);
         self.write_string(&n.operator.to_string());
         match n.operator {
             ast::Operator::SubtractionOperator => {}
@@ -516,6 +518,7 @@ impl Formatter {
 
     fn format_binary_expression(&mut self, n: &ast::BinaryExpr) {
         self.format_binary(
+            &n.base.comments,
             &n.operator.to_string(),
             Node::BinaryExpr(&n),
             Node::from_expr(&n.left),
@@ -525,6 +528,7 @@ impl Formatter {
 
     fn format_logical_expression(&mut self, n: &ast::LogicalExpr) {
         self.format_binary(
+            &n.base.comments,
             &n.operator.to_string(),
             Node::LogicalExpr(&n),
             Node::from_expr(&n.left),
@@ -532,9 +536,17 @@ impl Formatter {
         );
     }
 
-    fn format_binary(&mut self, op: &str, parent: Node, left: Node, right: Node) {
+    fn format_binary(
+        &mut self,
+        comments: &Option<Box<ast::Comment>>,
+        op: &str,
+        parent: Node,
+        left: Node,
+        right: Node,
+    ) {
         self.format_left_child_with_parens(&parent, &left);
         self.write_rune(' ');
+        self.format_comments(comments);
         self.write_string(op);
         self.write_rune(' ');
         self.format_right_child_with_parens(&parent, &right);
@@ -590,6 +602,7 @@ impl Formatter {
         self.write_rune('"');
     }
 
+    // TODO(adriandt): this code appears dead. Boolean literal is no longer a node type?
     fn format_boolean_literal(&mut self, n: &ast::BooleanLit) {
         let s: &str;
         if n.value {

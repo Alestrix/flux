@@ -658,9 +658,13 @@ impl Parser {
             let or = self.parse_or_operator();
             match or {
                 Some(or_op) => {
+                    let t = self.scan();
+                    let comments = self.make_coments(&t.comments);
                     let rhs = self.parse_logical_and_expression();
+                    let mut base = self.base_node_from_others(res.base(), rhs.base());
+                    base.add_comments(comments);
                     res = Expression::Logical(Box::new(LogicalExpr {
-                        base: self.base_node_from_others(res.base(), rhs.base()),
+                        base,
                         operator: or_op,
                         left: res,
                         right: rhs,
@@ -674,7 +678,6 @@ impl Parser {
     fn parse_or_operator(&mut self) -> Option<LogicalOperator> {
         let t = self.peek().tok;
         if t == TOK_OR {
-            self.consume();
             Some(LogicalOperator::OrOperator)
         } else {
             None
@@ -690,9 +693,13 @@ impl Parser {
             let and = self.parse_and_operator();
             match and {
                 Some(and_op) => {
+                    let t = self.scan();
+                    let comments = self.make_coments(&t.comments);
                     let rhs = self.parse_logical_unary_expression();
+                    let mut base = self.base_node_from_others(res.base(), rhs.base());
+                    base.add_comments(comments);
                     res = Expression::Logical(Box::new(LogicalExpr {
-                        base: self.base_node_from_others(res.base(), rhs.base()),
+                        base,
                         operator: and_op,
                         left: res,
                         right: rhs,
@@ -706,7 +713,6 @@ impl Parser {
     fn parse_and_operator(&mut self) -> Option<LogicalOperator> {
         let t = self.peek().tok;
         if t == TOK_AND {
-            self.consume();
             Some(LogicalOperator::AndOperator)
         } else {
             None
@@ -717,9 +723,13 @@ impl Parser {
         let op = self.parse_logical_unary_operator();
         match op {
             Some(op) => {
+                self.consume();
+                let comments = self.make_coments(&t.comments);
                 let expr = self.parse_logical_unary_expression();
+                let mut base = self.base_node_from_other_end(&t, expr.base());
+                base.add_comments(comments);
                 Expression::Unary(Box::new(UnaryExpr {
-                    base: self.base_node_from_other_end(&t, expr.base()),
+                    base,
                     operator: op,
                     argument: expr,
                 }))
@@ -730,14 +740,8 @@ impl Parser {
     fn parse_logical_unary_operator(&mut self) -> Option<Operator> {
         let t = self.peek().tok;
         match t {
-            TOK_NOT => {
-                self.consume();
-                Some(Operator::NotOperator)
-            }
-            TOK_EXISTS => {
-                self.consume();
-                Some(Operator::ExistsOperator)
-            }
+            TOK_NOT => Some(Operator::NotOperator),
+            TOK_EXISTS => Some(Operator::ExistsOperator),
             _ => None,
         }
     }
@@ -751,9 +755,13 @@ impl Parser {
             let op = self.parse_comparison_operator();
             match op {
                 Some(op) => {
+                    let t = self.scan();
+                    let comments = self.make_coments(&t.comments);
                     let rhs = self.parse_additive_expression();
+                    let mut base = self.base_node_from_others(res.base(), rhs.base());
+                    base.add_comments(comments);
                     res = Expression::Binary(Box::new(BinaryExpr {
-                        base: self.base_node_from_others(res.base(), rhs.base()),
+                        base,
                         operator: op,
                         left: res,
                         right: rhs,
@@ -778,9 +786,6 @@ impl Parser {
             TOK_REGEXNEQ => res = Some(Operator::NotRegexpMatchOperator),
             _ => (),
         }
-        if res.is_some() {
-            self.consume();
-        }
         res
     }
     fn parse_additive_expression(&mut self) -> Expression {
@@ -793,9 +798,13 @@ impl Parser {
             let op = self.parse_additive_operator();
             match op {
                 Some(op) => {
+                    let t = self.scan();
+                    let comments = self.make_coments(&t.comments);
                     let rhs = self.parse_multiplicative_expression();
+                    let mut base = self.base_node_from_others(res.base(), rhs.base());
+                    base.add_comments(comments);
                     res = Expression::Binary(Box::new(BinaryExpr {
-                        base: self.base_node_from_others(res.base(), rhs.base()),
+                        base,
                         operator: op,
                         left: res,
                         right: rhs,
@@ -814,9 +823,6 @@ impl Parser {
             TOK_SUB => res = Some(Operator::SubtractionOperator),
             _ => (),
         }
-        if res.is_some() {
-            self.consume();
-        }
         res
     }
     fn parse_multiplicative_expression(&mut self) -> Expression {
@@ -829,9 +835,13 @@ impl Parser {
             let op = self.parse_multiplicative_operator();
             match op {
                 Some(op) => {
+                    let t = self.scan();
+                    let comments = self.make_coments(&t.comments);
                     let rhs = self.parse_pipe_expression();
+                    let mut base = self.base_node_from_others(res.base(), rhs.base());
+                    base.add_comments(comments);
                     res = Expression::Binary(Box::new(BinaryExpr {
-                        base: self.base_node_from_others(res.base(), rhs.base()),
+                        base,
                         operator: op,
                         left: res,
                         right: rhs,
@@ -852,9 +862,6 @@ impl Parser {
             TOK_POW => res = Some(Operator::PowerOperator),
             _ => (),
         }
-        if res.is_some() {
-            self.consume();
-        }
         res
     }
     fn parse_pipe_expression(&mut self) -> Expression {
@@ -868,12 +875,18 @@ impl Parser {
             if !op {
                 break;
             }
+
+            let t = self.scan();
+            let comments = self.make_coments(&t.comments);
+
             // TODO(jsternberg): this is not correct.
             let rhs = self.parse_unary_expression();
             match rhs {
                 Expression::Call(b) => {
+                    let mut base = self.base_node_from_others(res.base(), &b.base);
+                    base.add_comments(comments);
                     res = Expression::PipeExpr(Box::new(PipeExpr {
-                        base: self.base_node_from_others(res.base(), &b.base),
+                        base,
                         argument: res,
                         call: *b,
                     }));
@@ -891,8 +904,10 @@ impl Parser {
                         lcomments: None,
                         rcomments: None,
                     };
+                    let mut base = self.base_node_from_others(res.base(), &call.base);
+                    base.add_comments(comments);
                     res = Expression::PipeExpr(Box::new(PipeExpr {
-                        base: self.base_node_from_others(res.base(), &call.base),
+                        base,
                         argument: res,
                         call,
                     }));
@@ -903,19 +918,19 @@ impl Parser {
     }
     fn parse_pipe_operator(&mut self) -> bool {
         let t = self.peek().tok;
-        let res = t == TOK_PIPE_FORWARD;
-        if res {
-            self.consume();
-        }
-        res
+        t == TOK_PIPE_FORWARD
     }
     fn parse_unary_expression(&mut self) -> Expression {
         let t = self.peek();
         let op = self.parse_additive_operator();
         if let Some(op) = op {
+            self.consume();
+            let comments = self.make_coments(&t.comments);
             let expr = self.parse_unary_expression();
+            let mut base = self.base_node_from_other_end(&t, expr.base());
+            base.add_comments(comments);
             return Expression::Unary(Box::new(UnaryExpr {
-                base: self.base_node_from_other_end(&t, expr.base()),
+                base,
                 operator: op,
                 argument: expr,
             }));

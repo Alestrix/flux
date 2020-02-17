@@ -4364,6 +4364,10 @@ a = 5.0
                     expression: Expression::Logical(Box::new(LogicalExpr {
                         base: BaseNode {
                             location: loc.get(4, 1, 6, 13),
+                            comments: Some(Box::new(Comment {
+                                lit: "// or this\n".to_string(),
+                                next: None,
+                            })),
                             ..BaseNode::default()
                         },
                         operator: LogicalOperator::OrOperator,

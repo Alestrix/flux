@@ -285,6 +285,7 @@ fn comments() {
     format_helper("// attach to regex\n/hello/");
     format_helper("// attach to time\n2020-02-28T00:00:00Z");
     format_helper("// attach to duration\n2m");
+    format_helper("// attach to bool\ntrue");
     format_modified(
         "// attach to open paren\n( 1 + 1 )",
         "// attach to open paren\n1 + 1",
@@ -313,4 +314,18 @@ fn comments() {
         "from(bucket, _option//comment1\n,//comment2\n)",
         "from(bucket, _option//comment1\n//comment2\n)",
     );
+
+    /* Expressions. */
+    format_helper("1 //comment\n<= 1");
+    format_helper("1 //comment\n+ 1");
+    format_helper("1 //comment\n* 1");
+    format_helper("from()\n\t//comment\n|> to()");
+    format_helper("//comment\n+1");
+    format_modified("1 * //comment\n-1", "1 * (//comment\n-1)");
+    format_helper("i = //comment\nnot true");
+    format_helper("//comment\nexists 1");
+    format_helper("a //comment\n=~ /foo/");
+    format_helper("a //comment\n!~ /foo/");
+    format_helper("a //comment\nand b");
+    format_helper("a //comment\nor b");
 }
