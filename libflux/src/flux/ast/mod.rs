@@ -184,38 +184,6 @@ impl Expression {
             Expression::Paren(wrapped) => &wrapped.base,
         }
     }
-
-    // ADT: There must be a less verbose way to stash the comments in the base.
-    // The above base function returns an immutable reference so we can't use
-    // it. Should we refactor it?
-    pub fn add_comments(&mut self, comments: Option<Box<Comment>>) {
-        match self {
-            Expression::Identifier(wrapped) => wrapped.base.comments = comments,
-            Expression::Array(wrapped) => wrapped.base.comments = comments,
-            Expression::Function(wrapped) => wrapped.base.comments = comments,
-            Expression::Logical(wrapped) => wrapped.base.comments = comments,
-            Expression::Object(wrapped) => wrapped.base.comments = comments,
-            Expression::Member(wrapped) => wrapped.base.comments = comments,
-            Expression::Index(wrapped) => wrapped.base.comments = comments,
-            Expression::Binary(wrapped) => wrapped.base.comments = comments,
-            Expression::Unary(wrapped) => wrapped.base.comments = comments,
-            Expression::PipeExpr(wrapped) => wrapped.base.comments = comments,
-            Expression::Call(wrapped) => wrapped.base.comments = comments,
-            Expression::Conditional(wrapped) => wrapped.base.comments = comments,
-            Expression::Integer(wrapped) => wrapped.base.comments = comments,
-            Expression::Float(wrapped) => wrapped.base.comments = comments,
-            Expression::StringLit(wrapped) => wrapped.base.comments = comments,
-            Expression::Duration(wrapped) => wrapped.base.comments = comments,
-            Expression::Uint(wrapped) => wrapped.base.comments = comments,
-            Expression::Boolean(wrapped) => wrapped.base.comments = comments,
-            Expression::DateTime(wrapped) => wrapped.base.comments = comments,
-            Expression::Regexp(wrapped) => wrapped.base.comments = comments,
-            Expression::PipeLit(wrapped) => wrapped.base.comments = comments,
-            Expression::Bad(wrapped) => wrapped.base.comments = comments,
-            Expression::StringExpr(wrapped) => wrapped.base.comments = comments,
-            Expression::Paren(wrapped) => wrapped.base.comments = comments,
-        };
-    }
 }
 
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
@@ -342,6 +310,8 @@ pub struct Comment {
     pub next: Option<Box<Comment>>,
 }
 
+type CommentList = Option<Box<Comment>>;
+
 // BaseNode holds the attributes every expression or statement must have
 #[derive(Debug, Default, PartialEq, Clone, Serialize, Deserialize)]
 pub struct BaseNode {
@@ -351,9 +321,14 @@ pub struct BaseNode {
     #[serde(serialize_with = "serialize_errors")]
     #[serde(default)]
     pub errors: Vec<String>,
+    // If the base node is for a terminal the comments will be here. We also
+    // use the base node comments when a non-terminal contains just one
+    // terminal on the right hand side. When we format, we take the comments
+    // for the terminal from its parent. This saves us populating the
+    // type-specific AST nodes with comment lists when we can avoid it..
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    pub comments: Option<Box<Comment>>,
+    pub comments: CommentList,
 }
 
 impl BaseNode {
@@ -361,7 +336,7 @@ impl BaseNode {
         self.errors.is_empty() && !self.location.is_valid()
     }
 
-    pub fn add_comments(&mut self, comments: Option<Box<Comment>>) {
+    pub fn add_comments(&mut self, comments: CommentList) {
         self.comments = comments;
     }
 }
@@ -591,9 +566,9 @@ pub struct ParenExpr {
     pub base: BaseNode,
     pub expression: Expression,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub lcomments: Option<Box<Comment>>,
+    pub lparen: CommentList,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub rcomments: Option<Box<Comment>>,
+    pub rparen: CommentList,
 }
 
 // CallExpr represents a function call
@@ -608,9 +583,9 @@ pub struct CallExpr {
     #[serde(default)]
     pub arguments: Vec<Expression>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub lcomments: Option<Box<Comment>>,
+    pub lparen: CommentList,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub rcomments: Option<Box<Comment>>,
+    pub rparen: CommentList,
 }
 
 // PipeExpr represents a call expression using the pipe forward syntax.
@@ -634,9 +609,9 @@ pub struct MemberExpr {
     pub object: Expression,
     pub property: PropertyKey,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub lbrack_comment: Option<Box<Comment>>,
+    pub lbrack: CommentList,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub rbrack_comment: Option<Box<Comment>>,
+    pub rbrack: CommentList,
 }
 
 // IndexExpr represents indexing into an array
@@ -649,9 +624,9 @@ pub struct IndexExpr {
     pub array: Expression,
     pub index: Expression,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub lbrack_comment: Option<Box<Comment>>,
+    pub lbrack: CommentList,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub rbrack_comment: Option<Box<Comment>>,
+    pub rbrack: CommentList,
 }
 
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
@@ -664,11 +639,11 @@ pub struct FunctionExpr {
     pub params: Vec<Property>,
     pub body: FunctionBody,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub lcomment: Option<Box<Comment>>,
+    pub lparen: CommentList,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub rcomment: Option<Box<Comment>>,
+    pub rparen: CommentList,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub arrow_comment: Option<Box<Comment>>,
+    pub arrow: CommentList,
 }
 
 // Operator are Equality and Arithmetic operators.
@@ -917,9 +892,9 @@ pub struct ArrayExpr {
     pub base: BaseNode,
     pub elements: Vec<Expression>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub lbrack_comment: Option<Box<Comment>>,
+    pub lbrack: CommentList,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub rbrack_comment: Option<Box<Comment>>,
+    pub rbrack: CommentList,
 }
 
 // ObjectExpr allows the declaration of an anonymous object within a declaration.
@@ -934,9 +909,9 @@ pub struct ObjectExpr {
     pub with: Option<Identifier>,
     pub properties: Vec<Property>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub lbrace_comment: Option<Box<Comment>>,
+    pub lbrace: CommentList,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub rbrace_comment: Option<Box<Comment>>,
+    pub rbrace: CommentList,
 }
 
 // ConditionalExpr selects one of two expressions, `Alternate` or `Consequent`
@@ -951,11 +926,11 @@ pub struct ConditionalExpr {
     pub consequent: Expression,
     pub alternate: Expression,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub if_comment: Option<Box<Comment>>,
+    pub tk_if: CommentList,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub then_comment: Option<Box<Comment>>,
+    pub tk_then: CommentList,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub else_comment: Option<Box<Comment>>,
+    pub tk_else: CommentList,
 }
 
 // BadExpr is a malformed expression that contains the reason why in `text`.
@@ -983,9 +958,9 @@ pub struct Property {
     // `value` is optional, because of the shortcut: {a} <--> {a: a}
     pub value: Option<Expression>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub comma_comments: Option<Box<Comment>>,
+    pub comma: CommentList,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub sep_comments: Option<Box<Comment>>,
+    pub separator: CommentList,
 }
 
 // Identifier represents a name that identifies a unique Node

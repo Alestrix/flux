@@ -179,14 +179,14 @@ impl Formatter {
     fn format_property(&mut self, n: &ast::Property) {
         self.format_property_key(&n.key);
         if let Some(v) = &n.value {
-            self.format_comments(&n.sep_comments);
+            self.format_comments(&n.separator);
             self.write_string(": ");
             self.format_node(&Node::from_expr(&v));
         }
     }
 
     fn format_function_expression(&mut self, n: &ast::FunctionExpr) {
-        self.format_comments(&n.lcomment);
+        self.format_comments(&n.lparen);
         self.write_rune('(');
         let sep = ", ";
         for i in 0..n.params.len() {
@@ -195,11 +195,11 @@ impl Formatter {
             }
             // treat properties differently than in general case
             self.format_function_argument(n.params.get(i).unwrap());
-            self.format_comments(&n.params.get(i).unwrap().comma_comments);
+            self.format_comments(&n.params.get(i).unwrap().comma);
         }
-        self.format_comments(&n.rcomment);
+        self.format_comments(&n.rparen);
         self.write_string(") ");
-        self.format_comments(&n.arrow_comment);
+        self.format_comments(&n.arrow);
         self.write_string("=>");
         // must wrap body with parenthesis in order to discriminate between:
         //  - returning an object: (x) => ({foo: x})
@@ -226,7 +226,7 @@ impl Formatter {
     fn format_function_argument(&mut self, n: &ast::Property) {
         if let Some(v) = &n.value {
             self.format_property_key(&n.key);
-            self.format_comments(&n.sep_comments);
+            self.format_comments(&n.separator);
             self.write_rune('=');
             self.format_node(&Node::from_expr(&v));
         } else {
@@ -245,9 +245,9 @@ impl Formatter {
         // This could mix up ordering, but since the parens are programatically
         // added back, we would need to pass any closing comments down,
         // seriously complicating the function interface. For now, permit reordering.
-        self.format_comments(&n.lcomments);
+        self.format_comments(&n.lparen);
         self.format_node(&Node::from_expr(&n.expression));
-        self.format_comments(&n.rcomments);
+        self.format_comments(&n.rparen);
     }
 
     fn format_string_expression(&mut self, n: &ast::StringExpr) {
@@ -277,7 +277,7 @@ impl Formatter {
     }
 
     fn format_array_expression(&mut self, n: &ast::ArrayExpr) {
-        self.format_comments(&n.lbrack_comment);
+        self.format_comments(&n.lbrack);
         self.write_rune('[');
         let sep = ", ";
         for i in 0..n.elements.len() {
@@ -286,16 +286,16 @@ impl Formatter {
             }
             self.format_node(&Node::from_expr(n.elements.get(i).unwrap()));
         }
-        self.format_comments(&n.rbrack_comment);
+        self.format_comments(&n.rbrack);
         self.write_rune(']')
     }
 
     fn format_index_expression(&mut self, n: &ast::IndexExpr) {
         self.format_child_with_parens(Node::IndexExpr(n), Node::from_expr(&n.array));
-        self.format_comments(&n.lbrack_comment);
+        self.format_comments(&n.lbrack);
         self.write_rune('[');
         self.format_node(&Node::from_expr(&n.index));
-        self.format_comments(&n.rbrack_comment);
+        self.format_comments(&n.rbrack);
         self.write_rune(']');
     }
 
@@ -400,10 +400,10 @@ impl Formatter {
                 self.format_node(&Node::Identifier(&m));
             }
             ast::PropertyKey::StringLit(m) => {
-                self.format_comments(&n.lbrack_comment);
+                self.format_comments(&n.lbrack);
                 self.write_rune('[');
                 self.format_node(&Node::StringLit(&m));
-                self.format_comments(&n.rbrack_comment);
+                self.format_comments(&n.rbrack);
                 self.write_rune(']');
             }
         }
@@ -421,7 +421,7 @@ impl Formatter {
 
     fn format_call_expression(&mut self, n: &ast::CallExpr) {
         self.format_child_with_parens(Node::CallExpr(n), Node::from_expr(&n.callee));
-        self.format_comments(&n.lcomments);
+        self.format_comments(&n.lparen);
         self.write_rune('(');
         let sep = ", ";
         for i in 0..n.arguments.len() {
@@ -435,7 +435,7 @@ impl Formatter {
                 _ => self.format_node(&Node::from_expr(c)),
             }
         }
-        self.format_comments(&n.rcomments);
+        self.format_comments(&n.rparen);
         self.write_rune(')');
     }
 
@@ -448,7 +448,7 @@ impl Formatter {
 
     fn format_object_expression_braces(&mut self, n: &ast::ObjectExpr, braces: bool) {
         let multiline = n.properties.len() > 3;
-        self.format_comments(&n.lbrace_comment);
+        self.format_comments(&n.lbrace);
         if braces {
             self.write_rune('{');
         }
@@ -475,14 +475,14 @@ impl Formatter {
                 }
             }
             self.format_node(&Node::Property(n.properties.get(i).unwrap()));
-            self.format_comments(&n.properties.get(i).unwrap().comma_comments);
+            self.format_comments(&n.properties.get(i).unwrap().comma);
         }
         if multiline {
             self.write_string(sep);
             self.unindent();
             self.write_indent();
         }
-        self.format_comments(&n.rbrace_comment);
+        self.format_comments(&n.rbrace);
         if braces {
             self.write_rune('}');
         }
@@ -501,13 +501,13 @@ impl Formatter {
     }
 
     fn format_conditional_expression(&mut self, n: &ast::ConditionalExpr) {
-        self.format_comments(&n.if_comment);
+        self.format_comments(&n.tk_if);
         self.write_string("if ");
         self.format_node(&Node::from_expr(&n.test));
-        self.format_comments(&n.then_comment);
+        self.format_comments(&n.tk_then);
         self.write_string(" then ");
         self.format_node(&Node::from_expr(&n.consequent));
-        self.format_comments(&n.else_comment);
+        self.format_comments(&n.tk_else);
         self.write_string(" else ");
         self.format_node(&Node::from_expr(&n.alternate));
     }

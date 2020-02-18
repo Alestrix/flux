@@ -389,8 +389,8 @@ fn bad_string_expression() {
                             },
                             name: "a".to_string()
                         }),
-                        sep_comments: None,
-                        comma_comments: None,
+                        separator: None,
+                        comma: None,
                         value: None,
                     }],
                     body: FunctionBody::Expr(Expression::StringExpr(Box::new(StringExpr {
@@ -404,9 +404,9 @@ fn bad_string_expression() {
                         },
                         parts: vec![],
                     }))),
-                    lcomment: None,
-                    rcomment: None,
-                    arrow_comment: None,
+                    lparen: None,
+                    rparen: None,
+                    arrow: None,
                 })),
             }))],
         },
@@ -797,8 +797,8 @@ fn optional_query_metadata() {
                                     },
                                     name: "name".to_string()
                                 }),
-                                sep_comments: None,
-                                comma_comments: None,
+                                separator: None,
+                                comma: None,
                                 value: Some(Expression::StringLit(StringLit {
                                     base: BaseNode {
                                         location: loc.get(2, 11, 2, 16),
@@ -819,8 +819,8 @@ fn optional_query_metadata() {
                                     },
                                     name: "every".to_string()
                                 }),
-                                sep_comments: None,
-                                comma_comments: None,
+                                separator: None,
+                                comma: None,
                                 value: Some(Expression::Duration(DurationLit {
                                     base: BaseNode {
                                         location: loc.get(3, 12, 3, 14),
@@ -844,8 +844,8 @@ fn optional_query_metadata() {
                                     },
                                     name: "delay".to_string()
                                 }),
-                                sep_comments: None,
-                                comma_comments: None,
+                                separator: None,
+                                comma: None,
                                 value: Some(Expression::Duration(DurationLit {
                                     base: BaseNode {
                                         location: loc.get(4, 12, 4, 15),
@@ -869,8 +869,8 @@ fn optional_query_metadata() {
                                     },
                                     name: "cron".to_string()
                                 }),
-                                sep_comments: None,
-                                comma_comments: None,
+                                separator: None,
+                                comma: None,
                                 value: Some(Expression::StringLit(StringLit {
                                     base: BaseNode {
                                         location: loc.get(5, 11, 5, 22),
@@ -891,8 +891,8 @@ fn optional_query_metadata() {
                                     },
                                     name: "retry".to_string()
                                 }),
-                                sep_comments: None,
-                                comma_comments: None,
+                                separator: None,
+                                comma: None,
                                 value: Some(Expression::Integer(IntegerLit {
                                     base: BaseNode {
                                         location: loc.get(6, 12, 6, 13),
@@ -902,8 +902,8 @@ fn optional_query_metadata() {
                                 }))
                             }
                         ],
-                        lbrace_comment: None,
-                        rbrace_comment: None,
+                        lbrace: None,
+                        rbrace: None,
                     }))
                 }))
             }))]
@@ -972,8 +972,8 @@ fn optional_query_metadata_preceding_query_text() {
                                         },
                                         name: "name".to_string()
                                     }),
-                                    sep_comments: None,
-                                    comma_comments: None,
+                                    separator: None,
+                                    comma: None,
                                     value: Some(Expression::StringLit(StringLit {
                                         base: BaseNode {
                                             location: loc.get(2, 12, 2, 17),
@@ -998,8 +998,8 @@ fn optional_query_metadata_preceding_query_text() {
                                         },
                                         name: "every".to_string()
                                     }),
-                                    sep_comments: None,
-                                    comma_comments: None,
+                                    separator: None,
+                                    comma: None,
                                     value: Some(Expression::Duration(DurationLit {
                                         base: BaseNode {
                                             location: loc.get(3, 13, 3, 15),
@@ -1012,8 +1012,8 @@ fn optional_query_metadata_preceding_query_text() {
                                     }))
                                 }
                             ],
-                            lbrace_comment: None,
-                            rbrace_comment: Some(Box::new(Comment {
+                            lbrace: None,
+                            rbrace: Some(Box::new(Comment {
                                 lit: "// Execution frequency of task\n".to_string(),
                                 next: None,
                             })),
@@ -1035,8 +1035,8 @@ fn optional_query_metadata_preceding_query_text() {
                                 location: loc.get(7, 5, 7, 11),
                                 ..BaseNode::default()
                             },
-                            lcomments: None,
-                            rcomments: None,
+                            lparen: None,
+                            rparen: None,
                             callee: Expression::Identifier(Identifier {
                                 base: BaseNode {
                                     location: loc.get(7, 5, 7, 9),
@@ -1056,8 +1056,8 @@ fn optional_query_metadata_preceding_query_text() {
                                 location: loc.get(7, 15, 7, 22),
                                 ..BaseNode::default()
                             },
-                            lcomments: None,
-                            rcomments: None,
+                            lparen: None,
+                            rparen: None,
                             callee: Expression::Identifier(Identifier {
                                 base: BaseNode {
                                     location: loc.get(7, 15, 7, 20),
@@ -1119,8 +1119,8 @@ fn qualified_option() {
                             },
                             name: "state".to_string()
                         }),
-                        lbrack_comment: None,
-                        rbrack_comment: None,
+                        lbrack: None,
+                        rbrack: None,
                     },
                     init: Expression::StringLit(StringLit {
                         base: BaseNode {
@@ -1220,8 +1220,8 @@ fn test_statement() {
                                     },
                                     name: "want".to_string()
                                 }),
-                                sep_comments: None,
-                                comma_comments: None,
+                                separator: None,
+                                comma: None,
                                 value: Some(Expression::Integer(IntegerLit {
                                     base: BaseNode {
                                         location: loc.get(1, 20, 1, 21),
@@ -1242,8 +1242,8 @@ fn test_statement() {
                                     },
                                     name: "got".to_string()
                                 }),
-                                sep_comments: None,
-                                comma_comments: None,
+                                separator: None,
+                                comma: None,
                                 value: Some(Expression::Integer(IntegerLit {
                                     base: BaseNode {
                                         location: loc.get(1, 28, 1, 29),
@@ -1253,8 +1253,8 @@ fn test_statement() {
                                 }))
                             }
                         ],
-                        lbrace_comment: None,
-                        rbrace_comment: None,
+                        lbrace: None,
+                        rbrace: None,
                     }))
                 }
             }))]
@@ -1288,8 +1288,8 @@ fn from() {
                         location: loc.get(1, 1, 1, 7),
                         ..BaseNode::default()
                     },
-                    lcomments: None,
-                    rcomments: None,
+                    lparen: None,
+                    rparen: None,
                     arguments: vec![],
                     callee: Expression::Identifier(Identifier {
                         base: BaseNode {
@@ -1333,8 +1333,8 @@ fn comment() {
                         location: loc.get(2, 4, 2, 10),
                         ..BaseNode::default()
                     },
-                    lcomments: None,
-                    rcomments: None,
+                    lparen: None,
+                    rparen: None,
                     arguments: vec![],
                     callee: Expression::Identifier(Identifier {
                         base: BaseNode {
@@ -1379,8 +1379,8 @@ fn identifier_with_number() {
                         location: loc.get(1, 1, 1, 7),
                         ..BaseNode::default()
                     },
-                    lcomments: None,
-                    rcomments: None,
+                    lparen: None,
+                    rparen: None,
                     arguments: vec![],
                     callee: Expression::Identifier(Identifier {
                         base: BaseNode {
@@ -1716,8 +1716,8 @@ fn declare_variable_as_an_array() {
                             value: 4
                         })
                     ],
-                    lbrack_comment: None,
-                    rbrack_comment: None,
+                    lbrack: None,
+                    rbrack: None,
                 }))
             }))]
         },
@@ -1758,8 +1758,8 @@ fn declare_variable_as_an_empty_array() {
                         ..BaseNode::default()
                     },
                     elements: vec![],
-                    lbrack_comment: None,
-                    rbrack_comment: None,
+                    lbrack: None,
+                    rbrack: None,
                 }))
             }))]
         },
@@ -1816,8 +1816,8 @@ fn use_variable_to_declare_something() {
                             location: loc.get(2, 4, 2, 10),
                             ..BaseNode::default()
                         },
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                         arguments: vec![],
                         callee: Expression::Identifier(Identifier {
                             base: BaseNode {
@@ -1870,8 +1870,8 @@ fn variable_is_from_statement() {
                             location: loc.get(1, 9, 1, 15),
                             ..BaseNode::default()
                         },
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                         arguments: vec![],
                         callee: Expression::Identifier(Identifier {
                             base: BaseNode {
@@ -1912,11 +1912,11 @@ fn variable_is_from_statement() {
                                 },
                                 name: "count".to_string()
                             }),
-                            lbrack_comment: None,
-                            rbrack_comment: None,
+                            lbrack: None,
+                            rbrack: None,
                         })),
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                     }))
                 }))
             ]
@@ -1955,8 +1955,8 @@ fn pipe_expression() {
                             location: loc.get(1, 1, 1, 7),
                             ..BaseNode::default()
                         },
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                         callee: Expression::Identifier(Identifier {
                             base: BaseNode {
                                 location: loc.get(1, 1, 1, 5),
@@ -1971,8 +1971,8 @@ fn pipe_expression() {
                             location: loc.get(1, 11, 1, 18),
                             ..BaseNode::default()
                         },
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                         callee: Expression::Identifier(Identifier {
                             base: BaseNode {
                                 location: loc.get(1, 11, 1, 16),
@@ -2045,8 +2045,8 @@ fn pipe_expression_to_member_expression_function() {
                                 },
                                 name: "c".to_string()
                             }),
-                            lbrack_comment: None,
-                            rbrack_comment: None,
+                            lbrack: None,
+                            rbrack: None,
                         })),
                         arguments: vec![Expression::Object(Box::new(ObjectExpr {
                             base: BaseNode {
@@ -2066,8 +2066,8 @@ fn pipe_expression_to_member_expression_function() {
                                     },
                                     name: "d".to_string()
                                 }),
-                                sep_comments: None,
-                                comma_comments: None,
+                                separator: None,
+                                comma: None,
                                 value: Some(Expression::Identifier(Identifier {
                                     base: BaseNode {
                                         location: loc.get(1, 12, 1, 13),
@@ -2076,11 +2076,11 @@ fn pipe_expression_to_member_expression_function() {
                                     name: "e".to_string()
                                 }))
                             }],
-                            lbrace_comment: None,
-                            rbrace_comment: None,
+                            lbrace: None,
+                            rbrace: None,
                         }))],
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                     }
                 }))
             }))]
@@ -2134,8 +2134,8 @@ fn literal_pipe_expression() {
                             },
                             name: "pow2".to_string()
                         }),
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                     }
                 })),
             }))]
@@ -2188,8 +2188,8 @@ fn member_expression_pipe_expression() {
                             },
                             name: "bar".to_string()
                         }),
-                        lbrack_comment: None,
-                        rbrack_comment: None,
+                        lbrack: None,
+                        rbrack: None,
                     })),
                     call: CallExpr {
                         base: BaseNode {
@@ -2204,8 +2204,8 @@ fn member_expression_pipe_expression() {
                             name: "baz".to_string()
                         }),
                         arguments: vec![],
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                     }
                 }))
             }))]
@@ -2262,8 +2262,8 @@ fn multiple_pipe_expressions() {
                                     name: "from".to_string()
                                 }),
                                 arguments: vec![],
-                                lcomments: None,
-                                rcomments: None,
+                                lparen: None,
+                                rparen: None,
                             })),
                             call: CallExpr {
                                 base: BaseNode {
@@ -2278,8 +2278,8 @@ fn multiple_pipe_expressions() {
                                     name: "range".to_string()
                                 }),
                                 arguments: vec![],
-                                lcomments: None,
-                                rcomments: None,
+                                lparen: None,
+                                rparen: None,
                             }
                         })),
                         call: CallExpr {
@@ -2295,8 +2295,8 @@ fn multiple_pipe_expressions() {
                                 name: "filter".to_string()
                             }),
                             arguments: vec![],
-                            lcomments: None,
-                            rcomments: None,
+                            lparen: None,
+                            rparen: None,
                         }
                     })),
                     call: CallExpr {
@@ -2312,8 +2312,8 @@ fn multiple_pipe_expressions() {
                             name: "count".to_string()
                         }),
                         arguments: vec![],
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                     }
                 }))
             }))]
@@ -2360,8 +2360,8 @@ fn pipe_expression_into_non_call_expression() {
                             name: "foo".to_string()
                         }),
                         arguments: vec![],
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                     })),
                     call: CallExpr {
                         base: BaseNode {
@@ -2377,8 +2377,8 @@ fn pipe_expression_into_non_call_expression() {
                             name: "bar".to_string()
                         }),
                         arguments: vec![],
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                     }
                 })),
             }))]
@@ -2433,8 +2433,8 @@ fn two_variables_for_two_froms() {
                             },
                             name: "from".to_string()
                         }),
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                     })),
                 })),
                 Statement::Variable(Box::new(VariableAssgn {
@@ -2462,8 +2462,8 @@ fn two_variables_for_two_froms() {
                             },
                             name: "from".to_string()
                         }),
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                     })),
                 })),
                 Statement::Expr(Box::new(ExprStmt {
@@ -2496,8 +2496,8 @@ fn two_variables_for_two_froms() {
                                 name: "count".to_string()
                             }),
                             arguments: vec![],
-                            lcomments: None,
-                            rcomments: None,
+                            lparen: None,
+                            rparen: None,
                         }
                     }))
                 })),
@@ -2531,8 +2531,8 @@ fn two_variables_for_two_froms() {
                                 name: "sum".to_string()
                             }),
                             arguments: vec![],
-                            lcomments: None,
-                            rcomments: None,
+                            lparen: None,
+                            rparen: None,
                         }
                     }))
                 }))
@@ -2592,8 +2592,8 @@ fn from_with_database() {
                                 },
                                 name: "bucket".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: Some(Expression::StringLit(StringLit {
                                 base: BaseNode {
                                     location: loc.get(1, 13, 1, 31),
@@ -2602,11 +2602,11 @@ fn from_with_database() {
                                 value: "telegraf/autogen".to_string()
                             }))
                         }],
-                        lbrace_comment: None,
-                        rbrace_comment: None,
+                        lbrace: None,
+                        rbrace: None,
                     }))],
-                    lcomments: None,
-                    rcomments: None,
+                    lparen: None,
+                    rparen: None,
                 }))
             }))]
         },
@@ -2666,8 +2666,8 @@ fn map_member_expressions() {
                                     },
                                     name: "key1".to_string()
                                 }),
-                                sep_comments: None,
-                                comma_comments: None,
+                                separator: None,
+                                comma: None,
                                 value: Some(Expression::Integer(IntegerLit {
                                     base: BaseNode {
                                         location: loc.get(1, 12, 1, 13),
@@ -2688,8 +2688,8 @@ fn map_member_expressions() {
                                     },
                                     name: "key2".to_string()
                                 }),
-                                sep_comments: None,
-                                comma_comments: None,
+                                separator: None,
+                                comma: None,
                                 value: Some(Expression::StringLit(StringLit {
                                     base: BaseNode {
                                         location: loc.get(1, 20, 1, 28),
@@ -2699,8 +2699,8 @@ fn map_member_expressions() {
                                 }))
                             }
                         ],
-                        lbrace_comment: None,
-                        rbrace_comment: None,
+                        lbrace: None,
+                        rbrace: None,
                     }))
                 })),
                 Statement::Expr(Box::new(ExprStmt {
@@ -2727,8 +2727,8 @@ fn map_member_expressions() {
                             },
                             name: "key1".to_string()
                         }),
-                        lbrack_comment: None,
-                        rbrack_comment: None,
+                        lbrack: None,
+                        rbrack: None,
                     }))
                 })),
                 Statement::Expr(Box::new(ExprStmt {
@@ -2755,8 +2755,8 @@ fn map_member_expressions() {
                             },
                             value: "key2".to_string()
                         }),
-                        lbrack_comment: None,
-                        rbrack_comment: None,
+                        lbrack: None,
+                        rbrack: None,
                     }))
                 }))
             ]
@@ -2810,8 +2810,8 @@ fn object_with_string_literal_key() {
                             },
                             value: "a".to_string()
                         }),
-                        sep_comments: None,
-                        comma_comments: None,
+                        separator: None,
+                        comma: None,
                         value: Some(Expression::Integer(IntegerLit {
                             base: BaseNode {
                                 location: loc.get(1, 11, 1, 13),
@@ -2820,8 +2820,8 @@ fn object_with_string_literal_key() {
                             value: 10
                         }))
                     }],
-                    lbrace_comment: None,
-                    rbrace_comment: None,
+                    lbrace: None,
+                    rbrace: None,
                 }))
             }))]
         },
@@ -2875,8 +2875,8 @@ fn object_with_mixed_keys() {
                                 },
                                 value: "a".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: Some(Expression::Integer(IntegerLit {
                                 base: BaseNode {
                                     location: loc.get(1, 11, 1, 13),
@@ -2897,8 +2897,8 @@ fn object_with_mixed_keys() {
                                 },
                                 name: "b".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: Some(Expression::Integer(IntegerLit {
                                 base: BaseNode {
                                     location: loc.get(1, 18, 1, 20),
@@ -2908,8 +2908,8 @@ fn object_with_mixed_keys() {
                             }))
                         }
                     ],
-                    lbrace_comment: None,
-                    rbrace_comment: None,
+                    lbrace: None,
+                    rbrace: None,
                 }))
             }))]
         },
@@ -2963,8 +2963,8 @@ fn implicit_key_object_literal() {
                                 },
                                 name: "a".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: None
                         },
                         Property {
@@ -2979,13 +2979,13 @@ fn implicit_key_object_literal() {
                                 },
                                 name: "b".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: None
                         }
                     ],
-                    lbrace_comment: None,
-                    rbrace_comment: None,
+                    lbrace: None,
+                    rbrace: None,
                 }))
             }))]
         },
@@ -3041,8 +3041,8 @@ fn implicit_key_object_literal_error() {
                                 },
                                 value: "a".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: None
                         },
                         Property {
@@ -3057,13 +3057,13 @@ fn implicit_key_object_literal_error() {
                                 },
                                 name: "b".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: None
                         }
                     ],
-                    lbrace_comment: None,
-                    rbrace_comment: None,
+                    lbrace: None,
+                    rbrace: None,
                 }))
             }))]
         },
@@ -3119,8 +3119,8 @@ fn implicit_and_explicit_keys_object_literal_error() {
                                 },
                                 name: "a".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: None
                         },
                         Property {
@@ -3135,8 +3135,8 @@ fn implicit_and_explicit_keys_object_literal_error() {
                                 },
                                 name: "b".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: Some(Expression::Identifier(Identifier {
                                 base: BaseNode {
                                     location: loc.get(1, 11, 1, 12),
@@ -3146,8 +3146,8 @@ fn implicit_and_explicit_keys_object_literal_error() {
                             }))
                         }
                     ],
-                    lbrace_comment: None,
-                    rbrace_comment: None,
+                    lbrace: None,
+                    rbrace: None,
                 }))
             }))]
         },
@@ -3200,8 +3200,8 @@ fn object_with() {
                                 },
                                 name: "b".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: Some(Expression::Identifier(Identifier {
                                 base: BaseNode {
                                     location: loc.get(1, 11, 1, 12),
@@ -3222,8 +3222,8 @@ fn object_with() {
                                 },
                                 name: "d".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: Some(Expression::Identifier(Identifier {
                                 base: BaseNode {
                                     location: loc.get(1, 16, 1, 17),
@@ -3233,8 +3233,8 @@ fn object_with() {
                             }))
                         }
                     ],
-                    lbrace_comment: None,
-                    rbrace_comment: None,
+                    lbrace: None,
+                    rbrace: None,
                 }))
             }))]
         },
@@ -3287,8 +3287,8 @@ fn object_with_implicit_keys() {
                                 },
                                 name: "b".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: None
                         },
                         Property {
@@ -3303,13 +3303,13 @@ fn object_with_implicit_keys() {
                                 },
                                 name: "c".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: None
                         }
                     ],
-                    lbrace_comment: None,
-                    rbrace_comment: None,
+                    lbrace: None,
+                    rbrace: None,
                 }))
             }))]
         },
@@ -3356,8 +3356,8 @@ fn index_expression() {
                         },
                         value: 3
                     }),
-                    lbrack_comment: None,
-                    rbrack_comment: None,
+                    lbrack: None,
+                    rbrack: None,
                 }))
             }))]
         },
@@ -3409,8 +3409,8 @@ fn nested_index_expression() {
                             },
                             value: 3
                         }),
-                        lbrack_comment: None,
-                        rbrack_comment: None,
+                        lbrack: None,
+                        rbrack: None,
                     })),
                     index: Expression::Integer(IntegerLit {
                         base: BaseNode {
@@ -3419,8 +3419,8 @@ fn nested_index_expression() {
                         },
                         value: 5
                     }),
-                    lbrack_comment: None,
-                    rbrack_comment: None,
+                    lbrack: None,
+                    rbrack: None,
                 }))
             }))]
         },
@@ -3466,8 +3466,8 @@ fn access_indexed_object_returned_from_function_call() {
                             },
                             name: "f".to_string()
                         }),
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                     })),
                     index: Expression::Integer(IntegerLit {
                         base: BaseNode {
@@ -3476,8 +3476,8 @@ fn access_indexed_object_returned_from_function_call() {
                         },
                         value: 3
                     }),
-                    lbrack_comment: None,
-                    rbrack_comment: None,
+                    lbrack: None,
+                    rbrack: None,
                 }))
             }))]
         },
@@ -3529,8 +3529,8 @@ fn index_with_member_expressions() {
                             },
                             name: "b".to_string()
                         }),
-                        lbrack_comment: None,
-                        rbrack_comment: None,
+                        lbrack: None,
+                        rbrack: None,
                     })),
                     property: PropertyKey::StringLit(StringLit {
                         base: BaseNode {
@@ -3539,8 +3539,8 @@ fn index_with_member_expressions() {
                         },
                         value: "c".to_string()
                     }),
-                    lbrack_comment: None,
-                    rbrack_comment: None,
+                    lbrack: None,
+                    rbrack: None,
                 }))
             }))]
         },
@@ -3598,11 +3598,11 @@ fn index_with_member_with_call_expression() {
                                 },
                                 name: "b".to_string()
                             }),
-                            lbrack_comment: None,
-                            rbrack_comment: None,
+                            lbrack: None,
+                            rbrack: None,
                         })),
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                     })),
                     property: PropertyKey::StringLit(StringLit {
                         base: BaseNode {
@@ -3611,8 +3611,8 @@ fn index_with_member_with_call_expression() {
                         },
                         value: "c".to_string()
                     }),
-                    lbrack_comment: None,
-                    rbrack_comment: None,
+                    lbrack: None,
+                    rbrack: None,
                 }))
             }))]
         },
@@ -3666,11 +3666,11 @@ fn index_with_unclosed_bracket() {
                             },
                             name: "b".to_string()
                         }),
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                     })),
-                    lbrack_comment: None,
-                    rbrack_comment: None,
+                    lbrack: None,
+                    rbrack: None,
                 }))
             }))]
         },
@@ -3724,11 +3724,11 @@ fn index_with_unbalanced_parenthesis() {
                             },
                             name: "b".to_string()
                         }),
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                     })),
-                    lbrack_comment: None,
-                    rbrack_comment: None,
+                    lbrack: None,
+                    rbrack: None,
                 }))
             }))]
         },
@@ -3776,8 +3776,8 @@ fn index_with_unexpected_rparen() {
                         },
                         name: "b".to_string()
                     }),
-                    lbrack_comment: None,
-                    rbrack_comment: None,
+                    lbrack: None,
+                    rbrack: None,
                 }))
             }))]
         },
@@ -3877,8 +3877,8 @@ fn member_expression_binary_expression() {
                             },
                             name: "_value".to_string()
                         }),
-                        lbrack_comment: None,
-                        rbrack_comment: None,
+                        lbrack: None,
+                        rbrack: None,
                     })),
                     right: Expression::Float(FloatLit {
                         base: BaseNode {
@@ -4346,8 +4346,8 @@ fn unary_expression_with_member_expression() {
                             },
                             name: "b".to_string()
                         }),
-                        lbrack_comment: None,
-                        rbrack_comment: None,
+                        lbrack: None,
+                        rbrack: None,
                     }))
                 }))
             }))]
@@ -4546,8 +4546,8 @@ fn expressions_with_function_calls() {
                             },
                             name: "foo".to_string()
                         }),
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                     })),
                     right: Expression::Integer(IntegerLit {
                         base: BaseNode {
@@ -4603,8 +4603,8 @@ fn mix_unary_logical_and_binary_expressions() {
                                 location: loc.get(2, 17, 2, 33),
                                 ..BaseNode::default()
                             },
-                            lcomments: None,
-                            rcomments: None,
+                            lparen: None,
+                            rparen: None,
                             expression: Expression::Binary(Box::new(BinaryExpr {
                                 base: BaseNode {
                                     location: loc.get(2, 18, 2, 32),
@@ -4624,8 +4624,8 @@ fn mix_unary_logical_and_binary_expressions() {
                                         },
                                         name: "f".to_string()
                                     }),
-                                    lcomments: None,
-                                    rcomments: None,
+                                    lparen: None,
+                                    rparen: None,
                                 })),
                                 right: Expression::Binary(Box::new(BinaryExpr {
                                     base: BaseNode {
@@ -4664,8 +4664,8 @@ fn mix_unary_logical_and_binary_expressions() {
                             },
                             name: "fail".to_string()
                         }),
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                     })),
                 }))
             }))]
@@ -4702,8 +4702,8 @@ fn mix_unary_logical_and_binary_expressions_with_extra_parens() {
                         location: loc.get(2, 13, 2, 45),
                         ..BaseNode::default()
                     },
-                    lcomments: None,
-                    rcomments: None,
+                    lparen: None,
+                    rparen: None,
                     expression: Expression::Logical(Box::new(LogicalExpr {
                         base: BaseNode {
                             location: loc.get(2, 14, 2, 44),
@@ -4721,8 +4721,8 @@ fn mix_unary_logical_and_binary_expressions_with_extra_parens() {
                                     location: loc.get(2, 18, 2, 34),
                                     ..BaseNode::default()
                                 },
-                                lcomments: None,
-                                rcomments: None,
+                                lparen: None,
+                                rparen: None,
                                 expression: Expression::Binary(Box::new(BinaryExpr {
                                     base: BaseNode {
                                         location: loc.get(2, 19, 2, 33),
@@ -4742,8 +4742,8 @@ fn mix_unary_logical_and_binary_expressions_with_extra_parens() {
                                             },
                                             name: "f".to_string()
                                         }),
-                                        lcomments: None,
-                                        rcomments: None,
+                                        lparen: None,
+                                        rparen: None,
                                     })),
                                     right: Expression::Binary(Box::new(BinaryExpr {
                                         base: BaseNode {
@@ -4782,8 +4782,8 @@ fn mix_unary_logical_and_binary_expressions_with_extra_parens() {
                                 },
                                 name: "fail".to_string()
                             }),
-                            lcomments: None,
-                            rcomments: None,
+                            lparen: None,
+                            rparen: None,
                         })),
                     }))
                 }))
@@ -5155,8 +5155,8 @@ fn binary_operator_precedence_double_subtraction_with_parens() {
                             location: loc.get(1, 5, 1, 12),
                             ..BaseNode::default()
                         },
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                         expression: Expression::Binary(Box::new(BinaryExpr {
                             base: BaseNode {
                                 location: loc.get(1, 6, 1, 11),
@@ -5285,8 +5285,8 @@ fn binary_operator_precedence_double_sum_with_parens() {
                             location: loc.get(1, 5, 1, 12),
                             ..BaseNode::default()
                         },
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                         expression: Expression::Binary(Box::new(BinaryExpr {
                             base: BaseNode {
                                 location: loc.get(1, 6, 1, 11),
@@ -5455,8 +5455,8 @@ k / l < m + n - o or p() <= q() or r >= s and not t =~ /a/ and u !~ /a/"#,
                                                     },
                                                     name: "a".to_string()
                                                 }),
-                                                lcomments: None,
-                                                rcomments: None,
+                                                lparen: None,
+                                                rparen: None,
                                             })),
                                             right: Expression::Binary(Box::new(BinaryExpr {
                                                 base: BaseNode {
@@ -5483,8 +5483,8 @@ k / l < m + n - o or p() <= q() or r >= s and not t =~ /a/ and u !~ /a/"#,
                                                         },
                                                         name: "a".to_string()
                                                     }),
-                                                    lbrack_comment: None,
-                                                    rbrack_comment: None,
+                                                    lbrack: None,
+                                                    rbrack: None,
                                                 })),
                                                 right: Expression::Binary(Box::new(BinaryExpr {
                                                     base: BaseNode {
@@ -5518,8 +5518,8 @@ k / l < m + n - o or p() <= q() or r >= s and not t =~ /a/ and u !~ /a/"#,
                                                                     name: "c".to_string()
                                                                 }
                                                             ),
-                                                            lbrack_comment: None,
-                                                            rbrack_comment: None,
+                                                            lbrack: None,
+                                                            rbrack: None,
                                                         }
                                                     )),
                                                     right: Expression::Identifier(Identifier {
@@ -5572,8 +5572,8 @@ k / l < m + n - o or p() <= q() or r >= s and not t =~ /a/ and u !~ /a/"#,
                                                 },
                                                 name: "g".to_string()
                                             }),
-                                            lbrack_comment: None,
-                                            rbrack_comment: None,
+                                            lbrack: None,
+                                            rbrack: None,
                                         }))
                                     }))
                                 })),
@@ -5696,8 +5696,8 @@ k / l < m + n - o or p() <= q() or r >= s and not t =~ /a/ and u !~ /a/"#,
                                     },
                                     name: "p".to_string()
                                 }),
-                                lcomments: None,
-                                rcomments: None,
+                                lparen: None,
+                                rparen: None,
                             })),
                             right: Expression::Call(Box::new(CallExpr {
                                 base: BaseNode {
@@ -5712,8 +5712,8 @@ k / l < m + n - o or p() <= q() or r >= s and not t =~ /a/ and u !~ /a/"#,
                                     },
                                     name: "q".to_string()
                                 }),
-                                lcomments: None,
-                                rcomments: None,
+                                lparen: None,
+                                rparen: None,
                             }))
                         }))
                     })),
@@ -6177,8 +6177,8 @@ fn logical_operators_precedence_7() {
                             location: loc.get(1, 5, 1, 13),
                             ..BaseNode::default()
                         },
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                         expression: Expression::Logical(Box::new(LogicalExpr {
                             base: BaseNode {
                                 location: loc.get(1, 6, 1, 12),
@@ -6239,8 +6239,8 @@ fn logical_operators_precedence_8() {
                             location: loc.get(1, 5, 1, 14),
                             ..BaseNode::default()
                         },
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                         expression: Expression::Logical(Box::new(LogicalExpr {
                             base: BaseNode {
                                 location: loc.get(1, 6, 1, 13),
@@ -6301,8 +6301,8 @@ fn logical_operators_precedence_9() {
                             location: loc.get(1, 1, 1, 9),
                             ..BaseNode::default()
                         },
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                         expression: Expression::Logical(Box::new(LogicalExpr {
                             base: BaseNode {
                                 location: loc.get(1, 2, 1, 8),
@@ -6377,8 +6377,8 @@ fn logical_operators_precedence_10() {
                             location: loc.get(1, 7, 1, 15),
                             ..BaseNode::default()
                         },
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                         expression: Expression::Logical(Box::new(LogicalExpr {
                             base: BaseNode {
                                 location: loc.get(1, 8, 1, 14),
@@ -6457,8 +6457,8 @@ fn two_logical_operations_with_parens() {
                                     location: loc.get(1, 5, 1, 14),
                                     ..BaseNode::default()
                                 },
-                                lcomments: None,
-                                rcomments: None,
+                                lparen: None,
+                                rparen: None,
                                 expression: Expression::Logical(Box::new(LogicalExpr {
                                     base: BaseNode {
                                         location: loc.get(1, 6, 1, 13),
@@ -6500,8 +6500,8 @@ fn two_logical_operations_with_parens() {
                                             },
                                             name: "a".to_string()
                                         }),
-                                        sep_comments: None,
-                                        comma_comments: None,
+                                        separator: None,
+                                        comma: None,
                                         value: None,
                                     },
                                     Property {
@@ -6520,16 +6520,16 @@ fn two_logical_operations_with_parens() {
                                             },
                                             value: "<invalid>".to_string()
                                         }),
-                                        sep_comments: None,
-                                        comma_comments: None,
+                                        separator: None,
+                                        comma: None,
                                         value: None,
                                     }
                                 ],
-                                lbrace_comment: None,
-                                rbrace_comment: None,
+                                lbrace: None,
+                                rbrace: None,
                             }))],
-                            lcomments: None,
-                            rcomments: None,
+                            lparen: None,
+                            rparen: None,
                         }))
                     })),
                     right: Expression::Identifier(Identifier {
@@ -6594,8 +6594,8 @@ fn arrow_function_called() {
                                 },
                                 name: "r".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: None
                         }],
                         body: FunctionBody::Expr(Expression::Binary(Box::new(BinaryExpr {
@@ -6619,9 +6619,9 @@ fn arrow_function_called() {
                                 value: 1
                             })
                         }))),
-                        lcomment: None,
-                        rcomment: None,
-                        arrow_comment: None,
+                        lparen: None,
+                        rparen: None,
+                        arrow: None,
                     }))
                 })),
                 Statement::Expr(Box::new(ExprStmt {
@@ -6659,8 +6659,8 @@ fn arrow_function_called() {
                                     },
                                     name: "r".to_string()
                                 }),
-                                sep_comments: None,
-                                comma_comments: None,
+                                separator: None,
+                                comma: None,
                                 value: Some(Expression::Integer(IntegerLit {
                                     base: BaseNode {
                                         location: loc.get(2, 14, 2, 15),
@@ -6669,11 +6669,11 @@ fn arrow_function_called() {
                                     value: 5
                                 }))
                             }],
-                            lbrace_comment: None,
-                            rbrace_comment: None,
+                            lbrace: None,
+                            rbrace: None,
                         }))],
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                     }))
                 }))
             ]
@@ -6726,8 +6726,8 @@ fn arrow_function_return_map() {
                             },
                             name: "r".to_string()
                         }),
-                        sep_comments: None,
-                        comma_comments: None,
+                        separator: None,
+                        comma: None,
                         value: None
                     }],
                     body: FunctionBody::Expr(Expression::Paren(Box::new(ParenExpr {
@@ -6735,8 +6735,8 @@ fn arrow_function_return_map() {
                             location: loc.get(1, 15, 1, 22),
                             ..BaseNode::default()
                         },
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                         expression: Expression::Object(Box::new(ObjectExpr {
                             base: BaseNode {
                                 location: loc.get(1, 16, 1, 21),
@@ -6755,8 +6755,8 @@ fn arrow_function_return_map() {
                                     },
                                     name: "r".to_string()
                                 }),
-                                sep_comments: None,
-                                comma_comments: None,
+                                separator: None,
+                                comma: None,
                                 value: Some(Expression::Identifier(Identifier {
                                     base: BaseNode {
                                         location: loc.get(1, 19, 1, 20),
@@ -6765,13 +6765,13 @@ fn arrow_function_return_map() {
                                     name: "r".to_string()
                                 }))
                             }],
-                            lbrace_comment: None,
-                            rbrace_comment: None,
+                            lbrace: None,
+                            rbrace: None,
                         }))
                     }))),
-                    lcomment: None,
-                    rcomment: None,
-                    arrow_comment: None,
+                    lparen: None,
+                    rparen: None,
+                    arrow: None,
                 }))
             }))]
         },
@@ -6824,8 +6824,8 @@ fn arrow_function_with_default_arg() {
                                 },
                                 name: "r".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: None
                         },
                         Property {
@@ -6840,8 +6840,8 @@ fn arrow_function_with_default_arg() {
                                 },
                                 name: "n".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: Some(Expression::Integer(IntegerLit {
                                 base: BaseNode {
                                     location: loc.get(1, 14, 1, 15),
@@ -6872,9 +6872,9 @@ fn arrow_function_with_default_arg() {
                             name: "n".to_string()
                         })
                     }))),
-                    lcomment: None,
-                    rcomment: None,
-                    arrow_comment: None,
+                    lparen: None,
+                    rparen: None,
+                    arrow: None,
                 }))
             }))]
         },
@@ -6931,8 +6931,8 @@ fn arrow_function_called_in_binary_expression() {
                                 },
                                 name: "r".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: None
                         }],
                         body: FunctionBody::Expr(Expression::Binary(Box::new(BinaryExpr {
@@ -6956,9 +6956,9 @@ fn arrow_function_called_in_binary_expression() {
                                 value: 1
                             })
                         }))),
-                        lcomment: None,
-                        rcomment: None,
-                        arrow_comment: None,
+                        lparen: None,
+                        rparen: None,
+                        arrow: None,
                     }))
                 })),
                 Statement::Expr(Box::new(ExprStmt {
@@ -7008,8 +7008,8 @@ fn arrow_function_called_in_binary_expression() {
                                             },
                                             name: "r".to_string()
                                         }),
-                                        sep_comments: None,
-                                        comma_comments: None,
+                                        separator: None,
+                                        comma: None,
                                         value: Some(Expression::Integer(IntegerLit {
                                             base: BaseNode {
                                                 location: loc.get(3, 23, 3, 24),
@@ -7018,11 +7018,11 @@ fn arrow_function_called_in_binary_expression() {
                                             value: 5
                                         }))
                                     }],
-                                    lbrace_comment: None,
-                                    rbrace_comment: None,
+                                    lbrace: None,
+                                    rbrace: None,
                                 }))],
-                                lcomments: None,
-                                rcomments: None,
+                                lparen: None,
+                                rparen: None,
                             })),
                             right: Expression::Integer(IntegerLit {
                                 base: BaseNode {
@@ -7045,8 +7045,8 @@ fn arrow_function_called_in_binary_expression() {
                                 },
                                 name: "die".to_string()
                             }),
-                            lcomments: None,
-                            rcomments: None,
+                            lparen: None,
+                            rparen: None,
                         }))
                     }))
                 }))
@@ -7100,8 +7100,8 @@ fn arrow_function_as_single_expression() {
                             },
                             name: "r".to_string()
                         }),
-                        sep_comments: None,
-                        comma_comments: None,
+                        separator: None,
+                        comma: None,
                         value: None
                     }],
                     body: FunctionBody::Expr(Expression::Binary(Box::new(BinaryExpr {
@@ -7129,8 +7129,8 @@ fn arrow_function_as_single_expression() {
                                 },
                                 value: "_measurement".to_string()
                             }),
-                            lbrack_comment: None,
-                            rbrack_comment: None,
+                            lbrack: None,
+                            rbrack: None,
                         })),
                         right: Expression::StringLit(StringLit {
                             base: BaseNode {
@@ -7140,9 +7140,9 @@ fn arrow_function_as_single_expression() {
                             value: "cpu".to_string()
                         })
                     }))),
-                    lcomment: None,
-                    rcomment: None,
-                    arrow_comment: None,
+                    lparen: None,
+                    rparen: None,
+                    arrow: None,
                 }))
             }))]
         },
@@ -7199,8 +7199,8 @@ fn arrow_function_as_block() {
                             },
                             name: "r".to_string()
                         }),
-                        sep_comments: None,
-                        comma_comments: None,
+                        separator: None,
+                        comma: None,
                         value: None
                     }],
                     body: FunctionBody::Block(Block {
@@ -7240,8 +7240,8 @@ fn arrow_function_as_block() {
                                         },
                                         value: "_measurement".to_string()
                                     }),
-                                    lbrack_comment: None,
-                                    rbrack_comment: None,
+                                    lbrack: None,
+                                    rbrack: None,
                                 }))
                             })),
                             Statement::Return(Box::new(ReturnStmt {
@@ -7273,9 +7273,9 @@ fn arrow_function_as_block() {
                             }))
                         ]
                     }),
-                    lcomment: None,
-                    rcomment: None,
-                    arrow_comment: None,
+                    lparen: None,
+                    rparen: None,
+                    arrow: None,
                 }))
             }))]
         },
@@ -7336,9 +7336,9 @@ fn conditional() {
                         },
                         value: 1
                     }),
-                    if_comment: None,
-                    then_comment: None,
-                    else_comment: None,
+                    tk_if: None,
+                    tk_then: None,
+                    tk_else: None,
                 }))
             }))]
         },
@@ -7474,8 +7474,8 @@ fn conditional_with_unary_logical_operators() {
                                     location: loc.get(1, 57, 1, 64),
                                     ..BaseNode::default()
                                 },
-                                lcomments: None,
-                                rcomments: None,
+                                lparen: None,
+                                rparen: None,
                                 expression: Expression::Binary(Box::new(BinaryExpr {
                                     base: BaseNode {
                                         location: loc.get(1, 58, 1, 63),
@@ -7521,9 +7521,9 @@ fn conditional_with_unary_logical_operators() {
                             })
                         }))
                     })),
-                    if_comment: None,
-                    then_comment: None,
-                    else_comment: None,
+                    tk_if: None,
+                    tk_then: None,
+                    tk_else: None,
                 }))
             }))]
         },
@@ -7600,9 +7600,9 @@ fn nested_conditionals() {
                             },
                             name: "false".to_string()
                         }),
-                        if_comment: None,
-                        then_comment: None,
-                        else_comment: None,
+                        tk_if: None,
+                        tk_then: None,
+                        tk_else: None,
                     })),
                     consequent: Expression::Conditional(Box::new(ConditionalExpr {
                         base: BaseNode {
@@ -7644,9 +7644,9 @@ fn nested_conditionals() {
                             },
                             value: 60
                         }),
-                        if_comment: None,
-                        then_comment: None,
-                        else_comment: None,
+                        tk_if: None,
+                        tk_then: None,
+                        tk_else: None,
                     })),
                     alternate: Expression::Conditional(Box::new(ConditionalExpr {
                         base: BaseNode {
@@ -7688,13 +7688,13 @@ fn nested_conditionals() {
                             },
                             value: 120
                         }),
-                        if_comment: None,
-                        then_comment: None,
-                        else_comment: None,
+                        tk_if: None,
+                        tk_then: None,
+                        tk_else: None,
                     })),
-                    if_comment: None,
-                    then_comment: None,
-                    else_comment: None,
+                    tk_if: None,
+                    tk_then: None,
+                    tk_else: None,
                 }))
             }))]
         },
@@ -7746,8 +7746,8 @@ fn from_with_filter_with_no_parens() {
                                 location: loc.get(1, 1, 1, 32),
                                 ..BaseNode::default()
                             },
-                            lcomments: None,
-                            rcomments: None,
+                            lparen: None,
+                            rparen: None,
                             callee: Expression::Identifier(Identifier {
                                 base: BaseNode {
                                     location: loc.get(1, 1, 1, 5),
@@ -7773,8 +7773,8 @@ fn from_with_filter_with_no_parens() {
                                         },
                                         name: "bucket".to_string()
                                     }),
-                                    sep_comments: None,
-                                    comma_comments: None,
+                                    separator: None,
+                                    comma: None,
                                     value: Some(Expression::StringLit(StringLit {
                                         base: BaseNode {
                                             location: loc.get(1, 13, 1, 31),
@@ -7783,12 +7783,12 @@ fn from_with_filter_with_no_parens() {
                                         value: "telegraf/autogen".to_string()
                                     }))
                                 }],
-                                lbrace_comment: None,
-                                rbrace_comment: None,
+                                lbrace: None,
+                                rbrace: None,
                             }))]
                         })),
-                        lbrack_comment: None,
-                        rbrack_comment: None,
+                        lbrack: None,
+                        rbrack: None,
                     })),
                     arguments: vec![Expression::Object(Box::new(ObjectExpr {
                         base: BaseNode {
@@ -7808,8 +7808,8 @@ fn from_with_filter_with_no_parens() {
                                 },
                                 name: "fn".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: Some(Expression::Function(Box::new(FunctionExpr {
                                 base: BaseNode {
                                     location: loc.get(1, 44, 1, 113),
@@ -7820,8 +7820,8 @@ fn from_with_filter_with_no_parens() {
                                         location: loc.get(1, 45, 1, 46),
                                         ..BaseNode::default()
                                     },
-                                    sep_comments: None,
-                                    comma_comments: None,
+                                    separator: None,
+                                    comma: None,
                                     key: PropertyKey::Identifier(Identifier {
                                         base: BaseNode {
                                             location: loc.get(1, 45, 1, 46),
@@ -7869,8 +7869,8 @@ fn from_with_filter_with_no_parens() {
                                                         },
                                                         value: "other".to_string()
                                                     }),
-                                                    lbrack_comment: None,
-                                                    rbrack_comment: None,
+                                                    lbrack: None,
+                                                    rbrack: None,
                                                 })),
                                                 right: Expression::StringLit(StringLit {
                                                     base: BaseNode {
@@ -7905,8 +7905,8 @@ fn from_with_filter_with_no_parens() {
                                                         },
                                                         value: "this".to_string()
                                                     }),
-                                                    lbrack_comment: None,
-                                                    rbrack_comment: None,
+                                                    lbrack: None,
+                                                    rbrack: None,
                                                 })),
                                                 right: Expression::StringLit(StringLit {
                                                     base: BaseNode {
@@ -7942,8 +7942,8 @@ fn from_with_filter_with_no_parens() {
                                                     },
                                                     value: "these".to_string()
                                                 }),
-                                                lbrack_comment: None,
-                                                rbrack_comment: None,
+                                                lbrack: None,
+                                                rbrack: None,
                                             })),
                                             right: Expression::StringLit(StringLit {
                                                 base: BaseNode {
@@ -7955,16 +7955,16 @@ fn from_with_filter_with_no_parens() {
                                         }))
                                     }
                                 ))),
-                                lcomment: None,
-                                rcomment: None,
-                                arrow_comment: None,
+                                lparen: None,
+                                rparen: None,
+                                arrow: None,
                             })))
                         }],
-                        lbrace_comment: None,
-                        rbrace_comment: None,
+                        lbrace: None,
+                        rbrace: None,
                     }))],
-                    lcomments: None,
-                    rcomments: None,
+                    lparen: None,
+                    rparen: None,
                 }))
             }))]
         },
@@ -8002,8 +8002,8 @@ fn from_with_range() {
                             location: loc.get(1, 1, 1, 32),
                             ..BaseNode::default()
                         },
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                         callee: Expression::Identifier(Identifier {
                             base: BaseNode {
                                 location: loc.get(1, 1, 1, 5),
@@ -8029,8 +8029,8 @@ fn from_with_range() {
                                     },
                                     name: "bucket".to_string()
                                 }),
-                                sep_comments: None,
-                                comma_comments: None,
+                                separator: None,
+                                comma: None,
                                 value: Some(Expression::StringLit(StringLit {
                                     base: BaseNode {
                                         location: loc.get(1, 13, 1, 31),
@@ -8039,8 +8039,8 @@ fn from_with_range() {
                                     value: "telegraf/autogen".to_string()
                                 }))
                             }],
-                            lbrace_comment: None,
-                            rbrace_comment: None,
+                            lbrace: None,
+                            rbrace: None,
                         }))]
                     })),
                     call: CallExpr {
@@ -8048,8 +8048,8 @@ fn from_with_range() {
                             location: loc.get(1, 34, 1, 59),
                             ..BaseNode::default()
                         },
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                         callee: Expression::Identifier(Identifier {
                             base: BaseNode {
                                 location: loc.get(1, 34, 1, 39),
@@ -8076,8 +8076,8 @@ fn from_with_range() {
                                         },
                                         name: "start".to_string()
                                     }),
-                                    sep_comments: None,
-                                    comma_comments: None,
+                                    separator: None,
+                                    comma: None,
                                     value: Some(Expression::Unary(Box::new(UnaryExpr {
                                         base: BaseNode {
                                             location: loc.get(1, 46, 1, 49),
@@ -8108,8 +8108,8 @@ fn from_with_range() {
                                         },
                                         name: "end".to_string()
                                     }),
-                                    sep_comments: None,
-                                    comma_comments: None,
+                                    separator: None,
+                                    comma: None,
                                     value: Some(Expression::Duration(DurationLit {
                                         base: BaseNode {
                                             location: loc.get(1, 55, 1, 58),
@@ -8122,8 +8122,8 @@ fn from_with_range() {
                                     }))
                                 }
                             ],
-                            lbrace_comment: None,
-                            rbrace_comment: None,
+                            lbrace: None,
+                            rbrace: None,
                         }))]
                     }
                 }))
@@ -8163,8 +8163,8 @@ fn from_with_limit() {
                             location: loc.get(1, 1, 1, 32),
                             ..BaseNode::default()
                         },
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                         callee: Expression::Identifier(Identifier {
                             base: BaseNode {
                                 location: loc.get(1, 1, 1, 5),
@@ -8190,8 +8190,8 @@ fn from_with_limit() {
                                     },
                                     name: "bucket".to_string()
                                 }),
-                                sep_comments: None,
-                                comma_comments: None,
+                                separator: None,
+                                comma: None,
                                 value: Some(Expression::StringLit(StringLit {
                                     base: BaseNode {
                                         location: loc.get(1, 13, 1, 31),
@@ -8200,8 +8200,8 @@ fn from_with_limit() {
                                     value: "telegraf/autogen".to_string()
                                 }))
                             }],
-                            lbrace_comment: None,
-                            rbrace_comment: None,
+                            lbrace: None,
+                            rbrace: None,
                         }))]
                     })),
                     call: CallExpr {
@@ -8209,8 +8209,8 @@ fn from_with_limit() {
                             location: loc.get(1, 34, 1, 61),
                             ..BaseNode::default()
                         },
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                         callee: Expression::Identifier(Identifier {
                             base: BaseNode {
                                 location: loc.get(1, 34, 1, 39),
@@ -8237,8 +8237,8 @@ fn from_with_limit() {
                                         },
                                         name: "limit".to_string()
                                     }),
-                                    sep_comments: None,
-                                    comma_comments: None,
+                                    separator: None,
+                                    comma: None,
                                     value: Some(Expression::Integer(IntegerLit {
                                         base: BaseNode {
                                             location: loc.get(1, 46, 1, 49),
@@ -8259,8 +8259,8 @@ fn from_with_limit() {
                                         },
                                         name: "offset".to_string()
                                     }),
-                                    sep_comments: None,
-                                    comma_comments: None,
+                                    separator: None,
+                                    comma: None,
                                     value: Some(Expression::Integer(IntegerLit {
                                         base: BaseNode {
                                             location: loc.get(1, 58, 1, 60),
@@ -8270,8 +8270,8 @@ fn from_with_limit() {
                                     }))
                                 }
                             ],
-                            lbrace_comment: None,
-                            rbrace_comment: None,
+                            lbrace: None,
+                            rbrace: None,
                         }))]
                     }
                 }))
@@ -8320,8 +8320,8 @@ fn from_with_range_and_count() {
                                 location: loc.get(1, 1, 1, 28),
                                 ..BaseNode::default()
                             },
-                            lcomments: None,
-                            rcomments: None,
+                            lparen: None,
+                            rparen: None,
                             callee: Expression::Identifier(Identifier {
                                 base: BaseNode {
                                     location: loc.get(1, 1, 1, 5),
@@ -8347,8 +8347,8 @@ fn from_with_range_and_count() {
                                         },
                                         name: "bucket".to_string()
                                     }),
-                                    sep_comments: None,
-                                    comma_comments: None,
+                                    separator: None,
+                                    comma: None,
                                     value: Some(Expression::StringLit(StringLit {
                                         base: BaseNode {
                                             location: loc.get(1, 13, 1, 27),
@@ -8357,8 +8357,8 @@ fn from_with_range_and_count() {
                                         value: "mydb/autogen".to_string()
                                     }))
                                 }],
-                                lbrace_comment: None,
-                                rbrace_comment: None,
+                                lbrace: None,
+                                rbrace: None,
                             }))]
                         })),
                         call: CallExpr {
@@ -8366,8 +8366,8 @@ fn from_with_range_and_count() {
                                 location: loc.get(2, 10, 2, 36),
                                 ..BaseNode::default()
                             },
-                            lcomments: None,
-                            rcomments: None,
+                            lparen: None,
+                            rparen: None,
                             callee: Expression::Identifier(Identifier {
                                 base: BaseNode {
                                     location: loc.get(2, 10, 2, 15),
@@ -8394,8 +8394,8 @@ fn from_with_range_and_count() {
                                             },
                                             name: "start".to_string()
                                         }),
-                                        sep_comments: None,
-                                        comma_comments: None,
+                                        separator: None,
+                                        comma: None,
                                         value: Some(Expression::Unary(Box::new(UnaryExpr {
                                             base: BaseNode {
                                                 location: loc.get(2, 22, 2, 25),
@@ -8426,8 +8426,8 @@ fn from_with_range_and_count() {
                                             },
                                             name: "stop".to_string()
                                         }),
-                                        sep_comments: None,
-                                        comma_comments: None,
+                                        separator: None,
+                                        comma: None,
                                         value: Some(Expression::Unary(Box::new(UnaryExpr {
                                             base: BaseNode {
                                                 location: loc.get(2, 32, 2, 35),
@@ -8447,8 +8447,8 @@ fn from_with_range_and_count() {
                                         })))
                                     }
                                 ],
-                                lbrace_comment: None,
-                                rbrace_comment: None,
+                                lbrace: None,
+                                rbrace: None,
                             }))]
                         }
                     })),
@@ -8457,8 +8457,8 @@ fn from_with_range_and_count() {
                             location: loc.get(3, 10, 3, 17),
                             ..BaseNode::default()
                         },
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                         callee: Expression::Identifier(Identifier {
                             base: BaseNode {
                                 location: loc.get(3, 10, 3, 15),
@@ -8520,8 +8520,8 @@ fn from_with_range_limit_and_count() {
                                     location: loc.get(1, 1, 1, 28),
                                     ..BaseNode::default()
                                 },
-                                lcomments: None,
-                                rcomments: None,
+                                lparen: None,
+                                rparen: None,
                                 callee: Expression::Identifier(Identifier {
                                     base: BaseNode {
                                         location: loc.get(1, 1, 1, 5),
@@ -8547,8 +8547,8 @@ fn from_with_range_limit_and_count() {
                                             },
                                             name: "bucket".to_string()
                                         }),
-                                        sep_comments: None,
-                                        comma_comments: None,
+                                        separator: None,
+                                        comma: None,
                                         value: Some(Expression::StringLit(StringLit {
                                             base: BaseNode {
                                                 location: loc.get(1, 13, 1, 27),
@@ -8557,8 +8557,8 @@ fn from_with_range_limit_and_count() {
                                             value: "mydb/autogen".to_string()
                                         }))
                                     }],
-                                    lbrace_comment: None,
-                                    rbrace_comment: None,
+                                    lbrace: None,
+                                    rbrace: None,
                                 }))]
                             })),
                             call: CallExpr {
@@ -8566,8 +8566,8 @@ fn from_with_range_limit_and_count() {
                                     location: loc.get(2, 10, 2, 36),
                                     ..BaseNode::default()
                                 },
-                                lcomments: None,
-                                rcomments: None,
+                                lparen: None,
+                                rparen: None,
                                 callee: Expression::Identifier(Identifier {
                                     base: BaseNode {
                                         location: loc.get(2, 10, 2, 15),
@@ -8594,8 +8594,8 @@ fn from_with_range_limit_and_count() {
                                                 },
                                                 name: "start".to_string()
                                             }),
-                                            sep_comments: None,
-                                            comma_comments: None,
+                                            separator: None,
+                                            comma: None,
                                             value: Some(Expression::Unary(Box::new(UnaryExpr {
                                                 base: BaseNode {
                                                     location: loc.get(2, 22, 2, 25),
@@ -8626,8 +8626,8 @@ fn from_with_range_limit_and_count() {
                                                 },
                                                 name: "stop".to_string()
                                             }),
-                                            sep_comments: None,
-                                            comma_comments: None,
+                                            separator: None,
+                                            comma: None,
                                             value: Some(Expression::Unary(Box::new(UnaryExpr {
                                                 base: BaseNode {
                                                     location: loc.get(2, 32, 2, 35),
@@ -8647,8 +8647,8 @@ fn from_with_range_limit_and_count() {
                                             })))
                                         }
                                     ],
-                                    lbrace_comment: None,
-                                    rbrace_comment: None,
+                                    lbrace: None,
+                                    rbrace: None,
                                 }))]
                             }
                         })),
@@ -8657,8 +8657,8 @@ fn from_with_range_limit_and_count() {
                                 location: loc.get(3, 10, 3, 21),
                                 ..BaseNode::default()
                             },
-                            lcomments: None,
-                            rcomments: None,
+                            lparen: None,
+                            rparen: None,
                             callee: Expression::Identifier(Identifier {
                                 base: BaseNode {
                                     location: loc.get(3, 10, 3, 15),
@@ -8684,8 +8684,8 @@ fn from_with_range_limit_and_count() {
                                         },
                                         name: "n".to_string()
                                     }),
-                                    sep_comments: None,
-                                    comma_comments: None,
+                                    separator: None,
+                                    comma: None,
                                     value: Some(Expression::Integer(IntegerLit {
                                         base: BaseNode {
                                             location: loc.get(3, 18, 3, 20),
@@ -8694,8 +8694,8 @@ fn from_with_range_limit_and_count() {
                                         value: 10
                                     }))
                                 }],
-                                lbrace_comment: None,
-                                rbrace_comment: None,
+                                lbrace: None,
+                                rbrace: None,
                             }))]
                         }
                     })),
@@ -8704,8 +8704,8 @@ fn from_with_range_limit_and_count() {
                             location: loc.get(4, 10, 4, 17),
                             ..BaseNode::default()
                         },
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                         callee: Expression::Identifier(Identifier {
                             base: BaseNode {
                                 location: loc.get(4, 10, 4, 15),
@@ -8765,8 +8765,8 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                 location: loc.get(2, 5, 2, 31),
                                 ..BaseNode::default()
                             },
-                            lcomments: None,
-                            rcomments: None,
+                            lparen: None,
+                            rparen: None,
                             callee: Expression::Identifier(Identifier {
                                 base: BaseNode {
                                     location: loc.get(2, 5, 2, 9),
@@ -8792,8 +8792,8 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                         },
                                         name: "bucket".to_string()
                                     }),
-                                    sep_comments: None,
-                                    comma_comments: None,
+                                    separator: None,
+                                    comma: None,
                                     value: Some(Expression::StringLit(StringLit {
                                         base: BaseNode {
                                             location: loc.get(2, 17, 2, 30),
@@ -8802,8 +8802,8 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                         value: "dbA/autogen".to_string()
                                     }))
                                 }],
-                                lbrace_comment: None,
-                                rbrace_comment: None,
+                                lbrace: None,
+                                rbrace: None,
                             }))]
                         })),
                         call: CallExpr {
@@ -8811,8 +8811,8 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                 location: loc.get(2, 35, 2, 51),
                                 ..BaseNode::default()
                             },
-                            lcomments: None,
-                            rcomments: None,
+                            lparen: None,
+                            rparen: None,
                             callee: Expression::Identifier(Identifier {
                                 base: BaseNode {
                                     location: loc.get(2, 35, 2, 40),
@@ -8838,8 +8838,8 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                         },
                                         name: "start".to_string()
                                     }),
-                                    sep_comments: None,
-                                    comma_comments: None,
+                                    separator: None,
+                                    comma: None,
                                     value: Some(Expression::Unary(Box::new(UnaryExpr {
                                         base: BaseNode {
                                             location: loc.get(2, 47, 2, 50),
@@ -8858,8 +8858,8 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                         })
                                     })))
                                 }],
-                                lbrace_comment: None,
-                                rbrace_comment: None,
+                                lbrace: None,
+                                rbrace: None,
                             }))]
                         }
                     }))
@@ -8886,8 +8886,8 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                 location: loc.get(3, 5, 3, 31),
                                 ..BaseNode::default()
                             },
-                            lcomments: None,
-                            rcomments: None,
+                            lparen: None,
+                            rparen: None,
                             callee: Expression::Identifier(Identifier {
                                 base: BaseNode {
                                     location: loc.get(3, 5, 3, 9),
@@ -8913,8 +8913,8 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                         },
                                         name: "bucket".to_string()
                                     }),
-                                    sep_comments: None,
-                                    comma_comments: None,
+                                    separator: None,
+                                    comma: None,
                                     value: Some(Expression::StringLit(StringLit {
                                         base: BaseNode {
                                             location: loc.get(3, 17, 3, 30),
@@ -8923,8 +8923,8 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                         value: "dbB/autogen".to_string()
                                     }))
                                 }],
-                                lbrace_comment: None,
-                                rbrace_comment: None,
+                                lbrace: None,
+                                rbrace: None,
                             }))]
                         })),
                         call: CallExpr {
@@ -8932,8 +8932,8 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                 location: loc.get(3, 35, 3, 51),
                                 ..BaseNode::default()
                             },
-                            lcomments: None,
-                            rcomments: None,
+                            lparen: None,
+                            rparen: None,
                             callee: Expression::Identifier(Identifier {
                                 base: BaseNode {
                                     location: loc.get(3, 35, 3, 40),
@@ -8959,8 +8959,8 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                         },
                                         name: "start".to_string()
                                     }),
-                                    sep_comments: None,
-                                    comma_comments: None,
+                                    separator: None,
+                                    comma: None,
                                     value: Some(Expression::Unary(Box::new(UnaryExpr {
                                         base: BaseNode {
                                             location: loc.get(3, 47, 3, 50),
@@ -8979,8 +8979,8 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                         })
                                     })))
                                 }],
-                                lbrace_comment: None,
-                                rbrace_comment: None,
+                                lbrace: None,
+                                rbrace: None,
                             }))]
                         }
                     }))
@@ -8995,8 +8995,8 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                             location: loc.get(4, 1, 4, 72),
                             ..BaseNode::default()
                         },
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                         callee: Expression::Identifier(Identifier {
                             base: BaseNode {
                                 location: loc.get(4, 1, 4, 5),
@@ -9023,8 +9023,8 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                         },
                                         name: "tables".to_string()
                                     }),
-                                    sep_comments: None,
-                                    comma_comments: None,
+                                    separator: None,
+                                    comma: None,
                                     value: Some(Expression::Array(Box::new(ArrayExpr {
                                         base: BaseNode {
                                             location: loc.get(4, 13, 4, 18),
@@ -9046,8 +9046,8 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                                 name: "b".to_string()
                                             })
                                         ],
-                                        lbrack_comment: None,
-                                        rbrack_comment: None,
+                                        lbrack: None,
+                                        rbrack: None,
                                     })))
                                 },
                                 Property {
@@ -9062,8 +9062,8 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                         },
                                         name: "on".to_string()
                                     }),
-                                    sep_comments: None,
-                                    comma_comments: None,
+                                    separator: None,
+                                    comma: None,
                                     value: Some(Expression::Array(Box::new(ArrayExpr {
                                         base: BaseNode {
                                             location: loc.get(4, 23, 4, 31),
@@ -9076,8 +9076,8 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                             },
                                             value: "host".to_string()
                                         })],
-                                        lbrack_comment: None,
-                                        rbrack_comment: None,
+                                        lbrack: None,
+                                        rbrack: None,
                                     })))
                                 },
                                 Property {
@@ -9092,8 +9092,8 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                         },
                                         name: "fn".to_string()
                                     }),
-                                    sep_comments: None,
-                                    comma_comments: None,
+                                    separator: None,
+                                    comma: None,
                                     value: Some(Expression::Function(Box::new(FunctionExpr {
                                         base: BaseNode {
                                             location: loc.get(4, 37, 4, 71),
@@ -9112,8 +9112,8 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                                     },
                                                     name: "a".to_string()
                                                 }),
-                                                sep_comments: None,
-                                                comma_comments: None,
+                                                separator: None,
+                                                comma: None,
                                                 value: None
                                             },
                                             Property {
@@ -9128,8 +9128,8 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                                     },
                                                     name: "b".to_string()
                                                 }),
-                                                sep_comments: None,
-                                                comma_comments: None,
+                                                separator: None,
+                                                comma: None,
                                                 value: None
                                             }
                                         ],
@@ -9159,8 +9159,8 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                                         },
                                                         value: "_field".to_string()
                                                     }),
-                                                    lbrack_comment: None,
-                                                    rbrack_comment: None,
+                                                    lbrack: None,
+                                                    rbrack: None,
                                                 })),
                                                 right: Expression::Member(Box::new(MemberExpr {
                                                     base: BaseNode {
@@ -9181,19 +9181,19 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                                         },
                                                         value: "_field".to_string()
                                                     }),
-                                                    lbrack_comment: None,
-                                                    rbrack_comment: None,
+                                                    lbrack: None,
+                                                    rbrack: None,
                                                 }))
                                             }
                                         ))),
-                                        lcomment: None,
-                                        rcomment: None,
-                                        arrow_comment: None,
+                                        lparen: None,
+                                        rparen: None,
+                                        arrow: None,
                                     })))
                                 }
                             ],
-                            lbrace_comment: None,
-                            rbrace_comment: None,
+                            lbrace: None,
+                            rbrace: None,
                         }))]
                     }))
                 }))
@@ -9257,8 +9257,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                     location: loc.get(2, 5, 2, 32),
                                     .. BaseNode::default()
                                 },
-                                lcomments: None,
-                                rcomments: None,
+                                lparen: None,
+                                rparen: None,
                                 callee: Expression::Identifier(Identifier {
                                     base: BaseNode {
                                         location: loc.get(2, 5, 2, 9),
@@ -9284,8 +9284,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                             },
                                             name: "bucket".to_string()
                                         }),
-                                        sep_comments: None,
-                                        comma_comments: None,
+                                        separator: None,
+                                        comma: None,
                                         value: Some(Expression::StringLit(StringLit {
                                             base: BaseNode {
                                                 location: loc.get(2, 17, 2, 31),
@@ -9294,8 +9294,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                             value: "Flux/autogen".to_string()
                                         }))
                                     }],
-                                    lbrace_comment: None,
-                                    rbrace_comment: None,
+                                    lbrace: None,
+                                    rbrace: None,
                                 }))]
                             })),
                             call: CallExpr {
@@ -9303,8 +9303,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                     location: loc.get(3, 5, 3, 48),
                                     .. BaseNode::default()
                                 },
-                                lcomments: None,
-                                rcomments: None,
+                                lparen: None,
+                                rparen: None,
                                 callee: Expression::Identifier(Identifier {
                                     base: BaseNode {
                                         location: loc.get(3, 5, 3, 11),
@@ -9330,8 +9330,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                             },
                                             name: "fn".to_string()
                                         }),
-                                        sep_comments: None,
-                                        comma_comments: None,
+                                        separator: None,
+                                        comma: None,
                                         value: Some(Expression::Function(Box::new(FunctionExpr {
                                             base: BaseNode {
                                                 location: loc.get(3, 16, 3, 47),
@@ -9349,8 +9349,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                                     },
                                                     name: "r".to_string()
                                                 }),
-                                                sep_comments: None,
-                                                comma_comments: None,
+                                                separator: None,
+                                                comma: None,
                                                 value: None
                                             }],
                                             body: FunctionBody::Expr(Expression::Binary(Box::new(
@@ -9387,8 +9387,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                                                         .to_string()
                                                                 }
                                                             ),
-                                                            lbrack_comment: None,
-                                                            rbrack_comment: None,
+                                                            lbrack: None,
+                                                            rbrack: None,
                                                         }
                                                     )),
                                                     right: Expression::StringLit(StringLit {
@@ -9400,13 +9400,13 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                                     })
                                                 }
                                             ))),
-                                            lcomment: None,
-                                            rcomment: None,
-                                            arrow_comment: None,
+                                            lparen: None,
+                                            rparen: None,
+                                            arrow: None,
                                         })))
                                     }],
-                                    lbrace_comment: None,
-                                    rbrace_comment: None,
+                                    lbrace: None,
+                                    rbrace: None,
                                 }))]
                             }
                         })),
@@ -9415,8 +9415,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                 location: loc.get(4, 5, 4, 21),
                                 .. BaseNode::default()
                             },
-                            lcomments: None,
-                            rcomments: None,
+                            lparen: None,
+                            rparen: None,
                             callee: Expression::Identifier(Identifier {
                                 base: BaseNode {
                                     location: loc.get(4, 5, 4, 10),
@@ -9442,8 +9442,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                         },
                                         name: "start".to_string()
                                     }),
-                                    sep_comments: None,
-                                    comma_comments: None,
+                                    separator: None,
+                                    comma: None,
                                     value: Some(Expression::Unary(Box::new(UnaryExpr {
                                         base: BaseNode {
                                             location: loc.get(4, 17, 4, 20),
@@ -9462,8 +9462,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                         })
                                     })))
                                 }],
-                                lbrace_comment: None,
-                                rbrace_comment: None,
+                                lbrace: None,
+                                rbrace: None,
                             }))]
                         }
                     }))
@@ -9495,8 +9495,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                     location: loc.get(6, 5, 6, 32),
                                     .. BaseNode::default()
                                 },
-                                lcomments: None,
-                                rcomments: None,
+                                lparen: None,
+                                rparen: None,
                                 callee: Expression::Identifier(Identifier {
                                     base: BaseNode {
                                         location: loc.get(6, 5, 6, 9),
@@ -9522,8 +9522,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                             },
                                             name: "bucket".to_string()
                                         }),
-                                        sep_comments: None,
-                                        comma_comments: None,
+                                        separator: None,
+                                        comma: None,
                                         value: Some(Expression::StringLit(StringLit {
                                             base: BaseNode {
                                                 location: loc.get(6, 17, 6, 31),
@@ -9532,8 +9532,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                             value: "Flux/autogen".to_string()
                                         }))
                                     }],
-                                    lbrace_comment: None,
-                                    rbrace_comment: None,
+                                    lbrace: None,
+                                    rbrace: None,
                                 }))]
                             })),
                             call: CallExpr {
@@ -9541,8 +9541,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                     location: loc.get(7, 5, 7, 48),
                                     .. BaseNode::default()
                                 },
-                                lcomments: None,
-                                rcomments: None,
+                                lparen: None,
+                                rparen: None,
                                 callee: Expression::Identifier(Identifier {
                                     base: BaseNode {
                                         location: loc.get(7, 5, 7, 11),
@@ -9568,8 +9568,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                             },
                                             name: "fn".to_string()
                                         }),
-                                        sep_comments: None,
-                                        comma_comments: None,
+                                        separator: None,
+                                        comma: None,
                                         value: Some(Expression::Function(Box::new(FunctionExpr {
                                             base: BaseNode {
                                                 location: loc.get(7, 16, 7, 47),
@@ -9587,8 +9587,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                                     },
                                                     name: "r".to_string()
                                                 }),
-                                                sep_comments: None,
-                                                comma_comments: None,
+                                                separator: None,
+                                                comma: None,
                                                 value: None
                                             }],
                                             body: FunctionBody::Expr(Expression::Binary(Box::new(
@@ -9625,8 +9625,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                                                         .to_string()
                                                                 }
                                                             ),
-                                                            lbrack_comment: None,
-                                                            rbrack_comment: None,
+                                                            lbrack: None,
+                                                            rbrack: None,
                                                         }
                                                     )),
                                                     right: Expression::StringLit(StringLit {
@@ -9638,13 +9638,13 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                                     })
                                                 }
                                             ))),
-                                            lcomment: None,
-                                            rcomment: None,
-                                            arrow_comment: None,
+                                            lparen: None,
+                                            rparen: None,
+                                            arrow: None,
                                         })))
                                     }],
-                                    lbrace_comment: None,
-                                    rbrace_comment: None,
+                                    lbrace: None,
+                                    rbrace: None,
                                 }))]
                             }
                         })),
@@ -9653,8 +9653,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                 location: loc.get(8, 5, 8, 21),
                                 .. BaseNode::default()
                             },
-                            lcomments: None,
-                            rcomments: None,
+                            lparen: None,
+                            rparen: None,
                             callee: Expression::Identifier(Identifier {
                                 base: BaseNode {
                                     location: loc.get(8, 5, 8, 10),
@@ -9680,8 +9680,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                         },
                                         name: "start".to_string()
                                     }),
-                                    sep_comments: None,
-                                    comma_comments: None,
+                                    separator: None,
+                                    comma: None,
                                     value: Some(Expression::Unary(Box::new(UnaryExpr {
                                         base: BaseNode {
                                             location: loc.get(8, 17, 8, 20),
@@ -9700,8 +9700,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                         })
                                     })))
                                 }],
-                                lbrace_comment: None,
-                                rbrace_comment: None,
+                                lbrace: None,
+                                rbrace: None,
                             }))]
                         }
                     }))
@@ -9716,8 +9716,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                             location: loc.get(10, 1, 10, 86),
                             .. BaseNode::default()
                         },
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                         callee: Expression::Identifier(Identifier {
                             base: BaseNode {
                                 location: loc.get(10, 1, 10, 5),
@@ -9744,8 +9744,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                         },
                                         name: "tables".to_string()
                                     }),
-                                    sep_comments: None,
-                                    comma_comments: None,
+                                    separator: None,
+                                    comma: None,
                                     value: Some(Expression::Array(Box::new(ArrayExpr {
                                         base: BaseNode {
                                             location: loc.get(10, 13, 10, 18),
@@ -9767,8 +9767,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                                 name: "b".to_string()
                                             })
                                         ],
-                                        lbrack_comment: None,
-                                        rbrack_comment: None,
+                                        lbrack: None,
+                                        rbrack: None,
                                     })))
                                 },
                                 Property {
@@ -9783,8 +9783,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                         },
                                         name: "on".to_string()
                                     }),
-                                    sep_comments: None,
-                                    comma_comments: None,
+                                    separator: None,
+                                    comma: None,
                                     value: Some(Expression::Array(Box::new(ArrayExpr {
                                         base: BaseNode {
                                             location: loc.get(10, 23, 10, 29),
@@ -9797,8 +9797,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                             },
                                             value: "t1".to_string()
                                         })],
-                                        lbrack_comment: None,
-                                        rbrack_comment: None,
+                                        lbrack: None,
+                                        rbrack: None,
                                     })))
                                 },
                                 Property {
@@ -9813,8 +9813,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                         },
                                         name: "fn".to_string()
                                     }),
-                                    sep_comments: None,
-                                    comma_comments: None,
+                                    separator: None,
+                                    comma: None,
                                     value: Some(Expression::Function(Box::new(FunctionExpr {
                                         base: BaseNode {
                                             location: loc.get(10, 35, 10, 85),
@@ -9833,8 +9833,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                                     },
                                                     name: "a".to_string()
                                                 }),
-                                                sep_comments: None,
-                                                comma_comments: None,
+                                                separator: None,
+                                                comma: None,
                                                 value: None
                                             },
                                             Property {
@@ -9849,8 +9849,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                                     },
                                                     name: "b".to_string()
                                                 }),
-                                                sep_comments: None,
-                                                comma_comments: None,
+                                                separator: None,
+                                                comma: None,
                                                 value: None
                                             }
                                         ],
@@ -9866,8 +9866,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                                         location: loc.get(10, 44, 10, 71),
                                                         .. BaseNode::default()
                                                     },
-                                                    lcomments: None,
-                                                    rcomments: None,
+                                                    lparen: None,
+                                                    rparen: None,
                                                     expression: Expression::Binary(Box::new(
                                                         BinaryExpr {
                                                             base: BaseNode {
@@ -9908,8 +9908,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                                                                     .to_string()
                                                                             }
                                                                         ),
-                                                                    lbrack_comment: None,
-                                                                    rbrack_comment: None,
+                                                                    lbrack: None,
+                                                                    rbrack: None,
                                                                 }
                                                             )),
                                                             right: Expression::Member(Box::new(
@@ -9945,8 +9945,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                                                                     .to_string()
                                                                             }
                                                                         ),
-                                                                    lbrack_comment: None,
-                                                                    rbrack_comment: None,
+                                                                    lbrack: None,
+                                                                    rbrack: None,
                                                                 }
                                                             ))
                                                         }
@@ -9971,19 +9971,19 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                                         },
                                                         value: "_field".to_string()
                                                     }),
-                                                    lbrack_comment: None,
-                                                    rbrack_comment: None,
+                                                    lbrack: None,
+                                                    rbrack: None,
                                                 }))
                                             }
                                         ))),
-                                        lcomment: None,
-                                        rcomment: None,
-                                        arrow_comment: None,
+                                        lparen: None,
+                                        rparen: None,
+                                        arrow: None,
                                     })))
                                 }
                             ],
-                            lbrace_comment: None,
-                            rbrace_comment: None,
+                            lbrace: None,
+                            rbrace: None,
                         }))]
                     }))
                 }))
@@ -10369,8 +10369,8 @@ fn function_call_with_unbalanced_braces() {
                                 location: loc.get(1, 1, 1, 7),
                                 ..BaseNode::default()
                             },
-                            lcomments: None,
-                            rcomments: None,
+                            lparen: None,
+                            rparen: None,
                             callee: Expression::Identifier(Identifier {
                                 base: BaseNode {
                                     location: loc.get(1, 1, 1, 5),
@@ -10385,8 +10385,8 @@ fn function_call_with_unbalanced_braces() {
                                 location: loc.get(1, 11, 1, 18),
                                 ..BaseNode::default()
                             },
-                            lcomments: None,
-                            rcomments: None,
+                            lparen: None,
+                            rparen: None,
                             callee: Expression::Identifier(Identifier {
                                 base: BaseNode {
                                     location: loc.get(1, 11, 1, 16),
@@ -10402,8 +10402,8 @@ fn function_call_with_unbalanced_braces() {
                             location: loc.get(1, 22, 1, 56),
                             ..BaseNode::default()
                         },
-                        lcomments: None,
-                        rcomments: None,
+                        lparen: None,
+                        rparen: None,
                         callee: Expression::Identifier(Identifier {
                             base: BaseNode {
                                 location: loc.get(1, 22, 1, 25),
@@ -10429,8 +10429,8 @@ fn function_call_with_unbalanced_braces() {
                                     },
                                     name: "fn".to_string()
                                 }),
-                                sep_comments: None,
-                                comma_comments: None,
+                                separator: None,
+                                comma: None,
                                 value: Some(Expression::Function(Box::new(FunctionExpr {
                                     base: BaseNode {
                                         location: loc.get(1, 30, 1, 56),
@@ -10448,8 +10448,8 @@ fn function_call_with_unbalanced_braces() {
                                             },
                                             name: "r".to_string()
                                         }),
-                                        sep_comments: None,
-                                        comma_comments: None,
+                                        separator: None,
+                                        comma: None,
                                         value: None
                                     }],
                                     body: FunctionBody::Block(Block {
@@ -10482,18 +10482,18 @@ fn function_call_with_unbalanced_braces() {
                                                     },
                                                     name: "_value".to_string()
                                                 }),
-                                                lbrack_comment: None,
-                                                rbrack_comment: None,
+                                                lbrack: None,
+                                                rbrack: None,
                                             }))
                                         }))]
                                     }),
-                                    lcomment: None,
-                                    rcomment: None,
-                                    arrow_comment: None,
+                                    lparen: None,
+                                    rparen: None,
+                                    arrow: None,
                                 })))
                             }],
-                            lbrace_comment: None,
-                            rbrace_comment: None,
+                            lbrace: None,
+                            rbrace: None,
                         }))]
                     }
                 }))
@@ -10742,8 +10742,8 @@ fn multiple_idents_in_parens() {
                         location: loc.get(1, 1, 1, 6),
                         ..BaseNode::default()
                     },
-                    lcomments: None,
-                    rcomments: None,
+                    lparen: None,
+                    rparen: None,
                     expression: Expression::Binary(Box::new(BinaryExpr {
                         // TODO(affo): ast.Check would add the error "expected an operator between two expressions".
                         base: BaseNode {
@@ -10800,8 +10800,8 @@ fn missing_left_hand_side() {
                         location: loc.get(1, 1, 1, 5),
                         ..BaseNode::default()
                     },
-                    lcomments: None,
-                    rcomments: None,
+                    lparen: None,
+                    rparen: None,
                     expression: Expression::Binary(Box::new(BinaryExpr {
                         // TODO(affo): this should be like this:
                         // base: BaseNode {location: ..., errors: vec!["missing left hand side of expression".to_string()] },
@@ -10860,8 +10860,8 @@ fn missing_right_hand_side() {
                         location: loc.get(1, 1, 1, 5),
                         ..BaseNode::default()
                     },
-                    lcomments: None,
-                    rcomments: None,
+                    lparen: None,
+                    rparen: None,
                     expression: Expression::Binary(Box::new(BinaryExpr {
                         // TODO(affo): this should be like this:
                         // base: BaseNode {location: ..., errors: vec!["missing right hand side of expression".to_string()] },
@@ -10919,8 +10919,8 @@ fn illegal_expression() {
                         errors: vec!["invalid expression @1:2-1:3: @".to_string()],
                         ..BaseNode::default()
                     },
-                    lcomments: None,
-                    rcomments: None,
+                    lparen: None,
+                    rparen: None,
                     expression: Expression::Bad(Box::new(BadExpr {
                         base: BaseNode {
                             location: loc.get(1, 2, 1, 3),
@@ -10981,8 +10981,8 @@ fn missing_arrow_in_function_expression() {
                                 },
                                 name: "a".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: None
                         },
                         Property {
@@ -10997,8 +10997,8 @@ fn missing_arrow_in_function_expression() {
                                 },
                                 name: "b".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: None
                         }
                     ],
@@ -11010,9 +11010,9 @@ fn missing_arrow_in_function_expression() {
                         text: "invalid token for primary expression: EOF".to_string(),
                         expression: None
                     }))),
-                    lcomment: None,
-                    rcomment: None,
-                    arrow_comment: None,
+                    lparen: None,
+                    rparen: None,
+                    arrow: None,
                 }))
             }))]
         },
@@ -11066,8 +11066,8 @@ fn property_list_missing_property() {
                                 },
                                 name: "a".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: Some(Expression::StringLit(StringLit {
                                 base: BaseNode {
                                     location: loc.get(1, 9, 1, 12),
@@ -11089,8 +11089,8 @@ fn property_list_missing_property() {
                                 },
                                 value: "<invalid>".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: None
                         },
                         Property {
@@ -11105,8 +11105,8 @@ fn property_list_missing_property() {
                                 },
                                 name: "b".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: Some(Expression::Integer(IntegerLit {
                                 base: BaseNode {
                                     location: loc.get(1, 18, 1, 19),
@@ -11116,8 +11116,8 @@ fn property_list_missing_property() {
                             }))
                         }
                     ],
-                    lbrace_comment: None,
-                    rbrace_comment: None,
+                    lbrace: None,
+                    rbrace: None,
                 }))
             }))]
         },
@@ -11171,8 +11171,8 @@ fn property_list_missing_key() {
                             },
                             value: "<invalid>".to_string()
                         }),
-                        sep_comments: None,
-                        comma_comments: None,
+                        separator: None,
+                        comma: None,
                         value: Some(Expression::StringLit(StringLit {
                             base: BaseNode {
                                 location: loc.get(1, 8, 1, 11),
@@ -11181,8 +11181,8 @@ fn property_list_missing_key() {
                             value: "a".to_string()
                         }))
                     }],
-                    lbrace_comment: None,
-                    rbrace_comment: None,
+                    lbrace: None,
+                    rbrace: None,
                 }))
             }))]
         },
@@ -11236,12 +11236,12 @@ fn property_list_missing_value() {
                             },
                             name: "a".to_string()
                         }),
-                        sep_comments: None,
-                        comma_comments: None,
+                        separator: None,
+                        comma: None,
                         value: None
                     }],
-                    lbrace_comment: None,
-                    rbrace_comment: None,
+                    lbrace: None,
+                    rbrace: None,
                 }))
             }))]
         },
@@ -11296,8 +11296,8 @@ fn property_list_missing_comma() {
                                 },
                                 name: "a".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             // TODO(affo): ast.Check would add the error "expected an operator between two expressions".
                             value: Some(Expression::Binary(Box::new(BinaryExpr {
                                 base: BaseNode {
@@ -11334,8 +11334,8 @@ fn property_list_missing_comma() {
                                 },
                                 value: "<invalid>".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: Some(Expression::Integer(IntegerLit {
                                 base: BaseNode {
                                     location: loc.get(1, 16, 1, 18),
@@ -11348,8 +11348,8 @@ fn property_list_missing_comma() {
                             }))
                         }
                     ],
-                    lbrace_comment: None,
-                    rbrace_comment: None,
+                    lbrace: None,
+                    rbrace: None,
                 }))
             }))]
         },
@@ -11402,8 +11402,8 @@ fn property_list_trailing_comma() {
                             },
                             name: "a".to_string()
                         }),
-                        sep_comments: None,
-                        comma_comments: None,
+                        separator: None,
+                        comma: None,
                         value: Some(Expression::StringLit(StringLit {
                             base: BaseNode {
                                 location: loc.get(1, 9, 1, 12),
@@ -11412,8 +11412,8 @@ fn property_list_trailing_comma() {
                             value: "a".to_string()
                         }))
                     }],
-                    lbrace_comment: None,
-                    rbrace_comment: None,
+                    lbrace: None,
+                    rbrace: None,
                 }))
             }))]
         },
@@ -11467,8 +11467,8 @@ fn property_list_bad_property() {
                                 },
                                 name: "a".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: Some(Expression::StringLit(StringLit {
                                 base: BaseNode {
                                     location: loc.get(1, 9, 1, 12),
@@ -11492,8 +11492,8 @@ fn property_list_bad_property() {
                                 },
                                 value: "<invalid>".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: None
                         },
                         Property {
@@ -11508,8 +11508,8 @@ fn property_list_bad_property() {
                                 },
                                 name: "b".to_string()
                             }),
-                            sep_comments: None,
-                            comma_comments: None,
+                            separator: None,
+                            comma: None,
                             value: Some(Expression::Integer(IntegerLit {
                                 base: BaseNode {
                                     location: loc.get(1, 21, 1, 22),
@@ -11519,8 +11519,8 @@ fn property_list_bad_property() {
                             }))
                         }
                     ],
-                    lbrace_comment: None,
-                    rbrace_comment: None,
+                    lbrace: None,
+                    rbrace: None,
                 }))
             }))]
         },
@@ -11562,8 +11562,8 @@ fn invalid_expression_in_array() {
                         },
                         name: "a".to_string()
                     })],
-                    lbrack_comment: None,
-                    rbrack_comment: None,
+                    lbrack: None,
+                    rbrack: None,
                 }))
             }))]
         },
