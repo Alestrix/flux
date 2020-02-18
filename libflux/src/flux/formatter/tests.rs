@@ -328,4 +328,43 @@ fn comments() {
     format_helper("a //comment\n!~ /foo/");
     format_helper("a //comment\nand b");
     format_helper("a //comment\nor b");
+
+    format_helper("a//comment\n = 1");
+    format_helper("//comment\noption a = 1");
+    format_helper("option a//comment\n = 1");
+    format_helper("option a//comment\n.b = 1");
+    format_helper("option a.b//comment\n = 1");
+
+    format_helper("f = //comment\n(a) =>\n\t(a())");
+    format_helper("f = (//comment\na) =>\n\t(a())");
+    format_helper("f = (//comment\na, b) =>\n\t(a())");
+    format_helper("f = (a//comment\n, b) =>\n\t(a())");
+    format_helper("f = (a//comment\n=1, b=2) =>\n\t(a())");
+    format_helper("f = (a=//comment\n1, b=2) =>\n\t(a())");
+    format_helper("f = (a=1//comment\n, b=2) =>\n\t(a())");
+    format_helper("f = (a=1, //comment\nb=2) =>\n\t(a())");
+    format_helper("f = (a=1, b//comment\n=2) =>\n\t(a())");
+    format_helper("f = (a=1, b=//comment\n2) =>\n\t(a())");
+    format_modified(
+        "f = (a=1, b=2//comment\n,) =>\n\t(a())",
+        "f = (a=1, b=2//comment\n) =>\n\t(a())",
+    );
+    format_helper("f = (a=1, b=2//comment\n) =>\n\t(a())");
+    format_modified(
+        "f = (a=1, b=2,//comment\n) =>\n\t(a())",
+        "f = (a=1, b=2//comment\n) =>\n\t(a())",
+    );
+    format_modified(
+        "f = (a=1, b=2//comment1\n,//comment2\n) =>\n\t(a())",
+        "f = (a=1, b=2//comment1\n//comment2\n) =>\n\t(a())",
+    );
+    format_helper("f = (a=1, b=2) //comment\n=>\n\t(a())");
+    format_modified(
+        "f = (a=1, b=2) =>\n\t//comment\n(a())",
+        "f = (a=1, b=2) =>\n\t(//comment\na())",
+    );
+    format_modified(
+        "f = (a=1, b=2) =>\n\t//comment\na()",
+        "f = (a=1, b=2) =>\n\t(//comment\na())",
+    );
 }

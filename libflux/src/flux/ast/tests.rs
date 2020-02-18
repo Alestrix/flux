@@ -835,6 +835,9 @@ fn test_json_arrow_function_expression() {
             base: BaseNode::default(),
             value: "hello".to_string(),
         })),
+        lcomment: None,
+        rcomment: None,
+        arrow_comment: None,
     }));
     let serialized = serde_json::to_string(&n).unwrap();
     assert_eq!(

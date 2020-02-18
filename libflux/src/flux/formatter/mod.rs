@@ -186,6 +186,7 @@ impl Formatter {
     }
 
     fn format_function_expression(&mut self, n: &ast::FunctionExpr) {
+        self.format_comments(&n.lcomment);
         self.write_rune('(');
         let sep = ", ";
         for i in 0..n.params.len() {
@@ -196,7 +197,10 @@ impl Formatter {
             self.format_function_argument(n.params.get(i).unwrap());
             self.format_comments(&n.params.get(i).unwrap().comma_comments);
         }
-        self.write_string(") =>");
+        self.format_comments(&n.rcomment);
+        self.write_string(") ");
+        self.format_comments(&n.arrow_comment);
+        self.write_string("=>");
         // must wrap body with parenthesis in order to discriminate between:
         //  - returning an object: (x) => ({foo: x})
         //  - and block statements:
@@ -222,6 +226,7 @@ impl Formatter {
     fn format_function_argument(&mut self, n: &ast::Property) {
         if let Some(v) = &n.value {
             self.format_property_key(&n.key);
+            self.format_comments(&n.sep_comments);
             self.write_rune('=');
             self.format_node(&Node::from_expr(&v));
         } else {
@@ -327,6 +332,7 @@ impl Formatter {
     }
 
     fn format_option_statement(&mut self, n: &ast::OptionStmt) {
+        self.format_comments(&n.base.comments);
         self.write_string("option ");
         self.format_assignment(&n.assignment);
     }
@@ -383,6 +389,7 @@ impl Formatter {
 
         match &n.property {
             ast::PropertyKey::Identifier(m) => {
+                self.format_comments(&n.base.comments);
                 self.write_rune('.');
                 self.format_node(&Node::Identifier(&m));
             }
@@ -478,6 +485,7 @@ impl Formatter {
 
     fn format_variable_assignment(&mut self, n: &ast::VariableAssgn) {
         self.format_node(&Node::Identifier(&n.id));
+        self.format_comments(&n.base.comments);
         self.write_string(" = ");
         self.format_node(&Node::from_expr(&n.init));
     }
@@ -493,6 +501,7 @@ impl Formatter {
 
     fn format_member_assignment(&mut self, n: &ast::MemberAssgn) {
         self.format_node(&Node::MemberExpr(&n.member));
+        self.format_comments(&n.base.comments);
         self.write_string(" = ");
         self.format_node(&Node::from_expr(&n.init));
     }

@@ -655,6 +655,12 @@ pub struct FunctionExpr {
     #[serde(deserialize_with = "deserialize_default_from_null")]
     pub params: Vec<Property>,
     pub body: FunctionBody,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub lcomment: Option<Box<Comment>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rcomment: Option<Box<Comment>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub arrow_comment: Option<Box<Comment>>,
 }
 
 // Operator are Equality and Arithmetic operators.

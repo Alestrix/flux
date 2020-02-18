@@ -403,7 +403,10 @@ fn bad_string_expression() {
                             ..BaseNode::default()
                         },
                         parts: vec![],
-                    })))
+                    }))),
+                    lcomment: None,
+                    rcomment: None,
+                    arrow_comment: None,
                 })),
             }))],
         },
@@ -6536,7 +6539,10 @@ fn arrow_function_called() {
                                 },
                                 value: 1
                             })
-                        })))
+                        }))),
+                        lcomment: None,
+                        rcomment: None,
+                        arrow_comment: None,
                     }))
                 })),
                 Statement::Expr(Box::new(ExprStmt {
@@ -6679,7 +6685,10 @@ fn arrow_function_return_map() {
                                 }))
                             }]
                         }))
-                    })))
+                    }))),
+                    lcomment: None,
+                    rcomment: None,
+                    arrow_comment: None,
                 }))
             }))]
         },
@@ -6779,7 +6788,10 @@ fn arrow_function_with_default_arg() {
                             },
                             name: "n".to_string()
                         })
-                    })))
+                    }))),
+                    lcomment: None,
+                    rcomment: None,
+                    arrow_comment: None,
                 }))
             }))]
         },
@@ -6860,7 +6872,10 @@ fn arrow_function_called_in_binary_expression() {
                                 },
                                 value: 1
                             })
-                        })))
+                        }))),
+                        lcomment: None,
+                        rcomment: None,
+                        arrow_comment: None,
                     }))
                 })),
                 Statement::Expr(Box::new(ExprStmt {
@@ -7037,7 +7052,10 @@ fn arrow_function_as_single_expression() {
                             },
                             value: "cpu".to_string()
                         })
-                    })))
+                    }))),
+                    lcomment: None,
+                    rcomment: None,
+                    arrow_comment: None,
                 }))
             }))]
         },
@@ -7165,7 +7183,10 @@ fn arrow_function_as_block() {
                                 }))
                             }))
                         ]
-                    })
+                    }),
+                    lcomment: None,
+                    rcomment: None,
+                    arrow_comment: None,
                 }))
             }))]
         },
@@ -7816,7 +7837,10 @@ fn from_with_filter_with_no_parens() {
                                             })
                                         }))
                                     }
-                                )))
+                                ))),
+                                lcomment: None,
+                                rcomment: None,
+                                arrow_comment: None,
                             })))
                         }]
                     }))],
@@ -9008,7 +9032,10 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                                     })
                                                 }))
                                             }
-                                        )))
+                                        ))),
+                                        lcomment: None,
+                                        rcomment: None,
+                                        arrow_comment: None,
                                     })))
                                 }
                             ]
@@ -9213,7 +9240,10 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                                         value: "a".to_string()
                                                     })
                                                 }
-                                            )))
+                                            ))),
+                                            lcomment: None,
+                                            rcomment: None,
+                                            arrow_comment: None,
                                         })))
                                     }]
                                 }))]
@@ -9440,7 +9470,10 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                                         value: "b".to_string()
                                                     })
                                                 }
-                                            )))
+                                            ))),
+                                            lcomment: None,
+                                            rcomment: None,
+                                            arrow_comment: None,
                                         })))
                                     }]
                                 }))]
@@ -9761,7 +9794,10 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                                     })
                                                 }))
                                             }
-                                        )))
+                                        ))),
+                                        lcomment: None,
+                                        rcomment: None,
+                                        arrow_comment: None,
                                     })))
                                 }
                             ]
@@ -10265,7 +10301,10 @@ fn function_call_with_unbalanced_braces() {
                                                 })
                                             }))
                                         }))]
-                                    })
+                                    }),
+                                    lcomment: None,
+                                    rcomment: None,
+                                    arrow_comment: None,
                                 })))
                             }]
                         }))]
@@ -10783,7 +10822,10 @@ fn missing_arrow_in_function_expression() {
                         },
                         text: "invalid token for primary expression: EOF".to_string(),
                         expression: None
-                    })))
+                    }))),
+                    lcomment: None,
+                    rcomment: None,
+                    arrow_comment: None,
                 }))
             }))]
         },
