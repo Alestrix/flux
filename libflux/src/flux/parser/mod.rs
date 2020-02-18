@@ -497,6 +497,8 @@ impl Parser {
                         base: self.base_node_from_others_c(&id.base, &prop.base, &t),
                         object: Expression::Identifier(id),
                         property: PropertyKey::Identifier(prop),
+                        lbrack_comment: None,
+                        rbrack_comment: None,
                     },
                     init,
                 }))
@@ -515,11 +517,12 @@ impl Parser {
     fn parse_test_statement(&mut self) -> Statement {
         let t = self.expect(TOK_TEST);
         let id = self.parse_identifier();
+        let assign = self.peek();
         let assignment = self.parse_assign_statement();
         Statement::Test(Box::new(TestStmt {
-            base: self.base_node_from_other_end(&t, assignment.base()),
+            base: self.base_node_from_other_end_c(&t, assignment.base(), &t),
             assignment: VariableAssgn {
-                base: self.base_node_from_others(&id.base, assignment.base()),
+                base: self.base_node_from_others_c(&id.base, assignment.base(), &assign),
                 id,
                 init: assignment,
             },
@@ -554,7 +557,7 @@ impl Parser {
         let t = self.expect(TOK_RETURN);
         let expr = self.parse_expression();
         Statement::Return(Box::new(ReturnStmt {
-            base: self.base_node_from_other_end(&t, expr.base()),
+            base: self.base_node_from_other_end_c(&t, expr.base(), &t),
             argument: expr,
         }))
     }
@@ -642,33 +645,42 @@ impl Parser {
             match self.peek().tok {
                 TOK_IDENT | TOK_INT | TOK_FLOAT | TOK_STRING | TOK_TIME | TOK_DURATION
                 | TOK_PIPE_RECEIVE | TOK_LPAREN | TOK_LBRACK | TOK_LBRACE | TOK_ADD | TOK_SUB
-                | TOK_DIV | TOK_NOT | TOK_EXISTS => exprs.push(self.parse_expression()),
+                | TOK_DIV | TOK_NOT | TOK_EXISTS => {
+                    let expr = self.parse_expression();
+                    if self.peek().tok == TOK_COMMA {
+                        self.consume();
+                        // We cannot use the expression's base for stashing the
+                        // comma comment. It may be the literal and we can
+                        // overwrite leading coments. Need a new AST node type.
+                        // expr.add_comments( self.make_coments(&t.comments) );
+                    }
+                    exprs.push(expr);
+                }
                 _ => {
                     // TODO: bad expression
                     self.consume();
-                    continue;
                 }
             };
-            if self.peek().tok == TOK_COMMA {
-                self.consume();
-            }
         }
         exprs
     }
     fn parse_conditional_expression(&mut self) -> Expression {
         let t = self.peek();
         if t.tok == TOK_IF {
-            self.consume();
+            let if_tok = self.scan();
             let test = self.parse_expression();
-            self.expect(TOK_THEN);
+            let then_tok = self.expect(TOK_THEN);
             let cons = self.parse_expression();
-            self.expect(TOK_ELSE);
+            let else_tok = self.expect(TOK_ELSE);
             let alt = self.parse_expression();
             return Expression::Conditional(Box::new(ConditionalExpr {
                 base: self.base_node_from_other_end(&t, alt.base()),
                 test,
                 consequent: cons,
                 alternate: alt,
+                if_comment: self.make_coments(&if_tok.comments),
+                then_comment: self.make_coments(&then_tok.comments),
+                else_comment: self.make_coments(&else_tok.comments),
             }));
         }
         self.parse_logical_or_expression()
@@ -1003,6 +1015,8 @@ impl Parser {
             base: self.base_node_from_others(expr.base(), &id.base),
             object: expr,
             property: PropertyKey::Identifier(id),
+            lbrack_comment: None,
+            rbrack_comment: None,
         }))
     }
     fn parse_call_expression(&mut self, expr: Expression) -> Expression {
@@ -1024,6 +1038,8 @@ impl Parser {
                 ),
                 with: None,
                 properties: params,
+                lbrace_comment: None,
+                rbrace_comment: None,
             })));
         }
         Expression::Call(Box::new(call))
@@ -1037,11 +1053,15 @@ impl Parser {
                 base: self.base_node_from_other_start(expr.base(), &end),
                 object: expr,
                 property: PropertyKey::StringLit(sl),
+                lbrack_comment: self.make_coments(&start.comments),
+                rbrack_comment: self.make_coments(&end.comments),
             })),
             Some(e) => Expression::Index(Box::new(IndexExpr {
                 base: self.base_node_from_other_start(expr.base(), &end),
                 array: expr,
                 index: e,
+                lbrack_comment: self.make_coments(&start.comments),
+                rbrack_comment: self.make_coments(&end.comments),
             })),
             // Return a bad node.
             None => {
@@ -1054,6 +1074,8 @@ impl Parser {
                         base: self.base_node_from_tokens(&start, &end),
                         value: -1,
                     }),
+                    lbrack_comment: None,
+                    rbrack_comment: None,
                 }))
             }
         }
@@ -1236,6 +1258,8 @@ impl Parser {
         ArrayExpr {
             base: self.base_node_from_tokens(&start, &end),
             elements: exprs,
+            lbrack_comment: self.make_coments(&start.comments),
+            rbrack_comment: self.make_coments(&end.comments),
         }
     }
     fn parse_object_literal(&mut self) -> ObjectExpr {
@@ -1243,6 +1267,8 @@ impl Parser {
         let mut obj = self.parse_object_body();
         let end = self.close(TOK_RBRACE);
         obj.base = self.base_node_from_tokens(&start, &end);
+        obj.lbrace_comment = self.make_coments(&start.comments);
+        obj.rbrace_comment = self.make_coments(&end.comments);
         obj
     }
     fn parse_paren_expression(&mut self) -> Expression {
@@ -1392,6 +1418,8 @@ impl Parser {
                     base: BaseNode::default(),
                     with: None,
                     properties: props,
+                    lbrace_comment: None,
+                    rbrace_comment: None,
                 }
             }
             _ => ObjectExpr {
@@ -1399,6 +1427,8 @@ impl Parser {
                 base: BaseNode::default(),
                 with: None,
                 properties: self.parse_property_list(),
+                lbrace_comment: None,
+                rbrace_comment: None,
             },
         }
     }
@@ -1416,6 +1446,8 @@ impl Parser {
                     base: BaseNode::default(),
                     with: Some(ident),
                     properties: props,
+                    lbrace_comment: None,
+                    rbrace_comment: None,
                 }
             }
             _ => {
@@ -1425,6 +1457,8 @@ impl Parser {
                     base: BaseNode::default(),
                     with: None,
                     properties: props,
+                    lbrace_comment: None,
+                    rbrace_comment: None,
                 }
             }
         }
@@ -1443,6 +1477,8 @@ impl Parser {
                 format_token(t.tok)
             ))
         } else {
+            let last = props.len() - 1;
+            props[last].comma_comments = self.make_coments(&t.comments);
             self.consume();
         }
         props.append(&mut self.parse_property_list());
@@ -1596,7 +1632,7 @@ impl Parser {
             key: PropertyKey::Identifier(key),
             value,
             comma_comments: None,
-            sep_comments
+            sep_comments,
         }
     }
     fn parse_function_expression(

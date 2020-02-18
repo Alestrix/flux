@@ -901,7 +901,9 @@ fn optional_query_metadata() {
                                     value: 5
                                 }))
                             }
-                        ]
+                        ],
+                        lbrace_comment: None,
+                        rbrace_comment: None,
                     }))
                 }))
             }))]
@@ -1009,7 +1011,12 @@ fn optional_query_metadata_preceding_query_text() {
                                         }]
                                     }))
                                 }
-                            ]
+                            ],
+                            lbrace_comment: None,
+                            rbrace_comment: Some(Box::new(Comment {
+                                lit: "// Execution frequency of task\n".to_string(),
+                                next: None,
+                            })),
                         }))
                     }))
                 })),
@@ -1111,7 +1118,9 @@ fn qualified_option() {
                                 ..BaseNode::default()
                             },
                             name: "state".to_string()
-                        })
+                        }),
+                        lbrack_comment: None,
+                        rbrack_comment: None,
                     },
                     init: Expression::StringLit(StringLit {
                         base: BaseNode {
@@ -1243,7 +1252,9 @@ fn test_statement() {
                                     value: 0
                                 }))
                             }
-                        ]
+                        ],
+                        lbrace_comment: None,
+                        rbrace_comment: None,
                     }))
                 }
             }))]
@@ -1704,7 +1715,9 @@ fn declare_variable_as_an_array() {
                             },
                             value: 4
                         })
-                    ]
+                    ],
+                    lbrack_comment: None,
+                    rbrack_comment: None,
                 }))
             }))]
         },
@@ -1745,6 +1758,8 @@ fn declare_variable_as_an_empty_array() {
                         ..BaseNode::default()
                     },
                     elements: vec![],
+                    lbrack_comment: None,
+                    rbrack_comment: None,
                 }))
             }))]
         },
@@ -1896,7 +1911,9 @@ fn variable_is_from_statement() {
                                     ..BaseNode::default()
                                 },
                                 name: "count".to_string()
-                            })
+                            }),
+                            lbrack_comment: None,
+                            rbrack_comment: None,
                         })),
                         lcomments: None,
                         rcomments: None,
@@ -2027,7 +2044,9 @@ fn pipe_expression_to_member_expression_function() {
                                     ..BaseNode::default()
                                 },
                                 name: "c".to_string()
-                            })
+                            }),
+                            lbrack_comment: None,
+                            rbrack_comment: None,
                         })),
                         arguments: vec![Expression::Object(Box::new(ObjectExpr {
                             base: BaseNode {
@@ -2056,7 +2075,9 @@ fn pipe_expression_to_member_expression_function() {
                                     },
                                     name: "e".to_string()
                                 }))
-                            }]
+                            }],
+                            lbrace_comment: None,
+                            rbrace_comment: None,
                         }))],
                         lcomments: None,
                         rcomments: None,
@@ -2166,7 +2187,9 @@ fn member_expression_pipe_expression() {
                                 ..BaseNode::default()
                             },
                             name: "bar".to_string()
-                        })
+                        }),
+                        lbrack_comment: None,
+                        rbrack_comment: None,
                     })),
                     call: CallExpr {
                         base: BaseNode {
@@ -2578,7 +2601,9 @@ fn from_with_database() {
                                 },
                                 value: "telegraf/autogen".to_string()
                             }))
-                        }]
+                        }],
+                        lbrace_comment: None,
+                        rbrace_comment: None,
                     }))],
                     lcomments: None,
                     rcomments: None,
@@ -2673,7 +2698,9 @@ fn map_member_expressions() {
                                     value: "value2".to_string()
                                 }))
                             }
-                        ]
+                        ],
+                        lbrace_comment: None,
+                        rbrace_comment: None,
                     }))
                 })),
                 Statement::Expr(Box::new(ExprStmt {
@@ -2699,7 +2726,9 @@ fn map_member_expressions() {
                                 ..BaseNode::default()
                             },
                             name: "key1".to_string()
-                        })
+                        }),
+                        lbrack_comment: None,
+                        rbrack_comment: None,
                     }))
                 })),
                 Statement::Expr(Box::new(ExprStmt {
@@ -2725,7 +2754,9 @@ fn map_member_expressions() {
                                 ..BaseNode::default()
                             },
                             value: "key2".to_string()
-                        })
+                        }),
+                        lbrack_comment: None,
+                        rbrack_comment: None,
                     }))
                 }))
             ]
@@ -2788,7 +2819,9 @@ fn object_with_string_literal_key() {
                             },
                             value: 10
                         }))
-                    }]
+                    }],
+                    lbrace_comment: None,
+                    rbrace_comment: None,
                 }))
             }))]
         },
@@ -2874,7 +2907,9 @@ fn object_with_mixed_keys() {
                                 value: 11
                             }))
                         }
-                    ]
+                    ],
+                    lbrace_comment: None,
+                    rbrace_comment: None,
                 }))
             }))]
         },
@@ -2948,7 +2983,9 @@ fn implicit_key_object_literal() {
                             comma_comments: None,
                             value: None
                         }
-                    ]
+                    ],
+                    lbrace_comment: None,
+                    rbrace_comment: None,
                 }))
             }))]
         },
@@ -3024,7 +3061,9 @@ fn implicit_key_object_literal_error() {
                             comma_comments: None,
                             value: None
                         }
-                    ]
+                    ],
+                    lbrace_comment: None,
+                    rbrace_comment: None,
                 }))
             }))]
         },
@@ -3106,7 +3145,9 @@ fn implicit_and_explicit_keys_object_literal_error() {
                                 name: "c".to_string()
                             }))
                         }
-                    ]
+                    ],
+                    lbrace_comment: None,
+                    rbrace_comment: None,
                 }))
             }))]
         },
@@ -3191,7 +3232,9 @@ fn object_with() {
                                 name: "e".to_string()
                             }))
                         }
-                    ]
+                    ],
+                    lbrace_comment: None,
+                    rbrace_comment: None,
                 }))
             }))]
         },
@@ -3264,7 +3307,9 @@ fn object_with_implicit_keys() {
                             comma_comments: None,
                             value: None
                         }
-                    ]
+                    ],
+                    lbrace_comment: None,
+                    rbrace_comment: None,
                 }))
             }))]
         },
@@ -3310,7 +3355,9 @@ fn index_expression() {
                             ..BaseNode::default()
                         },
                         value: 3
-                    })
+                    }),
+                    lbrack_comment: None,
+                    rbrack_comment: None,
                 }))
             }))]
         },
@@ -3361,7 +3408,9 @@ fn nested_index_expression() {
                                 ..BaseNode::default()
                             },
                             value: 3
-                        })
+                        }),
+                        lbrack_comment: None,
+                        rbrack_comment: None,
                     })),
                     index: Expression::Integer(IntegerLit {
                         base: BaseNode {
@@ -3369,7 +3418,9 @@ fn nested_index_expression() {
                             ..BaseNode::default()
                         },
                         value: 5
-                    })
+                    }),
+                    lbrack_comment: None,
+                    rbrack_comment: None,
                 }))
             }))]
         },
@@ -3424,7 +3475,9 @@ fn access_indexed_object_returned_from_function_call() {
                             ..BaseNode::default()
                         },
                         value: 3
-                    })
+                    }),
+                    lbrack_comment: None,
+                    rbrack_comment: None,
                 }))
             }))]
         },
@@ -3475,7 +3528,9 @@ fn index_with_member_expressions() {
                                 ..BaseNode::default()
                             },
                             name: "b".to_string()
-                        })
+                        }),
+                        lbrack_comment: None,
+                        rbrack_comment: None,
                     })),
                     property: PropertyKey::StringLit(StringLit {
                         base: BaseNode {
@@ -3483,7 +3538,9 @@ fn index_with_member_expressions() {
                             ..BaseNode::default()
                         },
                         value: "c".to_string()
-                    })
+                    }),
+                    lbrack_comment: None,
+                    rbrack_comment: None,
                 }))
             }))]
         },
@@ -3540,7 +3597,9 @@ fn index_with_member_with_call_expression() {
                                     ..BaseNode::default()
                                 },
                                 name: "b".to_string()
-                            })
+                            }),
+                            lbrack_comment: None,
+                            rbrack_comment: None,
                         })),
                         lcomments: None,
                         rcomments: None,
@@ -3551,7 +3610,9 @@ fn index_with_member_with_call_expression() {
                             ..BaseNode::default()
                         },
                         value: "c".to_string()
-                    })
+                    }),
+                    lbrack_comment: None,
+                    rbrack_comment: None,
                 }))
             }))]
         },
@@ -3608,6 +3669,8 @@ fn index_with_unclosed_bracket() {
                         lcomments: None,
                         rcomments: None,
                     })),
+                    lbrack_comment: None,
+                    rbrack_comment: None,
                 }))
             }))]
         },
@@ -3664,6 +3727,8 @@ fn index_with_unbalanced_parenthesis() {
                         lcomments: None,
                         rcomments: None,
                     })),
+                    lbrack_comment: None,
+                    rbrack_comment: None,
                 }))
             }))]
         },
@@ -3710,7 +3775,9 @@ fn index_with_unexpected_rparen() {
                             ..BaseNode::default()
                         },
                         name: "b".to_string()
-                    })
+                    }),
+                    lbrack_comment: None,
+                    rbrack_comment: None,
                 }))
             }))]
         },
@@ -3809,7 +3876,9 @@ fn member_expression_binary_expression() {
                                 ..BaseNode::default()
                             },
                             name: "_value".to_string()
-                        })
+                        }),
+                        lbrack_comment: None,
+                        rbrack_comment: None,
                     })),
                     right: Expression::Float(FloatLit {
                         base: BaseNode {
@@ -4276,7 +4345,9 @@ fn unary_expression_with_member_expression() {
                                 ..BaseNode::default()
                             },
                             name: "b".to_string()
-                        })
+                        }),
+                        lbrack_comment: None,
+                        rbrack_comment: None,
                     }))
                 }))
             }))]
@@ -5411,7 +5482,9 @@ k / l < m + n - o or p() <= q() or r >= s and not t =~ /a/ and u !~ /a/"#,
                                                             ..BaseNode::default()
                                                         },
                                                         name: "a".to_string()
-                                                    })
+                                                    }),
+                                                    lbrack_comment: None,
+                                                    rbrack_comment: None,
                                                 })),
                                                 right: Expression::Binary(Box::new(BinaryExpr {
                                                     base: BaseNode {
@@ -5444,7 +5517,9 @@ k / l < m + n - o or p() <= q() or r >= s and not t =~ /a/ and u !~ /a/"#,
                                                                     },
                                                                     name: "c".to_string()
                                                                 }
-                                                            )
+                                                            ),
+                                                            lbrack_comment: None,
+                                                            rbrack_comment: None,
                                                         }
                                                     )),
                                                     right: Expression::Identifier(Identifier {
@@ -5496,7 +5571,9 @@ k / l < m + n - o or p() <= q() or r >= s and not t =~ /a/ and u !~ /a/"#,
                                                     ..BaseNode::default()
                                                 },
                                                 name: "g".to_string()
-                                            })
+                                            }),
+                                            lbrack_comment: None,
+                                            rbrack_comment: None,
                                         }))
                                     }))
                                 })),
@@ -6447,7 +6524,9 @@ fn two_logical_operations_with_parens() {
                                         comma_comments: None,
                                         value: None,
                                     }
-                                ]
+                                ],
+                                lbrace_comment: None,
+                                rbrace_comment: None,
                             }))],
                             lcomments: None,
                             rcomments: None,
@@ -6589,7 +6668,9 @@ fn arrow_function_called() {
                                     },
                                     value: 5
                                 }))
-                            }]
+                            }],
+                            lbrace_comment: None,
+                            rbrace_comment: None,
                         }))],
                         lcomments: None,
                         rcomments: None,
@@ -6683,7 +6764,9 @@ fn arrow_function_return_map() {
                                     },
                                     name: "r".to_string()
                                 }))
-                            }]
+                            }],
+                            lbrace_comment: None,
+                            rbrace_comment: None,
                         }))
                     }))),
                     lcomment: None,
@@ -6934,7 +7017,9 @@ fn arrow_function_called_in_binary_expression() {
                                             },
                                             value: 5
                                         }))
-                                    }]
+                                    }],
+                                    lbrace_comment: None,
+                                    rbrace_comment: None,
                                 }))],
                                 lcomments: None,
                                 rcomments: None,
@@ -7043,7 +7128,9 @@ fn arrow_function_as_single_expression() {
                                     ..BaseNode::default()
                                 },
                                 value: "_measurement".to_string()
-                            })
+                            }),
+                            lbrack_comment: None,
+                            rbrack_comment: None,
                         })),
                         right: Expression::StringLit(StringLit {
                             base: BaseNode {
@@ -7152,7 +7239,9 @@ fn arrow_function_as_block() {
                                             ..BaseNode::default()
                                         },
                                         value: "_measurement".to_string()
-                                    })
+                                    }),
+                                    lbrack_comment: None,
+                                    rbrack_comment: None,
                                 }))
                             })),
                             Statement::Return(Box::new(ReturnStmt {
@@ -7246,7 +7335,10 @@ fn conditional() {
                             ..BaseNode::default()
                         },
                         value: 1
-                    })
+                    }),
+                    if_comment: None,
+                    then_comment: None,
+                    else_comment: None,
                 }))
             }))]
         },
@@ -7428,7 +7520,10 @@ fn conditional_with_unary_logical_operators() {
                                 name: "i".to_string()
                             })
                         }))
-                    }))
+                    })),
+                    if_comment: None,
+                    then_comment: None,
+                    else_comment: None,
                 }))
             }))]
         },
@@ -7504,7 +7599,10 @@ fn nested_conditionals() {
                                 ..BaseNode::default()
                             },
                             name: "false".to_string()
-                        })
+                        }),
+                        if_comment: None,
+                        then_comment: None,
+                        else_comment: None,
                     })),
                     consequent: Expression::Conditional(Box::new(ConditionalExpr {
                         base: BaseNode {
@@ -7545,7 +7643,10 @@ fn nested_conditionals() {
                                 ..BaseNode::default()
                             },
                             value: 60
-                        })
+                        }),
+                        if_comment: None,
+                        then_comment: None,
+                        else_comment: None,
                     })),
                     alternate: Expression::Conditional(Box::new(ConditionalExpr {
                         base: BaseNode {
@@ -7586,8 +7687,14 @@ fn nested_conditionals() {
                                 ..BaseNode::default()
                             },
                             value: 120
-                        })
-                    }))
+                        }),
+                        if_comment: None,
+                        then_comment: None,
+                        else_comment: None,
+                    })),
+                    if_comment: None,
+                    then_comment: None,
+                    else_comment: None,
                 }))
             }))]
         },
@@ -7675,9 +7782,13 @@ fn from_with_filter_with_no_parens() {
                                         },
                                         value: "telegraf/autogen".to_string()
                                     }))
-                                }]
+                                }],
+                                lbrace_comment: None,
+                                rbrace_comment: None,
                             }))]
                         })),
+                        lbrack_comment: None,
+                        rbrack_comment: None,
                     })),
                     arguments: vec![Expression::Object(Box::new(ObjectExpr {
                         base: BaseNode {
@@ -7757,7 +7868,9 @@ fn from_with_filter_with_no_parens() {
                                                             ..BaseNode::default()
                                                         },
                                                         value: "other".to_string()
-                                                    })
+                                                    }),
+                                                    lbrack_comment: None,
+                                                    rbrack_comment: None,
                                                 })),
                                                 right: Expression::StringLit(StringLit {
                                                     base: BaseNode {
@@ -7791,7 +7904,9 @@ fn from_with_filter_with_no_parens() {
                                                             ..BaseNode::default()
                                                         },
                                                         value: "this".to_string()
-                                                    })
+                                                    }),
+                                                    lbrack_comment: None,
+                                                    rbrack_comment: None,
                                                 })),
                                                 right: Expression::StringLit(StringLit {
                                                     base: BaseNode {
@@ -7826,7 +7941,9 @@ fn from_with_filter_with_no_parens() {
                                                         ..BaseNode::default()
                                                     },
                                                     value: "these".to_string()
-                                                })
+                                                }),
+                                                lbrack_comment: None,
+                                                rbrack_comment: None,
                                             })),
                                             right: Expression::StringLit(StringLit {
                                                 base: BaseNode {
@@ -7842,7 +7959,9 @@ fn from_with_filter_with_no_parens() {
                                 rcomment: None,
                                 arrow_comment: None,
                             })))
-                        }]
+                        }],
+                        lbrace_comment: None,
+                        rbrace_comment: None,
                     }))],
                     lcomments: None,
                     rcomments: None,
@@ -7919,7 +8038,9 @@ fn from_with_range() {
                                     },
                                     value: "telegraf/autogen".to_string()
                                 }))
-                            }]
+                            }],
+                            lbrace_comment: None,
+                            rbrace_comment: None,
                         }))]
                     })),
                     call: CallExpr {
@@ -8000,7 +8121,9 @@ fn from_with_range() {
                                         }]
                                     }))
                                 }
-                            ]
+                            ],
+                            lbrace_comment: None,
+                            rbrace_comment: None,
                         }))]
                     }
                 }))
@@ -8076,7 +8199,9 @@ fn from_with_limit() {
                                     },
                                     value: "telegraf/autogen".to_string()
                                 }))
-                            }]
+                            }],
+                            lbrace_comment: None,
+                            rbrace_comment: None,
                         }))]
                     })),
                     call: CallExpr {
@@ -8144,7 +8269,9 @@ fn from_with_limit() {
                                         value: 10
                                     }))
                                 }
-                            ]
+                            ],
+                            lbrace_comment: None,
+                            rbrace_comment: None,
                         }))]
                     }
                 }))
@@ -8229,7 +8356,9 @@ fn from_with_range_and_count() {
                                         },
                                         value: "mydb/autogen".to_string()
                                     }))
-                                }]
+                                }],
+                                lbrace_comment: None,
+                                rbrace_comment: None,
                             }))]
                         })),
                         call: CallExpr {
@@ -8317,7 +8446,9 @@ fn from_with_range_and_count() {
                                             })
                                         })))
                                     }
-                                ]
+                                ],
+                                lbrace_comment: None,
+                                rbrace_comment: None,
                             }))]
                         }
                     })),
@@ -8425,7 +8556,9 @@ fn from_with_range_limit_and_count() {
                                             },
                                             value: "mydb/autogen".to_string()
                                         }))
-                                    }]
+                                    }],
+                                    lbrace_comment: None,
+                                    rbrace_comment: None,
                                 }))]
                             })),
                             call: CallExpr {
@@ -8513,7 +8646,9 @@ fn from_with_range_limit_and_count() {
                                                 })
                                             })))
                                         }
-                                    ]
+                                    ],
+                                    lbrace_comment: None,
+                                    rbrace_comment: None,
                                 }))]
                             }
                         })),
@@ -8558,7 +8693,9 @@ fn from_with_range_limit_and_count() {
                                         },
                                         value: 10
                                     }))
-                                }]
+                                }],
+                                lbrace_comment: None,
+                                rbrace_comment: None,
                             }))]
                         }
                     })),
@@ -8664,7 +8801,9 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                         },
                                         value: "dbA/autogen".to_string()
                                     }))
-                                }]
+                                }],
+                                lbrace_comment: None,
+                                rbrace_comment: None,
                             }))]
                         })),
                         call: CallExpr {
@@ -8718,7 +8857,9 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                             }]
                                         })
                                     })))
-                                }]
+                                }],
+                                lbrace_comment: None,
+                                rbrace_comment: None,
                             }))]
                         }
                     }))
@@ -8781,7 +8922,9 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                         },
                                         value: "dbB/autogen".to_string()
                                     }))
-                                }]
+                                }],
+                                lbrace_comment: None,
+                                rbrace_comment: None,
                             }))]
                         })),
                         call: CallExpr {
@@ -8835,7 +8978,9 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                             }]
                                         })
                                     })))
-                                }]
+                                }],
+                                lbrace_comment: None,
+                                rbrace_comment: None,
                             }))]
                         }
                     }))
@@ -8900,7 +9045,9 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                                 },
                                                 name: "b".to_string()
                                             })
-                                        ]
+                                        ],
+                                        lbrack_comment: None,
+                                        rbrack_comment: None,
                                     })))
                                 },
                                 Property {
@@ -8928,7 +9075,9 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                                 ..BaseNode::default()
                                             },
                                             value: "host".to_string()
-                                        })]
+                                        })],
+                                        lbrack_comment: None,
+                                        rbrack_comment: None,
                                     })))
                                 },
                                 Property {
@@ -9009,7 +9158,9 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                                             ..BaseNode::default()
                                                         },
                                                         value: "_field".to_string()
-                                                    })
+                                                    }),
+                                                    lbrack_comment: None,
+                                                    rbrack_comment: None,
                                                 })),
                                                 right: Expression::Member(Box::new(MemberExpr {
                                                     base: BaseNode {
@@ -9029,7 +9180,9 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                                             ..BaseNode::default()
                                                         },
                                                         value: "_field".to_string()
-                                                    })
+                                                    }),
+                                                    lbrack_comment: None,
+                                                    rbrack_comment: None,
                                                 }))
                                             }
                                         ))),
@@ -9038,7 +9191,9 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                         arrow_comment: None,
                                     })))
                                 }
-                            ]
+                            ],
+                            lbrace_comment: None,
+                            rbrace_comment: None,
                         }))]
                     }))
                 }))
@@ -9138,7 +9293,9 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                             },
                                             value: "Flux/autogen".to_string()
                                         }))
-                                    }]
+                                    }],
+                                    lbrace_comment: None,
+                                    rbrace_comment: None,
                                 }))]
                             })),
                             call: CallExpr {
@@ -9229,7 +9386,9 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                                                     value: "_measurement"
                                                                         .to_string()
                                                                 }
-                                                            )
+                                                            ),
+                                                            lbrack_comment: None,
+                                                            rbrack_comment: None,
                                                         }
                                                     )),
                                                     right: Expression::StringLit(StringLit {
@@ -9245,7 +9404,9 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                             rcomment: None,
                                             arrow_comment: None,
                                         })))
-                                    }]
+                                    }],
+                                    lbrace_comment: None,
+                                    rbrace_comment: None,
                                 }))]
                             }
                         })),
@@ -9300,7 +9461,9 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                             }]
                                         })
                                     })))
-                                }]
+                                }],
+                                lbrace_comment: None,
+                                rbrace_comment: None,
                             }))]
                         }
                     }))
@@ -9368,7 +9531,9 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                             },
                                             value: "Flux/autogen".to_string()
                                         }))
-                                    }]
+                                    }],
+                                    lbrace_comment: None,
+                                    rbrace_comment: None,
                                 }))]
                             })),
                             call: CallExpr {
@@ -9459,7 +9624,9 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                                                     value: "_measurement"
                                                                         .to_string()
                                                                 }
-                                                            )
+                                                            ),
+                                                            lbrack_comment: None,
+                                                            rbrack_comment: None,
                                                         }
                                                     )),
                                                     right: Expression::StringLit(StringLit {
@@ -9475,7 +9642,9 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                             rcomment: None,
                                             arrow_comment: None,
                                         })))
-                                    }]
+                                    }],
+                                    lbrace_comment: None,
+                                    rbrace_comment: None,
                                 }))]
                             }
                         })),
@@ -9530,7 +9699,9 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                             }]
                                         })
                                     })))
-                                }]
+                                }],
+                                lbrace_comment: None,
+                                rbrace_comment: None,
                             }))]
                         }
                     }))
@@ -9595,7 +9766,9 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                                 },
                                                 name: "b".to_string()
                                             })
-                                        ]
+                                        ],
+                                        lbrack_comment: None,
+                                        rbrack_comment: None,
                                     })))
                                 },
                                 Property {
@@ -9623,7 +9796,9 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                                 .. BaseNode::default()
                                             },
                                             value: "t1".to_string()
-                                        })]
+                                        })],
+                                        lbrack_comment: None,
+                                        rbrack_comment: None,
                                     })))
                                 },
                                 Property {
@@ -9732,7 +9907,9 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                                                                 value: "_field"
                                                                                     .to_string()
                                                                             }
-                                                                        )
+                                                                        ),
+                                                                    lbrack_comment: None,
+                                                                    rbrack_comment: None,
                                                                 }
                                                             )),
                                                             right: Expression::Member(Box::new(
@@ -9767,7 +9944,9 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                                                                 value: "_field"
                                                                                     .to_string()
                                                                             }
-                                                                        )
+                                                                        ),
+                                                                    lbrack_comment: None,
+                                                                    rbrack_comment: None,
                                                                 }
                                                             ))
                                                         }
@@ -9791,7 +9970,9 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                                             .. BaseNode::default()
                                                         },
                                                         value: "_field".to_string()
-                                                    })
+                                                    }),
+                                                    lbrack_comment: None,
+                                                    rbrack_comment: None,
                                                 }))
                                             }
                                         ))),
@@ -9800,7 +9981,9 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                         arrow_comment: None,
                                     })))
                                 }
-                            ]
+                            ],
+                            lbrace_comment: None,
+                            rbrace_comment: None,
                         }))]
                     }))
                 }))
@@ -10298,7 +10481,9 @@ fn function_call_with_unbalanced_braces() {
                                                         ..BaseNode::default()
                                                     },
                                                     name: "_value".to_string()
-                                                })
+                                                }),
+                                                lbrack_comment: None,
+                                                rbrack_comment: None,
                                             }))
                                         }))]
                                     }),
@@ -10306,7 +10491,9 @@ fn function_call_with_unbalanced_braces() {
                                     rcomment: None,
                                     arrow_comment: None,
                                 })))
-                            }]
+                            }],
+                            lbrace_comment: None,
+                            rbrace_comment: None,
                         }))]
                     }
                 }))
@@ -10928,7 +11115,9 @@ fn property_list_missing_property() {
                                 value: 7
                             }))
                         }
-                    ]
+                    ],
+                    lbrace_comment: None,
+                    rbrace_comment: None,
                 }))
             }))]
         },
@@ -10991,7 +11180,9 @@ fn property_list_missing_key() {
                             },
                             value: "a".to_string()
                         }))
-                    }]
+                    }],
+                    lbrace_comment: None,
+                    rbrace_comment: None,
                 }))
             }))]
         },
@@ -11048,7 +11239,9 @@ fn property_list_missing_value() {
                         sep_comments: None,
                         comma_comments: None,
                         value: None
-                    }]
+                    }],
+                    lbrace_comment: None,
+                    rbrace_comment: None,
                 }))
             }))]
         },
@@ -11154,7 +11347,9 @@ fn property_list_missing_comma() {
                                 value: 30
                             }))
                         }
-                    ]
+                    ],
+                    lbrace_comment: None,
+                    rbrace_comment: None,
                 }))
             }))]
         },
@@ -11216,7 +11411,9 @@ fn property_list_trailing_comma() {
                             },
                             value: "a".to_string()
                         }))
-                    }]
+                    }],
+                    lbrace_comment: None,
+                    rbrace_comment: None,
                 }))
             }))]
         },
@@ -11321,7 +11518,9 @@ fn property_list_bad_property() {
                                 value: 7
                             }))
                         }
-                    ]
+                    ],
+                    lbrace_comment: None,
+                    rbrace_comment: None,
                 }))
             }))]
         },
@@ -11362,7 +11561,9 @@ fn invalid_expression_in_array() {
                             ..BaseNode::default()
                         },
                         name: "a".to_string()
-                    })]
+                    })],
+                    lbrack_comment: None,
+                    rbrack_comment: None,
                 }))
             }))]
         },

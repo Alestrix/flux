@@ -633,6 +633,10 @@ pub struct MemberExpr {
     pub base: BaseNode,
     pub object: Expression,
     pub property: PropertyKey,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub lbrack_comment: Option<Box<Comment>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rbrack_comment: Option<Box<Comment>>,
 }
 
 // IndexExpr represents indexing into an array
@@ -644,6 +648,10 @@ pub struct IndexExpr {
     pub base: BaseNode,
     pub array: Expression,
     pub index: Expression,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub lbrack_comment: Option<Box<Comment>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rbrack_comment: Option<Box<Comment>>,
 }
 
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
@@ -908,6 +916,10 @@ pub struct ArrayExpr {
     #[serde(flatten)]
     pub base: BaseNode,
     pub elements: Vec<Expression>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub lbrack_comment: Option<Box<Comment>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rbrack_comment: Option<Box<Comment>>,
 }
 
 // ObjectExpr allows the declaration of an anonymous object within a declaration.
@@ -921,6 +933,10 @@ pub struct ObjectExpr {
     #[serde(default)]
     pub with: Option<Identifier>,
     pub properties: Vec<Property>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub lbrace_comment: Option<Box<Comment>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rbrace_comment: Option<Box<Comment>>,
 }
 
 // ConditionalExpr selects one of two expressions, `Alternate` or `Consequent`
@@ -934,6 +950,12 @@ pub struct ConditionalExpr {
     pub test: Expression,
     pub consequent: Expression,
     pub alternate: Expression,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub if_comment: Option<Box<Comment>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub then_comment: Option<Box<Comment>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub else_comment: Option<Box<Comment>>,
 }
 
 // BadExpr is a malformed expression that contains the reason why in `text`.

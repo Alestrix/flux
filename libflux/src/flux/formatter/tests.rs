@@ -367,4 +367,57 @@ fn comments() {
         "f = (a=1, b=2) =>\n\t//comment\na()",
         "f = (a=1, b=2) =>\n\t(//comment\na())",
     );
+
+    format_helper("//comment\ntest a = 1");
+    format_helper("test //comment\na = 1");
+    format_helper("test a//comment\n = 1");
+    format_helper("test a = //comment\n1");
+
+    format_helper("//comment\nreturn x");
+    format_helper("return //comment\nx");
+
+    format_helper("//comment\nif 1 then 2 else 3");
+    format_helper("if //comment\n1 then 2 else 3");
+    format_helper("if 1//comment\n then 2 else 3");
+    format_helper("if 1 then //comment\n2 else 3");
+    format_helper("if 1 then 2//comment\n else 3");
+    format_helper("if 1 then 2 else //comment\n3");
+
+    format_helper("//comment\nfoo[\"bar\"]");
+    format_helper("foo//comment\n[\"bar\"]");
+    format_helper("foo[//comment\n\"bar\"]");
+    format_helper("foo[\"bar\"//comment\n]");
+
+    format_helper("a = //comment\n[1, 2, 3]");
+    format_helper("a = [//comment\n1, 2, 3]");
+    // Need a new ast node type to wrap the expressions in expressions.
+    // format_helper( "a = [1//comment\n, 2, 3]");
+    format_helper("a = [1, //comment\n2, 3]");
+    format_helper("a = [1, 2, 3//comment\n]");
+
+    format_helper("a = b//comment\n[1]");
+    format_helper("a = b[//comment\n1]");
+    format_helper("a = b[1//comment\n]");
+
+    format_helper("//comment\n{_time: r._time, io_time: r._value}");
+    format_helper("{//comment\n_time: r._time, io_time: r._value}");
+    format_helper("{_time//comment\n: r._time, io_time: r._value}");
+    format_helper("{_time: //comment\nr._time, io_time: r._value}");
+    //format_helper( "{_time: r//comment\n._time, io_time: r._value}");
+    format_helper("{_time: r.//comment\n_time, io_time: r._value}");
+    format_helper("{_time: r._time//comment\n, io_time: r._value}");
+    format_helper("{_time: r._time, //comment\nio_time: r._value}");
+    format_helper("{_time: r._time, io_time//comment\n: r._value}");
+    format_helper("{_time: r._time, io_time: //comment\nr._value}");
+    //format_helper( "{_time: r._time, io_time: r//comment\n._value}");
+    format_helper("{_time: r._time, io_time: r.//comment\n_value}");
+    format_helper("{_time: r._time, io_time: r._value//comment\n}");
+    format_modified(
+        "{_time: r._time, io_time: r._value//comment\n,}",
+        "{_time: r._time, io_time: r._value//comment\n}",
+    );
+    format_modified(
+        "{_time: r._time, io_time: r._value,//comment\n}",
+        "{_time: r._time, io_time: r._value//comment\n}",
+    );
 }

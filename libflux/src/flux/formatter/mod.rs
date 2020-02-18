@@ -277,6 +277,7 @@ impl Formatter {
     }
 
     fn format_array_expression(&mut self, n: &ast::ArrayExpr) {
+        self.format_comments(&n.lbrack_comment);
         self.write_rune('[');
         let sep = ", ";
         for i in 0..n.elements.len() {
@@ -285,13 +286,16 @@ impl Formatter {
             }
             self.format_node(&Node::from_expr(n.elements.get(i).unwrap()));
         }
+        self.format_comments(&n.rbrack_comment);
         self.write_rune(']')
     }
 
     fn format_index_expression(&mut self, n: &ast::IndexExpr) {
         self.format_child_with_parens(Node::IndexExpr(n), Node::from_expr(&n.array));
+        self.format_comments(&n.lbrack_comment);
         self.write_rune('[');
         self.format_node(&Node::from_expr(&n.index));
+        self.format_comments(&n.rbrack_comment);
         self.write_rune(']');
     }
 
@@ -327,6 +331,7 @@ impl Formatter {
     }
 
     fn format_return_statement(&mut self, n: &ast::ReturnStmt) {
+        self.format_comments(&n.base.comments);
         self.write_string("return ");
         self.format_node(&Node::from_expr(&n.argument));
     }
@@ -338,6 +343,7 @@ impl Formatter {
     }
 
     fn format_test_statement(&mut self, n: &ast::TestStmt) {
+        self.format_comments(&n.base.comments);
         self.write_string("test ");
         self.format_node(&Node::VariableAssgn(&n.assignment));
     }
@@ -394,8 +400,10 @@ impl Formatter {
                 self.format_node(&Node::Identifier(&m));
             }
             ast::PropertyKey::StringLit(m) => {
+                self.format_comments(&n.lbrack_comment);
                 self.write_rune('[');
                 self.format_node(&Node::StringLit(&m));
+                self.format_comments(&n.rbrack_comment);
                 self.write_rune(']');
             }
         }
@@ -440,6 +448,7 @@ impl Formatter {
 
     fn format_object_expression_braces(&mut self, n: &ast::ObjectExpr, braces: bool) {
         let multiline = n.properties.len() > 3;
+        self.format_comments(&n.lbrace_comment);
         if braces {
             self.write_rune('{');
         }
@@ -473,6 +482,7 @@ impl Formatter {
             self.unindent();
             self.write_indent();
         }
+        self.format_comments(&n.rbrace_comment);
         if braces {
             self.write_rune('}');
         }
@@ -491,10 +501,13 @@ impl Formatter {
     }
 
     fn format_conditional_expression(&mut self, n: &ast::ConditionalExpr) {
+        self.format_comments(&n.if_comment);
         self.write_string("if ");
         self.format_node(&Node::from_expr(&n.test));
+        self.format_comments(&n.then_comment);
         self.write_string(" then ");
         self.format_node(&Node::from_expr(&n.consequent));
+        self.format_comments(&n.else_comment);
         self.write_string(" else ");
         self.format_node(&Node::from_expr(&n.alternate));
     }
