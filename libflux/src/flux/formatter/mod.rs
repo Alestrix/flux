@@ -52,7 +52,7 @@ impl Formatter {
         self.indentation = i;
     }
 
-    fn format_comments(&mut self, mut comment: &Option<Box<ast::Comment>>) {
+    fn format_comments(&mut self, mut comment: &ast::CommentList) {
         while let Some(boxed) = comment {
             self.write_string((*boxed).lit.as_str());
             comment = &(*boxed).next;
@@ -425,7 +425,6 @@ impl Formatter {
         self.write_rune('(');
         let sep = ", ";
         for i in 0..n.arguments.len() {
-            self.format_comments(&n.arguments.get(i).unwrap().base().comments);
             if i != 0 {
                 self.write_string(sep);
             }
@@ -454,6 +453,7 @@ impl Formatter {
         }
         if let Some(with) = &n.with {
             self.format_identifier(&with);
+            self.format_comments(&n.with_comments);
             self.write_string(" with ");
         }
         if multiline {
@@ -554,7 +554,7 @@ impl Formatter {
 
     fn format_binary(
         &mut self,
-        comments: &Option<Box<ast::Comment>>,
+        comments: &ast::CommentList,
         op: &str,
         parent: Node,
         left: Node,
@@ -569,6 +569,7 @@ impl Formatter {
     }
 
     fn format_import_declaration(&mut self, n: &ast::ImportDeclaration) {
+        self.format_comments(&n.base.comments);
         self.write_string("import ");
         if let Some(alias) = &n.alias {
             if !alias.name.is_empty() {
@@ -584,6 +585,7 @@ impl Formatter {
     }
 
     fn format_package_clause(&mut self, n: &ast::PackageClause) {
+        self.format_comments(&n.base.comments);
         self.write_string("package ");
         self.format_node(&Node::Identifier(&n.name));
         self.write_rune('\n');
@@ -687,7 +689,8 @@ impl Formatter {
         self.write_string(&format!("{0:10}", n.value))
     }
 
-    fn format_pipe_literal(&mut self, _: &ast::PipeLit) {
+    fn format_pipe_literal(&mut self, n: &ast::PipeLit) {
+        self.format_comments(&n.base.comments);
         self.write_string("<-")
     }
 

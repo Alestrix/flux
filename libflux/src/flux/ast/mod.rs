@@ -310,7 +310,7 @@ pub struct Comment {
     pub next: Option<Box<Comment>>,
 }
 
-type CommentList = Option<Box<Comment>>;
+pub type CommentList = Option<Box<Comment>>;
 
 // BaseNode holds the attributes every expression or statement must have
 #[derive(Debug, Default, PartialEq, Clone, Serialize, Deserialize)]
@@ -910,6 +910,8 @@ pub struct ObjectExpr {
     pub properties: Vec<Property>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub lbrace: CommentList,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub with_comments: CommentList,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub rbrace: CommentList,
 }

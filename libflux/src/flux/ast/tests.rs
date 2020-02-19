@@ -406,6 +406,7 @@ fn test_json_option_statement() {
                     },
                 ],
                 lbrace: None,
+                with_comments: None,
                 rbrace: None,
             })),
         })),
@@ -517,6 +518,7 @@ fn test_json_test_statement() {
                     },
                 ],
                 lbrace: None,
+                with_comments: None,
                 rbrace: None,
             })),
         },
@@ -1012,6 +1014,7 @@ fn test_json_object_expression() {
             comma: None,
         }],
         lbrace: None,
+        with_comments: None,
         rbrace: None,
     }));
     let serialized = serde_json::to_string(&n).unwrap();
@@ -1053,6 +1056,7 @@ fn test_json_object_expression_with_string_literal_key() {
             comma: None,
         }],
         lbrace: None,
+        with_comments: None,
         rbrace: None,
     }));
     let serialized = serde_json::to_string(&n).unwrap();
@@ -1090,6 +1094,7 @@ fn test_json_object_expression_implicit_keys() {
             comma: None,
         }],
         lbrace: None,
+        with_comments: None,
         rbrace: None,
     }));
     let serialized = serde_json::to_string(&n).unwrap();
@@ -1120,6 +1125,7 @@ fn test_json_object_expression_implicit_keys_and_with() {
             comma: None,
         }],
         lbrace: None,
+        with_comments: None,
         rbrace: None,
     }));
     let serialized = serde_json::to_string(&n).unwrap();
@@ -1480,6 +1486,7 @@ fn test_object_expression_with_source_locations_and_errors() {
             comma: None,
         }],
         lbrace: None,
+        with_comments: None,
         rbrace: None,
     }));
     let serialized = serde_json::to_string(&n).unwrap();

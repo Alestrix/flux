@@ -903,6 +903,7 @@ fn optional_query_metadata() {
                             }
                         ],
                         lbrace: None,
+                        with_comments: None,
                         rbrace: None,
                     }))
                 }))
@@ -1013,6 +1014,7 @@ fn optional_query_metadata_preceding_query_text() {
                                 }
                             ],
                             lbrace: None,
+                            with_comments: None,
                             rbrace: Some(Box::new(Comment {
                                 lit: "// Execution frequency of task\n".to_string(),
                                 next: None,
@@ -1254,6 +1256,7 @@ fn test_statement() {
                             }
                         ],
                         lbrace: None,
+                        with_comments: None,
                         rbrace: None,
                     }))
                 }
@@ -2077,6 +2080,7 @@ fn pipe_expression_to_member_expression_function() {
                                 }))
                             }],
                             lbrace: None,
+                            with_comments: None,
                             rbrace: None,
                         }))],
                         lparen: None,
@@ -2603,6 +2607,7 @@ fn from_with_database() {
                             }))
                         }],
                         lbrace: None,
+                        with_comments: None,
                         rbrace: None,
                     }))],
                     lparen: None,
@@ -2700,6 +2705,7 @@ fn map_member_expressions() {
                             }
                         ],
                         lbrace: None,
+                        with_comments: None,
                         rbrace: None,
                     }))
                 })),
@@ -2821,6 +2827,7 @@ fn object_with_string_literal_key() {
                         }))
                     }],
                     lbrace: None,
+                    with_comments: None,
                     rbrace: None,
                 }))
             }))]
@@ -2909,6 +2916,7 @@ fn object_with_mixed_keys() {
                         }
                     ],
                     lbrace: None,
+                    with_comments: None,
                     rbrace: None,
                 }))
             }))]
@@ -2985,6 +2993,7 @@ fn implicit_key_object_literal() {
                         }
                     ],
                     lbrace: None,
+                    with_comments: None,
                     rbrace: None,
                 }))
             }))]
@@ -3063,6 +3072,7 @@ fn implicit_key_object_literal_error() {
                         }
                     ],
                     lbrace: None,
+                    with_comments: None,
                     rbrace: None,
                 }))
             }))]
@@ -3147,6 +3157,7 @@ fn implicit_and_explicit_keys_object_literal_error() {
                         }
                     ],
                     lbrace: None,
+                    with_comments: None,
                     rbrace: None,
                 }))
             }))]
@@ -3234,6 +3245,7 @@ fn object_with() {
                         }
                     ],
                     lbrace: None,
+                    with_comments: None,
                     rbrace: None,
                 }))
             }))]
@@ -3309,6 +3321,7 @@ fn object_with_implicit_keys() {
                         }
                     ],
                     lbrace: None,
+                    with_comments: None,
                     rbrace: None,
                 }))
             }))]
@@ -6526,6 +6539,7 @@ fn two_logical_operations_with_parens() {
                                     }
                                 ],
                                 lbrace: None,
+                                with_comments: None,
                                 rbrace: None,
                             }))],
                             lparen: None,
@@ -6670,6 +6684,7 @@ fn arrow_function_called() {
                                 }))
                             }],
                             lbrace: None,
+                            with_comments: None,
                             rbrace: None,
                         }))],
                         lparen: None,
@@ -6766,6 +6781,7 @@ fn arrow_function_return_map() {
                                 }))
                             }],
                             lbrace: None,
+                            with_comments: None,
                             rbrace: None,
                         }))
                     }))),
@@ -7019,6 +7035,7 @@ fn arrow_function_called_in_binary_expression() {
                                         }))
                                     }],
                                     lbrace: None,
+                                    with_comments: None,
                                     rbrace: None,
                                 }))],
                                 lparen: None,
@@ -7784,6 +7801,7 @@ fn from_with_filter_with_no_parens() {
                                     }))
                                 }],
                                 lbrace: None,
+                                with_comments: None,
                                 rbrace: None,
                             }))]
                         })),
@@ -7961,6 +7979,7 @@ fn from_with_filter_with_no_parens() {
                             })))
                         }],
                         lbrace: None,
+                        with_comments: None,
                         rbrace: None,
                     }))],
                     lparen: None,
@@ -8040,6 +8059,7 @@ fn from_with_range() {
                                 }))
                             }],
                             lbrace: None,
+                            with_comments: None,
                             rbrace: None,
                         }))]
                     })),
@@ -8123,6 +8143,7 @@ fn from_with_range() {
                                 }
                             ],
                             lbrace: None,
+                            with_comments: None,
                             rbrace: None,
                         }))]
                     }
@@ -8201,6 +8222,7 @@ fn from_with_limit() {
                                 }))
                             }],
                             lbrace: None,
+                            with_comments: None,
                             rbrace: None,
                         }))]
                     })),
@@ -8271,6 +8293,7 @@ fn from_with_limit() {
                                 }
                             ],
                             lbrace: None,
+                            with_comments: None,
                             rbrace: None,
                         }))]
                     }
@@ -8358,6 +8381,7 @@ fn from_with_range_and_count() {
                                     }))
                                 }],
                                 lbrace: None,
+                                with_comments: None,
                                 rbrace: None,
                             }))]
                         })),
@@ -8448,6 +8472,7 @@ fn from_with_range_and_count() {
                                     }
                                 ],
                                 lbrace: None,
+                                with_comments: None,
                                 rbrace: None,
                             }))]
                         }
@@ -8558,6 +8583,7 @@ fn from_with_range_limit_and_count() {
                                         }))
                                     }],
                                     lbrace: None,
+                                    with_comments: None,
                                     rbrace: None,
                                 }))]
                             })),
@@ -8648,6 +8674,7 @@ fn from_with_range_limit_and_count() {
                                         }
                                     ],
                                     lbrace: None,
+                                    with_comments: None,
                                     rbrace: None,
                                 }))]
                             }
@@ -8695,6 +8722,7 @@ fn from_with_range_limit_and_count() {
                                     }))
                                 }],
                                 lbrace: None,
+                                with_comments: None,
                                 rbrace: None,
                             }))]
                         }
@@ -8803,6 +8831,7 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                     }))
                                 }],
                                 lbrace: None,
+                                with_comments: None,
                                 rbrace: None,
                             }))]
                         })),
@@ -8859,6 +8888,7 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                     })))
                                 }],
                                 lbrace: None,
+                                with_comments: None,
                                 rbrace: None,
                             }))]
                         }
@@ -8924,6 +8954,7 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                     }))
                                 }],
                                 lbrace: None,
+                                with_comments: None,
                                 rbrace: None,
                             }))]
                         })),
@@ -8980,6 +9011,7 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                     })))
                                 }],
                                 lbrace: None,
+                                with_comments: None,
                                 rbrace: None,
                             }))]
                         }
@@ -9193,6 +9225,7 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                 }
                             ],
                             lbrace: None,
+                            with_comments: None,
                             rbrace: None,
                         }))]
                     }))
@@ -9295,6 +9328,7 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                         }))
                                     }],
                                     lbrace: None,
+                                    with_comments: None,
                                     rbrace: None,
                                 }))]
                             })),
@@ -9406,6 +9440,7 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                         })))
                                     }],
                                     lbrace: None,
+                                    with_comments: None,
                                     rbrace: None,
                                 }))]
                             }
@@ -9463,6 +9498,7 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                     })))
                                 }],
                                 lbrace: None,
+                                with_comments: None,
                                 rbrace: None,
                             }))]
                         }
@@ -9533,6 +9569,7 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                         }))
                                     }],
                                     lbrace: None,
+                                    with_comments: None,
                                     rbrace: None,
                                 }))]
                             })),
@@ -9644,6 +9681,7 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                         })))
                                     }],
                                     lbrace: None,
+                                    with_comments: None,
                                     rbrace: None,
                                 }))]
                             }
@@ -9701,6 +9739,7 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                     })))
                                 }],
                                 lbrace: None,
+                                with_comments: None,
                                 rbrace: None,
                             }))]
                         }
@@ -9983,6 +10022,7 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                 }
                             ],
                             lbrace: None,
+                            with_comments: None,
                             rbrace: None,
                         }))]
                     }))
@@ -10493,6 +10533,7 @@ fn function_call_with_unbalanced_braces() {
                                 })))
                             }],
                             lbrace: None,
+                            with_comments: None,
                             rbrace: None,
                         }))]
                     }
@@ -11117,6 +11158,7 @@ fn property_list_missing_property() {
                         }
                     ],
                     lbrace: None,
+                    with_comments: None,
                     rbrace: None,
                 }))
             }))]
@@ -11182,6 +11224,7 @@ fn property_list_missing_key() {
                         }))
                     }],
                     lbrace: None,
+                    with_comments: None,
                     rbrace: None,
                 }))
             }))]
@@ -11241,6 +11284,7 @@ fn property_list_missing_value() {
                         value: None
                     }],
                     lbrace: None,
+                    with_comments: None,
                     rbrace: None,
                 }))
             }))]
@@ -11349,6 +11393,7 @@ fn property_list_missing_comma() {
                         }
                     ],
                     lbrace: None,
+                    with_comments: None,
                     rbrace: None,
                 }))
             }))]
@@ -11413,6 +11458,7 @@ fn property_list_trailing_comma() {
                         }))
                     }],
                     lbrace: None,
+                    with_comments: None,
                     rbrace: None,
                 }))
             }))]
@@ -11520,6 +11566,7 @@ fn property_list_bad_property() {
                         }
                     ],
                     lbrace: None,
+                    with_comments: None,
                     rbrace: None,
                 }))
             }))]

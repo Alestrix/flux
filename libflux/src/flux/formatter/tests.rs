@@ -420,4 +420,17 @@ fn comments() {
         "{_time: r._time, io_time: r._value,//comment\n}",
         "{_time: r._time, io_time: r._value//comment\n}",
     );
+
+    format_helper("//comment\nimport \"foo\"");
+    format_helper("import //comment\n\"foo\"");
+    format_helper("import //comment\nfoo \"foo\"");
+
+    format_helper("//comment\npackage foo\n");
+    format_helper("package //comment\nfoo\n");
+
+    format_helper("{//comment\nfoo with a: 1, b: 2}");
+    format_helper("{foo//comment\n with a: 1, b: 2}");
+    format_helper("{foo with //comment\na: 1, b: 2}");
+
+    format_helper("fn = (tables=//comment\n<-) =>\n\t(tables)");
 }
