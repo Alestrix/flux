@@ -7,6 +7,11 @@ use chrono::SecondsFormat;
 pub struct Formatter {
     builder: String,
     indentation: u32,
+    // Feature flag so we don't have to include comment formatting in the tests
+    // (for now).
+    fmtc: bool,
+    clear: bool,
+    temp_indent: bool,
     err: Option<Error>,
 }
 
@@ -17,6 +22,9 @@ impl Formatter {
         Formatter {
             builder: String::with_capacity(cap),
             indentation: 0,
+            fmtc: true,
+            clear: true,
+            temp_indent: false,
             err: None,
         }
     }
@@ -30,9 +38,22 @@ impl Formatter {
     }
 
     fn write_string(&mut self, s: &str) {
+        self.clear = false;
         (&mut self.builder).push_str(s);
     }
+
     fn write_rune(&mut self, c: char) {
+        if self.fmtc {
+            if c == '\n' {
+                self.clear = true;
+                if self.temp_indent {
+                    self.temp_indent = false;
+                    self.unindent();
+                }
+            } else if c != '\t' {
+                self.clear = false;
+            }
+        }
         (&mut self.builder).push(c);
     }
     fn write_indent(&mut self) {
@@ -50,11 +71,21 @@ impl Formatter {
 
     fn set_indent(&mut self, i: u32) {
         self.indentation = i;
+        self.temp_indent = false;
     }
 
     fn format_comments(&mut self, mut comment: &ast::CommentList) {
         while let Some(boxed) = comment {
+            if self.fmtc && !self.clear {
+                self.write_rune('\n');
+                self.temp_indent = true;
+                self.indent();
+                self.write_indent();
+            }
             self.write_string((*boxed).lit.as_str());
+            if self.fmtc {
+                self.write_indent();
+            }
             comment = &(*boxed).next;
         }
     }

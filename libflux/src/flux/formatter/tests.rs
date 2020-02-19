@@ -9,6 +9,7 @@ use pretty_assertions::assert_eq;
 fn format_helper(golden: &str) {
     let file = Parser::new(golden).parse_file("".to_string());
     let mut fmt = Formatter::new(golden.len());
+    fmt.fmtc = false;
     fmt.format_file(&file, true);
     let (output, _) = fmt.output();
     assert_eq!(golden, output);
@@ -17,6 +18,7 @@ fn format_helper(golden: &str) {
 fn format_modified(input: &str, expected: &str) {
     let file = Parser::new(input).parse_file("".to_string());
     let mut fmt = Formatter::new(input.len());
+    fmt.fmtc = false;
     fmt.format_file(&file, true);
     let (output, _) = fmt.output();
     assert_eq!(expected, output);
