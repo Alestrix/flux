@@ -639,22 +639,23 @@ impl Parser {
         let expr = self.parse_logical_and_expression_suffix(expr);
         self.parse_logical_or_expression_suffix(expr)
     }
-    fn parse_expression_list(&mut self) -> Vec<Expression> {
-        let mut exprs = Vec::new();
+    fn parse_expression_list(&mut self) -> Vec<ArrayItem> {
+        let mut exprs = Vec::<ArrayItem>::new();
         while self.more() {
             match self.peek().tok {
                 TOK_IDENT | TOK_INT | TOK_FLOAT | TOK_STRING | TOK_TIME | TOK_DURATION
                 | TOK_PIPE_RECEIVE | TOK_LPAREN | TOK_LBRACK | TOK_LBRACE | TOK_ADD | TOK_SUB
                 | TOK_DIV | TOK_NOT | TOK_EXISTS => {
+                    let mut comments = None;
                     let expr = self.parse_expression();
                     if self.peek().tok == TOK_COMMA {
-                        self.consume();
-                        // We cannot use the expression's base for stashing the
-                        // comma comment. It may be the literal and we can
-                        // overwrite leading coments. Need a new AST node type.
-                        // expr.add_comments( self.make_comments(&t.comments) );
+                        let t = self.scan();
+                        comments = self.make_comments(&t.comments);
                     }
-                    exprs.push(expr);
+                    exprs.push(ArrayItem {
+                        expression: expr,
+                        comma: comments,
+                    });
                 }
                 _ => {
                     // TODO: bad expression

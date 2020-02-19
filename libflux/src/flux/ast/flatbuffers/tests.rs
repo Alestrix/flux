@@ -492,7 +492,7 @@ fn compare_exprs(
                 }
                 let fb_we = &fb_elems.get(i);
                 let fb_e = &fb_we.expr();
-                compare_exprs(&ast_ae.elements[i], fb_we.expr_type(), fb_e)?;
+                compare_exprs(&ast_ae.elements[i].expression, fb_we.expr_type(), fb_e)?;
                 i = i + 1
             }
         }

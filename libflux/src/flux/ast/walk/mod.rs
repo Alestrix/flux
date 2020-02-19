@@ -295,7 +295,7 @@ where
             Node::Identifier(_) => {}
             Node::ArrayExpr(n) => {
                 for element in n.elements.iter() {
-                    walk(&w, Node::from_expr(&element));
+                    walk(&w, Node::from_expr(&element.expression));
                 }
             }
             Node::FunctionExpr(n) => {

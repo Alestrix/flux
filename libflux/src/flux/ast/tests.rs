@@ -968,10 +968,13 @@ fn test_json_logical_expression() {
 fn test_json_array_expression() {
     let n = Expression::Array(Box::new(ArrayExpr {
         base: BaseNode::default(),
-        elements: vec![Expression::StringLit(StringLit {
-            base: BaseNode::default(),
-            value: "hello".to_string(),
-        })],
+        elements: vec![ArrayItem {
+            expression: Expression::StringLit(StringLit {
+                base: BaseNode::default(),
+                value: "hello".to_string(),
+            }),
+            comma: None,
+        }],
         lbrack: None,
         rbrack: None,
     }));

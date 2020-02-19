@@ -1690,34 +1690,46 @@ fn declare_variable_as_an_array() {
                         ..BaseNode::default()
                     },
                     elements: vec![
-                        Expression::Integer(IntegerLit {
-                            base: BaseNode {
-                                location: loc.get(1, 10, 1, 11),
-                                ..BaseNode::default()
-                            },
-                            value: 1
-                        }),
-                        Expression::Integer(IntegerLit {
-                            base: BaseNode {
-                                location: loc.get(1, 13, 1, 14),
-                                ..BaseNode::default()
-                            },
-                            value: 2
-                        }),
-                        Expression::Integer(IntegerLit {
-                            base: BaseNode {
-                                location: loc.get(1, 16, 1, 17),
-                                ..BaseNode::default()
-                            },
-                            value: 3
-                        }),
-                        Expression::Integer(IntegerLit {
-                            base: BaseNode {
-                                location: loc.get(1, 19, 1, 20),
-                                ..BaseNode::default()
-                            },
-                            value: 4
-                        })
+                        ArrayItem {
+                            expression: Expression::Integer(IntegerLit {
+                                base: BaseNode {
+                                    location: loc.get(1, 10, 1, 11),
+                                    ..BaseNode::default()
+                                },
+                                value: 1
+                            }),
+                            comma: None,
+                        },
+                        ArrayItem {
+                            expression: Expression::Integer(IntegerLit {
+                                base: BaseNode {
+                                    location: loc.get(1, 13, 1, 14),
+                                    ..BaseNode::default()
+                                },
+                                value: 2
+                            }),
+                            comma: None,
+                        },
+                        ArrayItem {
+                            expression: Expression::Integer(IntegerLit {
+                                base: BaseNode {
+                                    location: loc.get(1, 16, 1, 17),
+                                    ..BaseNode::default()
+                                },
+                                value: 3
+                            }),
+                            comma: None,
+                        },
+                        ArrayItem {
+                            expression: Expression::Integer(IntegerLit {
+                                base: BaseNode {
+                                    location: loc.get(1, 19, 1, 20),
+                                    ..BaseNode::default()
+                                },
+                                value: 4
+                            }),
+                            comma: None,
+                        }
                     ],
                     lbrack: None,
                     rbrack: None,
@@ -9063,20 +9075,26 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                             ..BaseNode::default()
                                         },
                                         elements: vec![
-                                            Expression::Identifier(Identifier {
-                                                base: BaseNode {
-                                                    location: loc.get(4, 14, 4, 15),
-                                                    ..BaseNode::default()
-                                                },
-                                                name: "a".to_string()
-                                            }),
-                                            Expression::Identifier(Identifier {
-                                                base: BaseNode {
-                                                    location: loc.get(4, 16, 4, 17),
-                                                    ..BaseNode::default()
-                                                },
-                                                name: "b".to_string()
-                                            })
+                                            ArrayItem {
+                                                expression: Expression::Identifier(Identifier {
+                                                    base: BaseNode {
+                                                        location: loc.get(4, 14, 4, 15),
+                                                        ..BaseNode::default()
+                                                    },
+                                                    name: "a".to_string()
+                                                }),
+                                                comma: None,
+                                            },
+                                            ArrayItem {
+                                                expression: Expression::Identifier(Identifier {
+                                                    base: BaseNode {
+                                                        location: loc.get(4, 16, 4, 17),
+                                                        ..BaseNode::default()
+                                                    },
+                                                    name: "b".to_string()
+                                                }),
+                                                comma: None,
+                                            }
                                         ],
                                         lbrack: None,
                                         rbrack: None,
@@ -9101,13 +9119,16 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                                             location: loc.get(4, 23, 4, 31),
                                             ..BaseNode::default()
                                         },
-                                        elements: vec![Expression::StringLit(StringLit {
-                                            base: BaseNode {
-                                                location: loc.get(4, 24, 4, 30),
-                                                ..BaseNode::default()
-                                            },
-                                            value: "host".to_string()
-                                        })],
+                                        elements: vec![ArrayItem {
+                                            expression: Expression::StringLit(StringLit {
+                                                base: BaseNode {
+                                                    location: loc.get(4, 24, 4, 30),
+                                                    ..BaseNode::default()
+                                                },
+                                                value: "host".to_string()
+                                            }),
+                                            comma: None,
+                                        }],
                                         lbrack: None,
                                         rbrack: None,
                                     })))
@@ -9791,20 +9812,26 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                             .. BaseNode::default()
                                         },
                                         elements: vec![
-                                            Expression::Identifier(Identifier {
-                                                base: BaseNode {
-                                                    location: loc.get(10, 14, 10, 15),
-                                                    .. BaseNode::default()
-                                                },
-                                                name: "a".to_string()
-                                            }),
-                                            Expression::Identifier(Identifier {
-                                                base: BaseNode {
-                                                    location: loc.get(10, 16, 10, 17),
-                                                    .. BaseNode::default()
-                                                },
-                                                name: "b".to_string()
-                                            })
+                                            ArrayItem {
+                                                expression: Expression::Identifier(Identifier {
+                                                    base: BaseNode {
+                                                        location: loc.get(10, 14, 10, 15),
+                                                        .. BaseNode::default()
+                                                    },
+                                                    name: "a".to_string()
+                                                }),
+                                                comma: None,
+                                            },
+                                            ArrayItem {
+                                                expression: Expression::Identifier(Identifier {
+                                                    base: BaseNode {
+                                                        location: loc.get(10, 16, 10, 17),
+                                                        .. BaseNode::default()
+                                                    },
+                                                    name: "b".to_string()
+                                                }),
+                                                comma: None,
+                                            }
                                         ],
                                         lbrack: None,
                                         rbrack: None,
@@ -9829,13 +9856,16 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                                             location: loc.get(10, 23, 10, 29),
                                             .. BaseNode::default()
                                         },
-                                        elements: vec![Expression::StringLit(StringLit {
-                                            base: BaseNode {
-                                                location: loc.get(10, 24, 10, 28),
-                                                .. BaseNode::default()
-                                            },
-                                            value: "t1".to_string()
-                                        })],
+                                        elements: vec![ArrayItem {
+                                            expression: Expression::StringLit(StringLit {
+                                                base: BaseNode {
+                                                    location: loc.get(10, 24, 10, 28),
+                                                    .. BaseNode::default()
+                                                },
+                                                value: "t1".to_string()
+                                            }),
+                                            comma: None,
+                                        }],
                                         lbrack: None,
                                         rbrack: None,
                                     })))
@@ -11602,13 +11632,16 @@ fn invalid_expression_in_array() {
                         location: loc.get(1, 1, 1, 6),
                         ..BaseNode::default()
                     },
-                    elements: vec![Expression::Identifier(Identifier {
-                        base: BaseNode {
-                            location: loc.get(1, 3, 1, 4),
-                            ..BaseNode::default()
-                        },
-                        name: "a".to_string()
-                    })],
+                    elements: vec![ArrayItem {
+                        expression: Expression::Identifier(Identifier {
+                            base: BaseNode {
+                                location: loc.get(1, 3, 1, 4),
+                                ..BaseNode::default()
+                            },
+                            name: "a".to_string()
+                        }),
+                        comma: None,
+                    }],
                     lbrack: None,
                     rbrack: None,
                 }))

@@ -456,7 +456,7 @@ fn convert_array_expression(expr: ast::ArrayExpr, fresher: &mut Fresher) -> Resu
     let elements = expr
         .elements
         .into_iter()
-        .map(|e| convert_expression(e, fresher))
+        .map(|e| convert_expression(e.expression, fresher))
         .collect::<Result<Vec<Expression>>>()?;
     Ok(ArrayExpr {
         loc: expr.base.location,

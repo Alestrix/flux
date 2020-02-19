@@ -390,9 +390,9 @@ fn comments() {
 
     format_helper("a = //comment\n[1, 2, 3]");
     format_helper("a = [//comment\n1, 2, 3]");
-    // Need a new ast node type to wrap the expressions in expressions.
-    // format_helper( "a = [1//comment\n, 2, 3]");
+    format_helper("a = [1//comment\n, 2, 3]");
     format_helper("a = [1, //comment\n2, 3]");
+    format_helper("a = [1, //comment1\n2//comment2\n, 3]");
     format_helper("a = [1, 2, 3//comment\n]");
 
     format_helper("a = b//comment\n[1]");

@@ -885,12 +885,22 @@ pub struct LogicalExpr {
 
 // ArrayExpr is used to create and directly specify the elements of an array object
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
+pub struct ArrayItem {
+    #[serde(default)]
+    #[serde(flatten)]
+    pub expression: Expression,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub comma: CommentList,
+}
+
+// ArrayExpr is used to create and directly specify the elements of an array object
+#[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
 pub struct ArrayExpr {
     #[serde(skip_serializing_if = "BaseNode::is_empty")]
     #[serde(default)]
     #[serde(flatten)]
     pub base: BaseNode,
-    pub elements: Vec<Expression>,
+    pub elements: Vec<ArrayItem>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub lbrack: CommentList,
     #[serde(skip_serializing_if = "Option::is_none")]

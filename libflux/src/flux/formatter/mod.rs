@@ -284,7 +284,8 @@ impl Formatter {
             if i != 0 {
                 self.write_string(sep)
             }
-            self.format_node(&Node::from_expr(n.elements.get(i).unwrap()));
+            self.format_node(&Node::from_expr(&n.elements.get(i).unwrap().expression));
+            self.format_comments(&n.elements.get(i).unwrap().comma);
         }
         self.format_comments(&n.rbrack);
         self.write_rune(']')
