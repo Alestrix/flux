@@ -697,12 +697,9 @@ impl Parser {
             match or {
                 Some(or_op) => {
                     let t = self.scan();
-                    let comments = self.make_comments(&t.comments);
                     let rhs = self.parse_logical_and_expression();
-                    let mut base = self.base_node_from_others(res.base(), rhs.base());
-                    base.add_comments(comments);
                     res = Expression::Logical(Box::new(LogicalExpr {
-                        base,
+                        base: self.base_node_from_others_c(res.base(), rhs.base(), &t),
                         operator: or_op,
                         left: res,
                         right: rhs,
@@ -732,12 +729,9 @@ impl Parser {
             match and {
                 Some(and_op) => {
                     let t = self.scan();
-                    let comments = self.make_comments(&t.comments);
                     let rhs = self.parse_logical_unary_expression();
-                    let mut base = self.base_node_from_others(res.base(), rhs.base());
-                    base.add_comments(comments);
                     res = Expression::Logical(Box::new(LogicalExpr {
-                        base,
+                        base: self.base_node_from_others_c(res.base(), rhs.base(), &t),
                         operator: and_op,
                         left: res,
                         right: rhs,
@@ -762,12 +756,9 @@ impl Parser {
         match op {
             Some(op) => {
                 self.consume();
-                let comments = self.make_comments(&t.comments);
                 let expr = self.parse_logical_unary_expression();
-                let mut base = self.base_node_from_other_end(&t, expr.base());
-                base.add_comments(comments);
                 Expression::Unary(Box::new(UnaryExpr {
-                    base,
+                    base: self.base_node_from_other_end_c(&t, expr.base(), &t),
                     operator: op,
                     argument: expr,
                 }))
@@ -794,12 +785,9 @@ impl Parser {
             match op {
                 Some(op) => {
                     let t = self.scan();
-                    let comments = self.make_comments(&t.comments);
                     let rhs = self.parse_additive_expression();
-                    let mut base = self.base_node_from_others(res.base(), rhs.base());
-                    base.add_comments(comments);
                     res = Expression::Binary(Box::new(BinaryExpr {
-                        base,
+                        base: self.base_node_from_others_c(res.base(), rhs.base(), &t),
                         operator: op,
                         left: res,
                         right: rhs,
@@ -837,12 +825,9 @@ impl Parser {
             match op {
                 Some(op) => {
                     let t = self.scan();
-                    let comments = self.make_comments(&t.comments);
                     let rhs = self.parse_multiplicative_expression();
-                    let mut base = self.base_node_from_others(res.base(), rhs.base());
-                    base.add_comments(comments);
                     res = Expression::Binary(Box::new(BinaryExpr {
-                        base,
+                        base: self.base_node_from_others_c(res.base(), rhs.base(), &t),
                         operator: op,
                         left: res,
                         right: rhs,
@@ -874,12 +859,10 @@ impl Parser {
             match op {
                 Some(op) => {
                     let t = self.scan();
-                    let comments = self.make_comments(&t.comments);
                     let rhs = self.parse_pipe_expression();
-                    let mut base = self.base_node_from_others(res.base(), rhs.base());
-                    base.add_comments(comments);
+                    self.base_node_from_others_c(res.base(), rhs.base(), &t);
                     res = Expression::Binary(Box::new(BinaryExpr {
-                        base,
+                        base: self.base_node_from_others_c(res.base(), rhs.base(), &t),
                         operator: op,
                         left: res,
                         right: rhs,
@@ -915,16 +898,13 @@ impl Parser {
             }
 
             let t = self.scan();
-            let comments = self.make_comments(&t.comments);
 
             // TODO(jsternberg): this is not correct.
             let rhs = self.parse_unary_expression();
             match rhs {
                 Expression::Call(b) => {
-                    let mut base = self.base_node_from_others(res.base(), &b.base);
-                    base.add_comments(comments);
                     res = Expression::PipeExpr(Box::new(PipeExpr {
-                        base,
+                        base: self.base_node_from_others_c(res.base(), &b.base, &t),
                         argument: res,
                         call: *b,
                     }));
@@ -942,10 +922,8 @@ impl Parser {
                         lparen: None,
                         rparen: None,
                     };
-                    let mut base = self.base_node_from_others(res.base(), &call.base);
-                    base.add_comments(comments);
                     res = Expression::PipeExpr(Box::new(PipeExpr {
-                        base,
+                        base: self.base_node_from_others_c(res.base(), &call.base, &t),
                         argument: res,
                         call,
                     }));
@@ -963,12 +941,9 @@ impl Parser {
         let op = self.parse_additive_operator();
         if let Some(op) = op {
             self.consume();
-            let comments = self.make_comments(&t.comments);
             let expr = self.parse_unary_expression();
-            let mut base = self.base_node_from_other_end(&t, expr.base());
-            base.add_comments(comments);
             return Expression::Unary(Box::new(UnaryExpr {
-                base,
+                base: self.base_node_from_other_end_c(&t, expr.base(), &t),
                 operator: op,
                 argument: expr,
             }));

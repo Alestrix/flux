@@ -225,8 +225,9 @@ impl Formatter {
                 self.write_string(sep)
             }
             // treat properties differently than in general case
-            self.format_function_argument(n.params.get(i).unwrap());
-            self.format_comments(&n.params.get(i).unwrap().comma);
+            let property = n.params.get(i).unwrap();
+            self.format_function_argument(property);
+            self.format_comments(&property.comma);
         }
         self.format_comments(&n.rparen);
         self.write_string(") ");
@@ -315,8 +316,9 @@ impl Formatter {
             if i != 0 {
                 self.write_string(sep)
             }
-            self.format_node(&Node::from_expr(&n.elements.get(i).unwrap().expression));
-            self.format_comments(&n.elements.get(i).unwrap().comma);
+            let item = n.elements.get(i).unwrap();
+            self.format_node(&Node::from_expr(&item.expression));
+            self.format_comments(&item.comma);
         }
         self.format_comments(&n.rbrack);
         self.write_rune(']')
@@ -506,8 +508,9 @@ impl Formatter {
                     self.write_indent()
                 }
             }
-            self.format_node(&Node::Property(n.properties.get(i).unwrap()));
-            self.format_comments(&n.properties.get(i).unwrap().comma);
+            let property = n.properties.get(i).unwrap();
+            self.format_node(&Node::Property(property));
+            self.format_comments(&property.comma);
         }
         if multiline {
             self.write_string(sep);
