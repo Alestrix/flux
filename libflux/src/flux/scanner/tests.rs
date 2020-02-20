@@ -1312,11 +1312,11 @@ a
             end_pos: Position { line: 6, column: 2 },
             comments: Some(Box::new(Token {
                 tok: 2,
-                lit: String::from("// comment with // nested comment.\n"),
-                start_offset: 24,
-                end_offset: 59,
-                start_pos: Position { line: 3, column: 1 },
-                end_pos: Position { line: 4, column: 1 },
+                lit: String::from("// last but not least.\n"),
+                start_offset: 72,
+                end_offset: 95,
+                start_pos: Position { line: 5, column: 1 },
+                end_pos: Position { line: 6, column: 1 },
                 comments: Some(Box::new(Token {
                     tok: 2,
                     lit: String::from("// one more.\n"),
@@ -1326,11 +1326,11 @@ a
                     end_pos: Position { line: 5, column: 1 },
                     comments: Some(Box::new(Token {
                         tok: 2,
-                        lit: String::from("// last but not least.\n"),
-                        start_offset: 72,
-                        end_offset: 95,
-                        start_pos: Position { line: 5, column: 1 },
-                        end_pos: Position { line: 6, column: 1 },
+                        lit: String::from("// comment with // nested comment.\n"),
+                        start_offset: 24,
+                        end_offset: 59,
+                        start_pos: Position { line: 3, column: 1 },
+                        end_pos: Position { line: 4, column: 1 },
                         comments: None,
                     }))
                 }))
@@ -1401,11 +1401,11 @@ a
             end_pos: Position { line: 6, column: 2 },
             comments: Some(Box::new(Token {
                 tok: 2,
-                lit: String::from("// comment with // nested comment.\n"),
-                start_offset: 24,
-                end_offset: 59,
-                start_pos: Position { line: 3, column: 1 },
-                end_pos: Position { line: 4, column: 1 },
+                lit: String::from("// last but not least.\n"),
+                start_offset: 72,
+                end_offset: 95,
+                start_pos: Position { line: 5, column: 1 },
+                end_pos: Position { line: 6, column: 1 },
                 comments: Some(Box::new(Token {
                     tok: 2,
                     lit: String::from("// one more.\n"),
@@ -1415,11 +1415,11 @@ a
                     end_pos: Position { line: 5, column: 1 },
                     comments: Some(Box::new(Token {
                         tok: 2,
-                        lit: String::from("// last but not least.\n"),
-                        start_offset: 72,
-                        end_offset: 95,
-                        start_pos: Position { line: 5, column: 1 },
-                        end_pos: Position { line: 6, column: 1 },
+                        lit: String::from("// comment with // nested comment.\n"),
+                        start_offset: 24,
+                        end_offset: 59,
+                        start_pos: Position { line: 3, column: 1 },
+                        end_pos: Position { line: 4, column: 1 },
                         comments: None
                     }))
                 }))

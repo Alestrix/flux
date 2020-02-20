@@ -9,7 +9,6 @@ use pretty_assertions::assert_eq;
 fn format_helper(golden: &str) {
     let file = Parser::new(golden).parse_file("".to_string());
     let mut fmt = Formatter::new(golden.len());
-    fmt.fmtc = false;
     fmt.format_file(&file, true);
     let (output, _) = fmt.output();
     assert_eq!(golden, output);
@@ -18,7 +17,6 @@ fn format_helper(golden: &str) {
 fn format_modified(input: &str, expected: &str) {
     let file = Parser::new(input).parse_file("".to_string());
     let mut fmt = Formatter::new(input.len());
-    fmt.fmtc = false;
     fmt.format_file(&file, true);
     let (output, _) = fmt.output();
     assert_eq!(expected, output);
@@ -294,145 +292,273 @@ fn comments() {
     );
     format_modified(
         "( 1 + 1 // attach to close paren\n )",
-        "1 + 1// attach to close paren\n",
+        "1 + 1\n\t// attach to close paren\n\t",
     );
     // A reordering we have to live with, unless we do some refactoring in the
     // formatter.
     format_modified(
         "1 * // attach to open paren\n( 1 + 1 )",
-        "1 * (// attach to open paren\n1 + 1)",
+        "1 * (\n\t// attach to open paren\n\t1 + 1)",
     );
-    format_helper("1 * (1 + 1// attach to close paren\n)");
-    format_helper("from//comment\n(bucket: bucket)");
-    format_helper("from(//comment\nbucket: bucket)");
-    format_helper("from(bucket//comment\n: bucket)");
-    format_helper("from(bucket: //comment\nbucket)");
-    format_helper("from(bucket: bucket//comment\n)");
-    format_helper("from(//comment\nbucket)");
-    format_helper("from(bucket//comment\n, _option)");
-    format_helper("from(bucket, //comment\n_option)");
-    format_helper("from(bucket, _option//comment\n)");
+    format_helper("1 * (1 + 1\n\t// attach to close paren\n\t)");
+    format_helper("from\n\t//comment\n\t(bucket: bucket)");
+    format_helper("from(\n\t//comment\n\tbucket: bucket)");
+    format_helper("from(bucket\n\t//comment\n\t: bucket)");
+    format_helper("from(bucket: \n\t//comment\n\tbucket)");
+    format_helper("from(bucket: bucket\n\t//comment\n\t)");
+    format_helper("from(\n\t//comment\n\tbucket)");
+    format_helper("from(bucket\n\t//comment\n\t, _option)");
+    format_helper("from(bucket, \n\t//comment\n\t_option)");
+    format_helper("from(bucket, _option\n\t//comment\n\t)");
     format_modified(
         "from(bucket, _option//comment1\n,//comment2\n)",
-        "from(bucket, _option//comment1\n//comment2\n)",
+        "from(bucket, _option\n\t//comment1\n\t//comment2\n)",
     );
 
     /* Expressions. */
-    format_helper("1 //comment\n<= 1");
-    format_helper("1 //comment\n+ 1");
-    format_helper("1 //comment\n* 1");
-    format_helper("from()\n\t//comment\n|> to()");
+    format_helper("1 \n\t//comment\n\t<= 1");
+    format_helper("1 \n\t//comment\n\t+ 1");
+    format_helper("1 \n\t//comment\n\t* 1");
+    format_helper("from()\n\t//comment\n\t|> to()");
     format_helper("//comment\n+1");
-    format_modified("1 * //comment\n-1", "1 * (//comment\n-1)");
-    format_helper("i = //comment\nnot true");
+    format_modified("1 * //comment\n-1", "1 * (\n\t//comment\n\t-1)");
+    format_helper("i = \n\t//comment\n\tnot true");
     format_helper("//comment\nexists 1");
-    format_helper("a //comment\n=~ /foo/");
-    format_helper("a //comment\n!~ /foo/");
-    format_helper("a //comment\nand b");
-    format_helper("a //comment\nor b");
+    format_helper("a \n\t//comment\n\t=~ /foo/");
+    format_helper("a \n\t//comment\n\t!~ /foo/");
+    format_helper("a \n\t//comment\n\tand b");
+    format_helper("a \n\t//comment\n\tor b");
 
-    format_helper("a//comment\n = 1");
+    format_helper("a\n\t//comment\n\t = 1");
     format_helper("//comment\noption a = 1");
-    format_helper("option a//comment\n = 1");
-    format_helper("option a//comment\n.b = 1");
-    format_helper("option a.b//comment\n = 1");
+    format_helper("option a\n\t//comment\n\t = 1");
+    format_helper("option a\n\t//comment\n\t.b = 1");
+    format_helper("option a.b\n\t//comment\n\t = 1");
 
-    format_helper("f = //comment\n(a) =>\n\t(a())");
-    format_helper("f = (//comment\na) =>\n\t(a())");
-    format_helper("f = (//comment\na, b) =>\n\t(a())");
-    format_helper("f = (a//comment\n, b) =>\n\t(a())");
-    format_helper("f = (a//comment\n=1, b=2) =>\n\t(a())");
-    format_helper("f = (a=//comment\n1, b=2) =>\n\t(a())");
-    format_helper("f = (a=1//comment\n, b=2) =>\n\t(a())");
-    format_helper("f = (a=1, //comment\nb=2) =>\n\t(a())");
-    format_helper("f = (a=1, b//comment\n=2) =>\n\t(a())");
-    format_helper("f = (a=1, b=//comment\n2) =>\n\t(a())");
+    // Some funny business here. Propbably need to scan write_string for \n
+    format_helper("f = \n\t//comment\n\t(a) =>\n\t(a())");
+    format_helper("f = (\n\t//comment\n\ta) =>\n\t(a())");
+    format_helper("f = (\n\t//comment\n\ta, b) =>\n\t(a())");
+    format_helper("f = (a\n\t//comment\n\t, b) =>\n\t(a())");
+    format_helper("f = (a\n\t//comment\n\t=1, b=2) =>\n\t\t(a())");
+    format_helper("f = (a=\n\t//comment\n\t1, b=2) =>\n\t(a())");
+    format_helper("f = (a=1\n\t//comment\n\t, b=2) =>\n\t\t(a())");
+    format_helper("f = (a=1, \n\t//comment\n\tb=2) =>\n\t\t(a())");
+    format_helper("f = (a=1, b\n\t//comment\n\t=2) =>\n\t\t(a())");
+    format_helper("f = (a=1, b=\n\t//comment\n\t2) =>\n\t(a())");
     format_modified(
         "f = (a=1, b=2//comment\n,) =>\n\t(a())",
-        "f = (a=1, b=2//comment\n) =>\n\t(a())",
+        "f = (a=1, b=2\n\t//comment\n\t) =>\n\t(a())",
     );
-    format_helper("f = (a=1, b=2//comment\n) =>\n\t(a())");
+    format_helper("f = (a=1, b=2\n\t//comment\n\t) =>\n\t(a())");
     format_modified(
         "f = (a=1, b=2,//comment\n) =>\n\t(a())",
-        "f = (a=1, b=2//comment\n) =>\n\t(a())",
+        "f = (a=1, b=2\n\t//comment\n\t) =>\n\t(a())",
     );
     format_modified(
         "f = (a=1, b=2//comment1\n,//comment2\n) =>\n\t(a())",
-        "f = (a=1, b=2//comment1\n//comment2\n) =>\n\t(a())",
+        "f = (a=1, b=2\n\t//comment1\n\t//comment2\n\t) =>\n\t(a())",
     );
-    format_helper("f = (a=1, b=2) //comment\n=>\n\t(a())");
+    format_helper("f = (a=1, b=2) \n\t//comment\n\t=>\n\t(a())");
     format_modified(
         "f = (a=1, b=2) =>\n\t//comment\n(a())",
-        "f = (a=1, b=2) =>\n\t(//comment\na())",
+        "f = (a=1, b=2) =>\n\t(\n\t\t//comment\n\t\ta())",
     );
     format_modified(
         "f = (a=1, b=2) =>\n\t//comment\na()",
-        "f = (a=1, b=2) =>\n\t(//comment\na())",
+        "f = (a=1, b=2) =>\n\t(\n\t\t//comment\n\t\ta())",
     );
 
     format_helper("//comment\ntest a = 1");
-    format_helper("test //comment\na = 1");
-    format_helper("test a//comment\n = 1");
-    format_helper("test a = //comment\n1");
+    format_helper("test \n\t//comment\n\ta = 1");
+    format_helper("test a\n\t//comment\n\t = 1");
+    format_helper("test a = \n\t//comment\n\t1");
 
     format_helper("//comment\nreturn x");
-    format_helper("return //comment\nx");
+    format_helper("return \n\t//comment\n\tx");
 
     format_helper("//comment\nif 1 then 2 else 3");
-    format_helper("if //comment\n1 then 2 else 3");
-    format_helper("if 1//comment\n then 2 else 3");
-    format_helper("if 1 then //comment\n2 else 3");
-    format_helper("if 1 then 2//comment\n else 3");
-    format_helper("if 1 then 2 else //comment\n3");
+    format_helper("if \n\t//comment\n\t1 then 2 else 3");
+    format_helper("if 1\n\t//comment\n\t then 2 else 3");
+    format_helper("if 1 then \n\t//comment\n\t2 else 3");
+    format_helper("if 1 then 2\n\t//comment\n\t else 3");
+    format_helper("if 1 then 2 else \n\t//comment\n\t3");
 
     format_helper("//comment\nfoo[\"bar\"]");
-    format_helper("foo//comment\n[\"bar\"]");
-    format_helper("foo[//comment\n\"bar\"]");
-    format_helper("foo[\"bar\"//comment\n]");
+    format_helper("foo\n\t//comment\n\t[\"bar\"]");
+    format_helper("foo[\n\t//comment\n\t\"bar\"]");
+    format_helper("foo[\"bar\"\n\t//comment\n\t]");
 
-    format_helper("a = //comment\n[1, 2, 3]");
-    format_helper("a = [//comment\n1, 2, 3]");
-    format_helper("a = [1//comment\n, 2, 3]");
-    format_helper("a = [1, //comment\n2, 3]");
-    format_helper("a = [1, //comment1\n2//comment2\n, 3]");
-    format_helper("a = [1, 2, 3//comment\n]");
+    format_helper("a = \n\t//comment\n\t[1, 2, 3]");
+    format_helper("a = [\n\t//comment\n\t1, 2, 3]");
+    format_helper("a = [1\n\t//comment\n\t, 2, 3]");
+    format_helper("a = [1, \n\t//comment\n\t2, 3]");
+    format_helper("a = [1, \n\t//comment1\n\t2\n\t//comment2\n\t, 3]");
+    format_helper("a = [1, 2, 3\n\t//comment\n\t]");
 
-    format_helper("a = b//comment\n[1]");
-    format_helper("a = b[//comment\n1]");
-    format_helper("a = b[1//comment\n]");
+    format_helper("a = b\n\t//comment\n\t[1]");
+    format_helper("a = b[\n\t//comment\n\t1]");
+    format_helper("a = b[1\n\t//comment\n\t]");
 
     format_helper("//comment\n{_time: r._time, io_time: r._value}");
-    format_helper("{//comment\n_time: r._time, io_time: r._value}");
-    format_helper("{_time//comment\n: r._time, io_time: r._value}");
-    format_helper("{_time: //comment\nr._time, io_time: r._value}");
-    //format_helper( "{_time: r//comment\n._time, io_time: r._value}");
-    format_helper("{_time: r.//comment\n_time, io_time: r._value}");
-    format_helper("{_time: r._time//comment\n, io_time: r._value}");
-    format_helper("{_time: r._time, //comment\nio_time: r._value}");
-    format_helper("{_time: r._time, io_time//comment\n: r._value}");
-    format_helper("{_time: r._time, io_time: //comment\nr._value}");
-    //format_helper( "{_time: r._time, io_time: r//comment\n._value}");
-    format_helper("{_time: r._time, io_time: r.//comment\n_value}");
-    format_helper("{_time: r._time, io_time: r._value//comment\n}");
+    format_helper("{\n\t//comment\n\t_time: r._time, io_time: r._value}");
+    format_helper("{_time\n\t//comment\n\t: r._time, io_time: r._value}");
+    format_helper("{_time: \n\t//comment\n\tr._time, io_time: r._value}");
+    // Missing preservation in front of '.'
+    // format_helper("{_time: r\n\t//comment\n\t._time, io_time: r._value}");
+    format_helper("{_time: r.\n\t//comment\n\t_time, io_time: r._value}");
+    format_helper("{_time: r._time\n\t//comment\n\t, io_time: r._value}");
+    format_helper("{_time: r._time, \n\t//comment\n\tio_time: r._value}");
+    format_helper("{_time: r._time, io_time\n\t//comment\n\t: r._value}");
+    format_helper("{_time: r._time, io_time: \n\t//comment\n\ttr._value}");
+    // Missing preservation in front of '.'
+    // format_helper("{_time: r._time, io_time: r\n\t//comment\n\t._value}");
+    format_helper("{_time: r._time, io_time: r.\n\t//comment\n\t_value}");
+    format_helper("{_time: r._time, io_time: r._value\n\t//comment\n\t}");
     format_modified(
-        "{_time: r._time, io_time: r._value//comment\n,}",
-        "{_time: r._time, io_time: r._value//comment\n}",
+        "{_time: r._time, io_time: r._value\n\t//comment\n\t,}",
+        "{_time: r._time, io_time: r._value\n\t//comment\n\t}",
     );
     format_modified(
-        "{_time: r._time, io_time: r._value,//comment\n}",
-        "{_time: r._time, io_time: r._value//comment\n}",
+        "{_time: r._time, io_time: r._value,\n\t//comment\n\t}",
+        "{_time: r._time, io_time: r._value\n\t//comment\n\t}",
     );
 
     format_helper("//comment\nimport \"foo\"");
-    format_helper("import //comment\n\"foo\"");
-    format_helper("import //comment\nfoo \"foo\"");
+    format_helper("import \n\t//comment\n\t\"foo\"");
+    format_helper("import \n\t//comment\n\tfoo \"foo\"");
 
     format_helper("//comment\npackage foo\n");
-    format_helper("package //comment\nfoo\n");
+    format_helper("package \n\t//comment\n\tfoo\n");
 
-    format_helper("{//comment\nfoo with a: 1, b: 2}");
-    format_helper("{foo//comment\n with a: 1, b: 2}");
-    format_helper("{foo with //comment\na: 1, b: 2}");
+    format_helper("{\n\t//comment\n\tfoo with a: 1, b: 2}");
+    format_helper("{foo\n\t//comment\n\t with a: 1, b: 2}");
+    format_helper("{foo with \n\t//comment\n\ta: 1, b: 2}");
 
-    format_helper("fn = (tables=//comment\n<-) =>\n\t(tables)");
+    format_helper("fn = (tables=\n\t//comment\n\t<-) =>\n\t(tables)");
+
+    format_modified(
+        r#"    // hi
+// there
+{_time: r._time, io_time: r._value, // this is the end
+}
+
+// minimal
+foo = (arg=[1, 2]) => (1)
+
+// left
+left = from(bucket: "test")
+	|> range(start: 2018-05-22T19:53:00Z
+	// i write too many comments
+	, stop: 2018-05-22T19:55:00Z)
+	// and put them in strange places
+	|>  drop
+
+		// this hurts my eyes
+(columns: ["_start", "_stop"])
+		// just terrible
+	|> filter(fn: (r) =>
+		(r.user 
+
+		// (don't fire me, this is intentional)
+		== "user1"))
+	|> group(by
+	// strange place for a comment
+: ["user"])
+
+right = from(bucket: "test")
+	|> range(start: 2018-05-22T19:53:00Z,
+			// please stop
+			stop: 2018-05-22T19:55:00Z)
+	|> drop( // spare me the pain
+// this hurts
+columns: ["_start", "_stop"// what
+])
+	|> filter(
+		// just why
+		fn: (r) =>
+		// user 2 is the best user
+		(r.user == "user2"))
+	|> group(by: //just stop
+["_measurement"])
+
+join(tables: {left: left, right: right}, on: ["_time", "_measurement"])
+
+from(bucket, _option // friends
+,// stick together
+)
+
+i = // definitely
+not true
+// a
+// list
+// of
+// comments
+
+j
+
+// lost 
+"#,
+        r#"// hi
+// there
+{_time: r._time, io_time: r._value
+	// this is the end
+	}
+
+// minimal
+foo = (arg=[1, 2]) =>
+	(1)
+// left
+left = from(bucket: "test")
+	|> range(start: 2018-05-22T19:53:00Z
+		// i write too many comments
+		, stop: 2018-05-22T19:55:00Z)
+	// and put them in strange places
+	|> drop
+		// this hurts my eyes
+		(columns: ["_start", "_stop"])
+	// just terrible
+	|> filter(fn: (r) =>
+		(r.user 
+			// (don't fire me, this is intentional)
+			== "user1"))
+	|> group(by
+		// strange place for a comment
+		: ["user"])
+right = from(bucket: "test")
+	|> range(start: 2018-05-22T19:53:00Z, 
+		// please stop
+		stop: 2018-05-22T19:55:00Z)
+	|> drop(
+		// spare me the pain
+		// this hurts
+		columns: ["_start", "_stop"
+			// what
+			])
+	|> filter(
+		// just why
+		fn: (r) =>
+		(
+			// user 2 is the best user
+			r.user == "user2"))
+	|> group(by: 
+		//just stop
+		["_measurement"])
+
+join(tables: {left: left, right: right}, on: ["_time", "_measurement"])
+from(bucket, _option
+	// friends
+	// stick together
+)
+
+i = 
+	// definitely
+	not true
+
+// a
+// list
+// of
+// comments
+j"#,
+    );
 }
