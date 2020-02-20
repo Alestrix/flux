@@ -37,6 +37,8 @@ impl Formatter {
         (&self.builder, "")
     }
 
+    // Do not use to send newline. This is not (yet) setting clear
+    // appropriately.
     fn write_string(&mut self, s: &str) {
         self.clear = false;
         (&mut self.builder).push_str(s);
@@ -50,12 +52,13 @@ impl Formatter {
                     self.temp_indent = false;
                     self.unindent();
                 }
-            } else if c != '\t' {
+            } else if c != '\t' && c != ' ' {
                 self.clear = false;
             }
         }
         (&mut self.builder).push(c);
     }
+
     fn write_indent(&mut self) {
         for _ in 0..self.indentation {
             self.write_rune('\t')
@@ -83,6 +86,7 @@ impl Formatter {
                 self.write_indent();
             }
             self.write_string((*boxed).lit.as_str());
+            self.clear = true;
             if self.fmtc {
                 self.write_indent();
             }
