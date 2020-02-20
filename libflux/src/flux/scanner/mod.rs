@@ -65,17 +65,6 @@ impl Scanner {
         }
     }
 
-    fn reverse(&self, mut head: Option<Box<Token>>) -> Option<Box<Token>> {
-        let mut reversed = None;
-        while let Some(mut boxed_head) = head {
-            let next = (*boxed_head).comments.take();
-            (*boxed_head).comments = reversed.take();
-            reversed = Some(boxed_head);
-            head = next;
-        }
-        reversed
-    }
-
     fn scan_with_comments(&mut self, mode: i32) -> Token {
         let mut token;
         loop {
@@ -86,8 +75,7 @@ impl Scanner {
             token.comments = self.comments.take();
             self.comments = Some(Box::new(token));
         }
-        let comments = self.comments.take();
-        token.comments = self.reverse(comments);
+        token.comments = self.comments.take();
         token
     }
 
