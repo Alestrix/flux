@@ -317,18 +317,16 @@ pub type CommentList = Option<Box<Comment>>;
 pub struct BaseNode {
     #[serde(default)]
     pub location: SourceLocation,
+    // If the base node is for a terminal the comments will be here. We also
+    // use the base node comments when a non-terminal contains just one
+    // terminal on the right hand side. This saves us populating the
+    // type-specific AST nodes with comment lists when we can avoid it..
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub comments: CommentList,
     #[serde(skip_serializing_if = "Vec::is_empty")]
     #[serde(serialize_with = "serialize_errors")]
     #[serde(default)]
     pub errors: Vec<String>,
-    // If the base node is for a terminal the comments will be here. We also
-    // use the base node comments when a non-terminal contains just one
-    // terminal on the right hand side. When we format, we take the comments
-    // for the terminal from its parent. This saves us populating the
-    // type-specific AST nodes with comment lists when we can avoid it..
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(default)]
-    pub comments: CommentList,
 }
 
 impl BaseNode {
@@ -570,9 +568,9 @@ pub struct ParenExpr {
     #[serde(default)]
     #[serde(flatten)]
     pub base: BaseNode,
-    pub expression: Expression,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub lparen: CommentList,
+    pub expression: Expression,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub rparen: CommentList,
 }
@@ -585,11 +583,11 @@ pub struct CallExpr {
     #[serde(flatten)]
     pub base: BaseNode,
     pub callee: Expression,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub lparen: CommentList,
     #[serde(skip_serializing_if = "Vec::is_empty")]
     #[serde(default)]
     pub arguments: Vec<Expression>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub lparen: CommentList,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub rparen: CommentList,
 }
@@ -613,9 +611,9 @@ pub struct MemberExpr {
     #[serde(flatten)]
     pub base: BaseNode,
     pub object: Expression,
-    pub property: PropertyKey,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub lbrack: CommentList,
+    pub property: PropertyKey,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub rbrack: CommentList,
 }
@@ -628,9 +626,9 @@ pub struct IndexExpr {
     #[serde(flatten)]
     pub base: BaseNode,
     pub array: Expression,
-    pub index: Expression,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub lbrack: CommentList,
+    pub index: Expression,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub rbrack: CommentList,
 }
@@ -641,15 +639,15 @@ pub struct FunctionExpr {
     #[serde(default)]
     #[serde(flatten)]
     pub base: BaseNode,
-    #[serde(deserialize_with = "deserialize_default_from_null")]
-    pub params: Vec<Property>,
-    pub body: FunctionBody,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub lparen: CommentList,
+    #[serde(deserialize_with = "deserialize_default_from_null")]
+    pub params: Vec<Property>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub rparen: CommentList,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub arrow: CommentList,
+    pub body: FunctionBody,
 }
 
 // Operator are Equality and Arithmetic operators.
@@ -906,9 +904,9 @@ pub struct ArrayExpr {
     #[serde(default)]
     #[serde(flatten)]
     pub base: BaseNode,
-    pub elements: Vec<ArrayItem>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub lbrack: CommentList,
+    pub elements: Vec<ArrayItem>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub rbrack: CommentList,
 }
@@ -921,13 +919,13 @@ pub struct ObjectExpr {
     #[serde(flatten)]
     pub base: BaseNode,
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(default)]
-    pub with: Option<Identifier>,
-    pub properties: Vec<Property>,
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub lbrace: CommentList,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub with_comments: CommentList,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    pub with: Option<Identifier>,
+    pub properties: Vec<Property>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub rbrace: CommentList,
 }
@@ -940,15 +938,15 @@ pub struct ConditionalExpr {
     #[serde(default)]
     #[serde(flatten)]
     pub base: BaseNode,
-    pub test: Expression,
-    pub consequent: Expression,
-    pub alternate: Expression,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tk_if: CommentList,
+    pub test: Expression,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tk_then: CommentList,
+    pub consequent: Expression,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tk_else: CommentList,
+    pub alternate: Expression,
 }
 
 // BadExpr is a malformed expression that contains the reason why in `text`.
@@ -973,12 +971,12 @@ pub struct Property {
     #[serde(flatten)]
     pub base: BaseNode,
     pub key: PropertyKey,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub separator: CommentList,
     // `value` is optional, because of the shortcut: {a} <--> {a: a}
     pub value: Option<Expression>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comma: CommentList,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub separator: CommentList,
 }
 
 // Identifier represents a name that identifies a unique Node
