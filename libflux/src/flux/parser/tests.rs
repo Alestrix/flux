@@ -109,6 +109,7 @@ fn string_interpolation_simple() {
                     ],
                 })),
             })),],
+            eof: None,
         },
     )
 }
@@ -183,6 +184,7 @@ fn string_interpolation_multiple() {
                     ],
                 })),
             })),],
+            eof: None,
         },
     )
 }
@@ -279,6 +281,7 @@ fn string_interpolation_nested() {
                     ],
                 })),
             })),],
+            eof: None,
         },
     )
 }
@@ -340,6 +343,7 @@ fn string_interp_with_escapes() {
                     ],
                 })),
             })),],
+            eof: None,
         },
     )
 }
@@ -409,6 +413,7 @@ fn bad_string_expression() {
                     arrow: None,
                 })),
             }))],
+            eof: None,
         },
     )
 }
@@ -441,7 +446,8 @@ fn package_clause() {
                 }
             }),
             imports: vec![],
-            body: vec![]
+            body: vec![],
+            eof: None,
         },
     )
 }
@@ -475,7 +481,8 @@ fn import() {
                     value: "path/foo".to_string()
                 }
             }],
-            body: vec![]
+            body: vec![],
+            eof: None,
         },
     )
 }
@@ -515,7 +522,8 @@ fn import_as() {
                     value: "path/foo".to_string()
                 }
             }],
-            body: vec![]
+            body: vec![],
+            eof: None,
         }
     )
 }
@@ -568,7 +576,8 @@ import "path/bar""#,
                     }
                 }
             ],
-            body: vec![]
+            body: vec![],
+            eof: None,
         }
     )
 }
@@ -636,7 +645,8 @@ import "path/bar""#,
                     }
                 }
             ],
-            body: vec![]
+            body: vec![],
+            eof: None,
         },
     )
 }
@@ -732,7 +742,8 @@ import "path/bar"
                         value: 1
                     })
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -907,7 +918,8 @@ fn optional_query_metadata() {
                         rbrace: None,
                     }))
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -1071,7 +1083,8 @@ fn optional_query_metadata_preceding_query_text() {
                         }
                     })),
                 }))
-            ]
+            ],
+            eof: None,
         },
     )
 }
@@ -1132,7 +1145,8 @@ fn qualified_option() {
                         value: "Warning".to_string()
                     })
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -1165,7 +1179,8 @@ fn builtin() {
                     },
                     name: "from".to_string()
                 }
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -1260,7 +1275,8 @@ fn test_statement() {
                         rbrace: None,
                     }))
                 }
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -1302,7 +1318,8 @@ fn from() {
                         name: "from".to_string()
                     }),
                 })),
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -1351,7 +1368,8 @@ fn comment() {
                         name: "from".to_string()
                     }),
                 })),
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -1393,7 +1411,8 @@ fn identifier_with_number() {
                         name: "tan2".to_string()
                     }),
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -1426,7 +1445,8 @@ fn regex_literal() {
                     },
                     value: ".*".to_string()
                 })
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -1459,7 +1479,8 @@ fn regex_literal_with_escape_sequence() {
                     },
                     value: "a/b\\\\c\\d".to_string()
                 })
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -1496,7 +1517,8 @@ fn bad_regex_literal() {
                     },
                     value: "".to_string()
                 })
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -1571,7 +1593,8 @@ fn regex_match_operators() {
                         })
                     }))
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -1611,7 +1634,8 @@ fn declare_variable_as_an_int() {
                     },
                     value: 1
                 })
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -1651,7 +1675,8 @@ fn declare_variable_as_a_float() {
                     },
                     value: 1.1
                 })
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -1734,7 +1759,8 @@ fn declare_variable_as_an_array() {
                     lbrack: None,
                     rbrack: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -1776,7 +1802,8 @@ fn declare_variable_as_an_empty_array() {
                     lbrack: None,
                     rbrack: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -1843,7 +1870,8 @@ fn use_variable_to_declare_something() {
                         }),
                     })),
                 }))
-            ]
+            ],
+            eof: None,
         },
     )
 }
@@ -1934,7 +1962,8 @@ fn variable_is_from_statement() {
                         rparen: None,
                     }))
                 }))
-            ]
+            ],
+            eof: None,
         },
     )
 }
@@ -1998,7 +2027,8 @@ fn pipe_expression() {
                         arguments: vec![],
                     }
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -2099,7 +2129,8 @@ fn pipe_expression_to_member_expression_function() {
                         rparen: None,
                     }
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -2154,7 +2185,8 @@ fn literal_pipe_expression() {
                         rparen: None,
                     }
                 })),
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -2224,7 +2256,8 @@ fn member_expression_pipe_expression() {
                         rparen: None,
                     }
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -2332,7 +2365,8 @@ fn multiple_pipe_expressions() {
                         rparen: None,
                     }
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -2397,7 +2431,8 @@ fn pipe_expression_into_non_call_expression() {
                         rparen: None,
                     }
                 })),
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -2552,7 +2587,8 @@ fn two_variables_for_two_froms() {
                         }
                     }))
                 }))
-            ]
+            ],
+            eof: None,
         },
     )
 }
@@ -2625,7 +2661,8 @@ fn from_with_database() {
                     lparen: None,
                     rparen: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -2777,7 +2814,8 @@ fn map_member_expressions() {
                         rbrack: None,
                     }))
                 }))
-            ]
+            ],
+            eof: None,
         },
     )
 }
@@ -2842,7 +2880,8 @@ fn object_with_string_literal_key() {
                     with_comments: None,
                     rbrace: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -2931,7 +2970,8 @@ fn object_with_mixed_keys() {
                     with_comments: None,
                     rbrace: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -3008,7 +3048,8 @@ fn implicit_key_object_literal() {
                     with_comments: None,
                     rbrace: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -3087,7 +3128,8 @@ fn implicit_key_object_literal_error() {
                     with_comments: None,
                     rbrace: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -3172,7 +3214,8 @@ fn implicit_and_explicit_keys_object_literal_error() {
                     with_comments: None,
                     rbrace: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -3260,7 +3303,8 @@ fn object_with() {
                     with_comments: None,
                     rbrace: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -3336,7 +3380,8 @@ fn object_with_implicit_keys() {
                     with_comments: None,
                     rbrace: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -3384,7 +3429,8 @@ fn index_expression() {
                     lbrack: None,
                     rbrack: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -3447,7 +3493,8 @@ fn nested_index_expression() {
                     lbrack: None,
                     rbrack: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -3504,7 +3551,8 @@ fn access_indexed_object_returned_from_function_call() {
                     lbrack: None,
                     rbrack: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -3567,7 +3615,8 @@ fn index_with_member_expressions() {
                     lbrack: None,
                     rbrack: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -3639,7 +3688,8 @@ fn index_with_member_with_call_expression() {
                     lbrack: None,
                     rbrack: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -3697,7 +3747,8 @@ fn index_with_unclosed_bracket() {
                     lbrack: None,
                     rbrack: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -3755,7 +3806,8 @@ fn index_with_unbalanced_parenthesis() {
                     lbrack: None,
                     rbrack: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -3804,7 +3856,8 @@ fn index_with_unexpected_rparen() {
                     lbrack: None,
                     rbrack: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -3851,7 +3904,8 @@ fn binary_expression() {
                         value: 10.0
                     })
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -3913,7 +3967,8 @@ fn member_expression_binary_expression() {
                         value: 10.0
                     })
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -4034,7 +4089,8 @@ fn var_as_binary_expression_of_other_vars() {
                         name: "a".to_string()
                     })
                 }))
-            ]
+            ],
+            eof: None,
         },
     )
 }
@@ -4106,7 +4162,8 @@ fn var_as_unary_expression_of_other_vars() {
                         })
                     }))
                 }))
-            ]
+            ],
+            eof: None,
         },
     )
 }
@@ -4192,7 +4249,8 @@ fn var_as_both_binary_and_unary_expressions() {
                         }))
                     }))
                 }))
-            ]
+            ],
+            eof: None,
         },
     )
 }
@@ -4320,7 +4378,8 @@ fn unary_expressions_within_logical_expression() {
                         }))
                     }))
                 }))
-            ]
+            ],
+            eof: None,
         },
     )
 }
@@ -4375,7 +4434,8 @@ fn unary_expression_with_member_expression() {
                         rbrack: None,
                     }))
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -4519,7 +4579,8 @@ a = 5.0
                         }))
                     }))
                 }))
-            ]
+            ],
+            eof: None,
         },
     )
 }
@@ -4582,7 +4643,8 @@ fn expressions_with_function_calls() {
                         value: 10
                     })
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -4693,7 +4755,8 @@ fn mix_unary_logical_and_binary_expressions() {
                         rparen: None,
                     })),
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -4812,7 +4875,8 @@ fn mix_unary_logical_and_binary_expressions_with_extra_parens() {
                         })),
                     }))
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -4859,7 +4923,8 @@ fn modulo_op_ints() {
                         value: 8
                     })
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -4906,7 +4971,8 @@ fn modulo_op_floats() {
                         value: 3.1
                     })
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -4953,7 +5019,8 @@ fn power_op() {
                         value: 4
                     })
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -5014,7 +5081,8 @@ fn binary_operator_precedence() {
                         value: 1.0
                     })
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -5075,7 +5143,8 @@ fn binary_operator_precedence_literals_only() {
                         value: 1.0
                     })
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -5136,7 +5205,8 @@ fn binary_operator_precedence_double_subtraction() {
                         value: 3
                     })
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -5205,7 +5275,8 @@ fn binary_operator_precedence_double_subtraction_with_parens() {
                         }))
                     }))
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -5266,7 +5337,8 @@ fn binary_operator_precedence_double_sum() {
                         value: 3
                     })
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -5335,7 +5407,8 @@ fn binary_operator_precedence_double_sum_with_parens() {
                         }))
                     }))
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -5396,7 +5469,8 @@ fn logical_unary_operator_precedence() {
                         })
                     }))
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -5827,7 +5901,8 @@ k / l < m + n - o or p() <= q() or r >= s and not t =~ /a/ and u !~ /a/"#,
                         }))
                     }))
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -5881,7 +5956,8 @@ fn logical_operators_precedence_1() {
                         name: "b".to_string()
                     })
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -5935,7 +6011,8 @@ fn logical_operators_precedence_2() {
                         })
                     }))
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -5989,7 +6066,8 @@ fn logical_operators_precedence_3() {
                         name: "b".to_string()
                     })
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -6043,7 +6121,8 @@ fn logical_operators_precedence_4() {
                         })
                     }))
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -6104,7 +6183,8 @@ fn logical_operators_precedence_5() {
                         name: "c".to_string()
                     })
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -6165,7 +6245,8 @@ fn logical_operators_precedence_6() {
                         })
                     }))
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -6227,7 +6308,8 @@ fn logical_operators_precedence_7() {
                         }))
                     }))
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -6289,7 +6371,8 @@ fn logical_operators_precedence_8() {
                         }))
                     }))
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -6358,7 +6441,8 @@ fn logical_operators_precedence_9() {
                         name: "c".to_string()
                     })
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -6427,7 +6511,8 @@ fn logical_operators_precedence_10() {
                         }))
                     }))
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -6566,7 +6651,8 @@ fn two_logical_operations_with_parens() {
                         name: "c".to_string()
                     })
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -6703,7 +6789,8 @@ fn arrow_function_called() {
                         rparen: None,
                     }))
                 }))
-            ]
+            ],
+            eof: None,
         },
     )
 }
@@ -6801,7 +6888,8 @@ fn arrow_function_return_map() {
                     rparen: None,
                     arrow: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -6904,7 +6992,8 @@ fn arrow_function_with_default_arg() {
                     rparen: None,
                     arrow: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -7079,7 +7168,8 @@ fn arrow_function_called_in_binary_expression() {
                         }))
                     }))
                 }))
-            ]
+            ],
+            eof: None,
         },
     )
 }
@@ -7173,7 +7263,8 @@ fn arrow_function_as_single_expression() {
                     rparen: None,
                     arrow: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -7306,7 +7397,8 @@ fn arrow_function_as_block() {
                     rparen: None,
                     arrow: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -7369,7 +7461,8 @@ fn conditional() {
                     tk_then: None,
                     tk_else: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -7554,7 +7647,8 @@ fn conditional_with_unary_logical_operators() {
                     tk_then: None,
                     tk_else: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -7725,7 +7819,8 @@ fn nested_conditionals() {
                     tk_then: None,
                     tk_else: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -7997,7 +8092,8 @@ fn from_with_filter_with_no_parens() {
                     lparen: None,
                     rparen: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -8160,7 +8256,8 @@ fn from_with_range() {
                         }))]
                     }
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -8310,7 +8407,8 @@ fn from_with_limit() {
                         }))]
                     }
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -8506,7 +8604,8 @@ fn from_with_range_and_count() {
                         arguments: vec![]
                     }
                 }))
-            }))]
+            }))],
+            eof: None,
         }
     )
 }
@@ -8756,7 +8855,8 @@ fn from_with_range_limit_and_count() {
                         arguments: vec![]
                     }
                 }))
-            }))]
+            }))],
+            eof: None,
         }
     )
 }
@@ -9251,7 +9351,8 @@ join(tables:[a,b], on:["host"], fn: (a,b) => a["_field"] + b["_field"])"#,
                         }))]
                     }))
                 }))
-            ]
+            ],
+            eof: None,
         },
     )
 }
@@ -10057,7 +10158,8 @@ join(tables:[a,b], on:["t1"], fn: (a,b) => (a["_field"] - b["_field"]) / b["_fie
                         }))]
                     }))
                 }))
-            ]
+            ],
+            eof: None,
         },
     )
 }
@@ -10138,7 +10240,8 @@ fn duration_literal_all_units() {
                         }
                     ]
                 })
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -10181,7 +10284,8 @@ fn duration_literal_months() {
                         unit: "mo".to_string()
                     }]
                 })
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -10224,7 +10328,8 @@ fn duration_literal_milliseconds() {
                         unit: "ms".to_string()
                     }]
                 })
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -10277,7 +10382,8 @@ fn duration_literal_months_minutes_milliseconds() {
                         }
                     ]
                 })
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -10317,7 +10423,8 @@ fn date_literal_in_the_default_location() {
                     },
                     value: chrono::DateTime::parse_from_rfc3339("2018-11-29T00:00:00Z").unwrap()
                 })
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -10357,7 +10464,8 @@ fn date_time_literal() {
                     },
                     value: chrono::DateTime::parse_from_rfc3339("2018-11-29T09:00:00Z").unwrap()
                 })
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -10398,7 +10506,8 @@ fn date_time_literal_with_fractional_seconds() {
                     value: chrono::DateTime::parse_from_rfc3339("2018-11-29T09:00:00.100000000Z")
                         .unwrap()
                 })
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -10568,7 +10677,8 @@ fn function_call_with_unbalanced_braces() {
                         }))]
                     }
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -10601,7 +10711,8 @@ fn string_with_utf_8() {
                     },
                     value: "日本語".to_string()
                 })
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -10634,7 +10745,8 @@ fn string_with_byte_values() {
                     },
                     value: "日本語".to_string()
                 })
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -10667,7 +10779,8 @@ fn string_with_mixed_values() {
                     },
                     value: "hello 日x本 日本語 µs".to_string()
                 })
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -10698,7 +10811,8 @@ backslash \\
                     base: BaseNode {location: loc.get(1, 1, 6, 2), .. BaseNode::default() },
                     value: "newline \n\ncarriage return \r\nhorizontal tab \t\ndouble quote \"\nbackslash \\\n".to_string()
                 })
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -10737,7 +10851,8 @@ string"
                     },
                     value: "\n this is a\nmultiline\nstring".to_string()
                 })
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -10781,7 +10896,8 @@ fn illegal_statement_token() {
                         name: "ident".to_string()
                     })
                 }))
-            ]
+            ],
+            eof: None,
         },
     )
 }
@@ -10838,7 +10954,8 @@ fn multiple_idents_in_parens() {
                         })
                     }))
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -10898,7 +11015,8 @@ fn missing_left_hand_side() {
                         })
                     }))
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -10958,7 +11076,8 @@ fn missing_right_hand_side() {
                         })),
                     }))
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -11001,7 +11120,8 @@ fn illegal_expression() {
                         expression: None
                     }))
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -11085,7 +11205,8 @@ fn missing_arrow_in_function_expression() {
                     rparen: None,
                     arrow: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -11191,7 +11312,8 @@ fn property_list_missing_property() {
                     with_comments: None,
                     rbrace: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -11257,7 +11379,8 @@ fn property_list_missing_key() {
                     with_comments: None,
                     rbrace: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -11317,7 +11440,8 @@ fn property_list_missing_value() {
                     with_comments: None,
                     rbrace: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -11426,7 +11550,8 @@ fn property_list_missing_comma() {
                     with_comments: None,
                     rbrace: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -11491,7 +11616,8 @@ fn property_list_trailing_comma() {
                     with_comments: None,
                     rbrace: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -11599,7 +11725,8 @@ fn property_list_bad_property() {
                     with_comments: None,
                     rbrace: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -11645,7 +11772,8 @@ fn invalid_expression_in_array() {
                     lbrack: None,
                     rbrack: None,
                 }))
-            }))]
+            }))],
+            eof: None,
         },
     )
 }
@@ -11678,7 +11806,8 @@ fn integer_literal_overflow() {
                     },
                     value: 0,
                 })
-            }))]
+            }))],
+            eof: None,
         },
     )
 }

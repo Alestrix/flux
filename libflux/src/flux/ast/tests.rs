@@ -177,6 +177,7 @@ fn test_json_simple_file() {
                 value: "hello".to_string(),
             }),
         }))],
+        eof: None,
     };
     let serialized = serde_json::to_string(&n).unwrap();
     assert_eq!(
@@ -237,6 +238,7 @@ fn test_json_file() {
                 value: "hello".to_string(),
             }),
         }))],
+        eof: None,
     };
     let serialized = serde_json::to_string(&n).unwrap();
     assert_eq!(

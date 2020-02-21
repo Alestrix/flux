@@ -387,6 +387,8 @@ pub struct File {
     #[serde(deserialize_with = "deserialize_default_from_null")]
     pub imports: Vec<ImportDeclaration>,
     pub body: Vec<Statement>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub eof: CommentList,
 }
 
 impl File {

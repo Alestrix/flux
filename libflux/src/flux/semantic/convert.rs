@@ -636,6 +636,7 @@ mod tests {
                 }),
                 imports: Vec::new(),
                 body: Vec::new(),
+                eof: None,
             }],
         };
         let want = Package {
@@ -698,6 +699,7 @@ mod tests {
                     },
                 ],
                 body: Vec::new(),
+                eof: None,
             }],
         };
         let want = Package {
@@ -775,6 +777,7 @@ mod tests {
                         }),
                     })),
                 ],
+                eof: None,
             }],
         };
         let want = Package {
@@ -848,6 +851,7 @@ mod tests {
                         rbrace: None,
                     })),
                 }))],
+                eof: None,
             }],
         };
         let want = Package {
@@ -919,6 +923,7 @@ mod tests {
                         rbrace: None,
                     })),
                 }))],
+                eof: None,
             }],
         };
         let want = Package {
@@ -1005,6 +1010,7 @@ mod tests {
                         rbrace: None,
                     })),
                 }))],
+                eof: None,
             }],
         };
         let want = Package {
@@ -1099,6 +1105,7 @@ mod tests {
                         rbrace: None,
                     })),
                 }))],
+                eof: None,
             }],
         };
         let want = Package {
@@ -1251,6 +1258,7 @@ mod tests {
                         })),
                     })),
                 }))],
+                eof: None,
             }],
         };
         let want = Package {
@@ -1387,6 +1395,7 @@ mod tests {
                         }),
                     })),
                 }))],
+                eof: None,
             }],
         };
         let want = Package {
@@ -1534,6 +1543,7 @@ mod tests {
                         })),
                     })),
                 ],
+                eof: None,
             }],
         };
         let want = Package {
@@ -1759,6 +1769,7 @@ mod tests {
                         })),
                     })),
                 ],
+                eof: None,
             }],
         };
         let want = Package {
@@ -1945,6 +1956,7 @@ mod tests {
                         arrow: None,
                     })),
                 }))],
+                eof: None,
             }],
         };
         let got = test_convert(pkg).err().unwrap().to_string();
@@ -2018,6 +2030,7 @@ mod tests {
                         ],
                     })),
                 }))],
+                eof: None,
             }],
         };
         let got = test_convert(pkg).err().unwrap().to_string();
@@ -2136,6 +2149,7 @@ mod tests {
                         })),
                     })),
                 ],
+                eof: None,
             }],
         };
         let want = Package {
@@ -2393,6 +2407,7 @@ mod tests {
                         rbrack: None,
                     })),
                 }))],
+                eof: None,
             }],
         };
         let want = Package {
@@ -2463,6 +2478,7 @@ mod tests {
                         rbrack: None,
                     })),
                 }))],
+                eof: None,
             }],
         };
         let want = Package {
@@ -2539,6 +2555,7 @@ mod tests {
                         rbrack: None,
                     })),
                 }))],
+                eof: None,
             }],
         };
         let want = Package {
@@ -2615,6 +2632,7 @@ mod tests {
                         rbrack: None,
                     })),
                 }))],
+                eof: None,
             }],
         };
         let want = Package {
@@ -2692,6 +2710,7 @@ mod tests {
                         rbrack: None,
                     })),
                 }))],
+                eof: None,
             }],
         };
         let want = Package {

@@ -389,6 +389,7 @@ impl Parser {
         if let Some(stmt) = body.last() {
             end = stmt.base().location.end.clone();
         }
+        let eof = self.peek();
         File {
             base: BaseNode {
                 location: self.source_location(&ast::Position::from(&t.start_pos), &end),
@@ -399,6 +400,7 @@ impl Parser {
             package: pkg,
             imports,
             body,
+            eof: self.make_comments(&eof),
         }
     }
 

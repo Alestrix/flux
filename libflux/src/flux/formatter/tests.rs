@@ -497,7 +497,7 @@ not true
 
 j
 
-// lost 
+// not lost
 "#,
         r#"// hi
 // there
@@ -559,6 +559,8 @@ i =
 // list
 // of
 // comments
-j"#,
+j
+// not lost
+"#,
     );
 }

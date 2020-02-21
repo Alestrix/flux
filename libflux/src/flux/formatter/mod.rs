@@ -131,6 +131,13 @@ impl Formatter {
             self.format_node(&Node::from_stmt(n.body.get(i).unwrap()));
             prev = cur;
         }
+
+        if n.eof.is_some() {
+            self.write_rune(sep);
+            self.set_indent(0);
+            self.clear = true;
+            self.format_comments(&n.eof);
+        }
     }
 
     fn format_node(&mut self, n: &Node) {
