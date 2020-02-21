@@ -432,7 +432,11 @@ pub struct Block {
     #[serde(default)]
     #[serde(flatten)]
     pub base: BaseNode,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub lbrace: CommentList,
     pub body: Vec<Statement>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rbrace: CommentList,
 }
 
 // BadStmt is a placeholder for statements for which no correct statement nodes

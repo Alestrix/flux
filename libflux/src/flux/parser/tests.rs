@@ -7328,6 +7328,7 @@ fn arrow_function_as_block() {
                             location: loc.get(1, 12, 4, 14),
                             ..BaseNode::default()
                         },
+                        lbrace: None,
                         body: vec![
                             Statement::Variable(Box::new(VariableAssgn {
                                 base: BaseNode {
@@ -7391,7 +7392,8 @@ fn arrow_function_as_block() {
                                     })
                                 }))
                             }))
-                        ]
+                        ],
+                        rbrace: None,
                     }),
                     lparen: None,
                     rparen: None,
@@ -10637,6 +10639,7 @@ fn function_call_with_unbalanced_braces() {
                                             errors: vec!["expected RBRACE, got RPAREN".to_string()],
                                             ..BaseNode::default()
                                         },
+                                        lbrace: None,
                                         body: vec![Statement::Return(Box::new(ReturnStmt {
                                             base: BaseNode {
                                                 location: loc.get(1, 39, 1, 54),
@@ -10664,7 +10667,8 @@ fn function_call_with_unbalanced_braces() {
                                                 lbrack: None,
                                                 rbrack: None,
                                             }))
-                                        }))]
+                                        }))],
+                                        rbrace: None,
                                     }),
                                     lparen: None,
                                     rparen: None,

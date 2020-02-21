@@ -437,6 +437,10 @@ fn comments() {
 
     format_helper("fn = (tables=\n\t//comment\n\t<-) =>\n\t(tables)");
 
+    // Comments around braces needs some work.
+    format_helper("fn = (a) => \n\t//comment\n\t{\n\treturn a\n}");
+    format_helper("fn = (a) => {\n\treturn a\n// ending\n}");
+
     format_modified(
         r#"    // hi
 // there

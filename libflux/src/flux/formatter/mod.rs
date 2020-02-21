@@ -337,6 +337,7 @@ impl Formatter {
     }
 
     fn format_block(&mut self, n: &ast::Block) {
+        self.format_comments(&n.lbrace);
         self.write_rune('{');
         let sep = '\n';
         if !n.body.is_empty() {
@@ -364,6 +365,7 @@ impl Formatter {
             self.unindent();
             self.write_indent()
         }
+        self.format_comments(&n.rbrace);
         self.write_rune('}')
     }
 

@@ -265,6 +265,7 @@ fn test_json_file() {
 fn test_json_block() {
     let n = Block {
         base: BaseNode::default(),
+        lbrace: None,
         body: vec![Statement::Expr(Box::new(ExprStmt {
             base: BaseNode::default(),
             expression: Expression::StringLit(StringLit {
@@ -272,6 +273,7 @@ fn test_json_block() {
                 value: "hello".to_string(),
             }),
         }))],
+        rbrace: None,
     };
     let serialized = serde_json::to_string(&n).unwrap();
     assert_eq!(

@@ -582,7 +582,9 @@ impl Parser {
         let end = self.close(TOK_RBRACE);
         Block {
             base: self.base_node_from_tokens(&start, &end),
+            lbrace: self.make_comments(&start),
             body: stmts,
+            rbrace: self.make_comments(&end),
         }
     }
     fn parse_expression(&mut self) -> Expression {
