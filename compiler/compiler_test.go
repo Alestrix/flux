@@ -2,6 +2,7 @@ package compiler_test
 
 import (
 	"context"
+	"github.com/influxdata/flux/runtime"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -393,7 +394,7 @@ func TestCompileAndEval(t *testing.T) {
 	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
-			pkg, err := semantic.AnalyzeSource(tc.fn)
+			pkg, err := runtime.AnalyzeSource(tc.fn)
 			if err != nil {
 				t.Fatalf("unexpected error: %s", err)
 			}
