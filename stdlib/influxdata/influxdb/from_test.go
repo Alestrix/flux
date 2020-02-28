@@ -14,18 +14,9 @@ import (
 func TestFrom_NewQuery(t *testing.T) {
 	tests := []querytest.NewQueryTestCase{
 		{
-			Name: "from no args",
-			Raw:  `from()`,
-			Want: &flux.Spec{
-				Operations: []*flux.Operation{
-					{
-						ID: "from0",
-						Spec: &influxdb.FromOpSpec{
-							Bucket: "",
-						},
-					},
-				},
-			},
+			Name:    "from no args",
+			Raw:     `from()`,
+			WantErr: true,
 		},
 		{
 			Name:    "from unexpected arg",
@@ -40,7 +31,7 @@ func TestFrom_NewQuery(t *testing.T) {
 					{
 						ID: "from0",
 						Spec: &influxdb.FromOpSpec{
-							Bucket: "mybucket",
+							Bucket: influxdb.NameOrID{Name: "mybucket"},
 						},
 					},
 					{
@@ -72,6 +63,52 @@ func TestFrom_NewQuery(t *testing.T) {
 				},
 			},
 		},
+		{
+			Name: "from with host and token",
+			Raw:  `from(bucket:"mybucket", host: "http://localhost:9999", token: "mytoken")`,
+			Want: &flux.Spec{
+				Operations: []*flux.Operation{
+					{
+						ID: "from0",
+						Spec: &influxdb.FromOpSpec{
+							Bucket: influxdb.NameOrID{Name: "mybucket"},
+							Host:   stringPtr("http://localhost:9999"),
+							Token:  stringPtr("mytoken"),
+						},
+					},
+				},
+			},
+		},
+		{
+			Name: "from with org",
+			Raw:  `from(org: "influxdata", bucket:"mybucket")`,
+			Want: &flux.Spec{
+				Operations: []*flux.Operation{
+					{
+						ID: "from0",
+						Spec: &influxdb.FromOpSpec{
+							Org:    &influxdb.NameOrID{Name: "influxdata"},
+							Bucket: influxdb.NameOrID{Name: "mybucket"},
+						},
+					},
+				},
+			},
+		},
+		{
+			Name: "from with org id and bucket id",
+			Raw:  `from(orgID: "97aa81cc0e247dc4", bucketID: "1e01ac57da723035")`,
+			Want: &flux.Spec{
+				Operations: []*flux.Operation{
+					{
+						ID: "from0",
+						Spec: &influxdb.FromOpSpec{
+							Org:    &influxdb.NameOrID{ID: "97aa81cc0e247dc4"},
+							Bucket: influxdb.NameOrID{ID: "1e01ac57da723035"},
+						},
+					},
+				},
+			},
+		},
 	}
 
 	for _, tc := range tests {
@@ -81,4 +118,8 @@ func TestFrom_NewQuery(t *testing.T) {
 			querytest.NewQueryTestHelper(t, tc)
 		})
 	}
+}
+
+func stringPtr(v string) *string {
+	return &v
 }
