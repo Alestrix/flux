@@ -757,15 +757,15 @@ Examples:
 ```
 add = (a,b) => a + b
 
-a = 1
-b = 2
+x = 1
+y = 2
 
-add(a, b)
+add(x, y)
 // is the same as
-add(a: a, b: b)
+add(a: x, b: y)
 // both FAIL: cannot mix short and long notation.
-add(a: a, b)
-add(a, b: b)
+add(a: x, b)
+add(a, b: y)
 ```
 
 #### Pipe expressions
